@@ -13,5 +13,11 @@ namespace PhilApprovalFlow
         ICanAction Reject(string comments = null);
 
         ICanAction Invalidate(string username, string Comments = null);
+
+        ICanAction LoadNotification(string approver, string[] usersToCC = null);
+
+        void ClearNotifications();
+
+
     }
 }

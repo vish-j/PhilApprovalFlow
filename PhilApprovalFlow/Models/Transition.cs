@@ -2,7 +2,7 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace PhilApprovalFlow.Classes
+namespace PhilApprovalFlow.Models
 {
     public class Transition : ITransition
     {
@@ -26,9 +26,10 @@ namespace PhilApprovalFlow.Classes
         [Key]
         public Guid TransitionID { get; set; }
 
-        public DateTime? AcknowledgementDate { get; set; }
+        public int Order { get; set; }
 
         public string ApproverID { get; set; }
+        public DateTime? AcknowledgementDate { get; set; }
 
         public DecisionType ApproverDecision { get; set; }
 
@@ -38,12 +39,5 @@ namespace PhilApprovalFlow.Classes
         public DateTime RequestedDate { get; set; }
 
         public string RequesterComments { get; set; }
-
-        public int Order { get; set; }
-
-        public long GetParentID()
-        {
-            return 0;
-        }
     }
 }

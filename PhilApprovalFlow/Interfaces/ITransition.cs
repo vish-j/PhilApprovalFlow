@@ -11,12 +11,8 @@ namespace PhilApprovalFlow
         DecisionType ApproverDecision { get; set; }
         DateTime? AcknowledgementDate { get; set; }
         string ApproverComments { get; set; }
-
-
         string RequesterID { get; set; }
         DateTime RequestedDate { get; set; }
         string RequesterComments { get; set; }
-
-        long GetParentID();
     }
 }

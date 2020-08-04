@@ -1,6 +1,7 @@
-﻿using PhilApprovalFlow.Classes;
-using PhilApprovalFlow.Enum;
+﻿using PhilApprovalFlow.Enum;
+using PhilApprovalFlow.Models;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace PhilApprovalFlow
@@ -10,6 +11,7 @@ namespace PhilApprovalFlow
         private IApprovalFlow<T> _approvalFlow;
         private string _user;
         private ITransition _transition;
+        private List<AFNotification> aFNotifications;
 
         private ApprovalEngine(ref IApprovalFlow<T> value)
         {
@@ -70,6 +72,52 @@ namespace PhilApprovalFlow
                 setDecision(DecisionType.Invalidated, comments);
             }
             return this;
+        }
+
+        public ICanAction LoadNotification(string approver, string[] usersToCC = null)
+        {
+            if (_transition != null)
+            {
+                _transition = _approvalFlow.Transitions.Where(t => t.ApproverID == approver).FirstOrDefault();
+            }
+
+            string to;
+            string from = null;
+            string comments;
+            if (_transition.ApproverDecision == DecisionType.AwaitingDecision || _transition.ApproverDecision == DecisionType.Invalidated)
+            {
+                to = _transition.ApproverID;
+                comments = _transition.RequesterComments;
+                if (_transition.ApproverID != _transition.RequesterID)
+                    from = _transition.RequesterID;
+            }
+            else
+            {
+                to = _transition.RequesterID;
+                comments = _transition.ApproverComments;
+                if (_transition.ApproverID != _transition.RequesterID)
+                    from = _transition.ApproverID;
+            }
+
+            if (aFNotifications == null)
+                aFNotifications = new List<AFNotification>();
+
+            aFNotifications.Add(new AFNotification
+            {
+                From = from,
+                To = to,
+                Comments = comments,
+                DecisionType = _transition.ApproverDecision,
+                UsersToCC = usersToCC,
+            });
+
+            return this;
+        }
+
+        public void ClearNotifications()
+        {
+            if (aFNotifications != null)
+                aFNotifications.Clear();
         }
 
         private void setDecision(DecisionType decision, string comments)
