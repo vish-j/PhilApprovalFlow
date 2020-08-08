@@ -4,7 +4,7 @@
     {
         public static ICanSetUser GetApprovalFlow<T>(this IApprovalFlow<T> f) where T : ITransition
         {
-            return ApprovalEngine<T>.SetEntity(ref f);
+            return PhilApprovalFlowEngine<T>.SetEntity(ref f);
         }
     }
 }

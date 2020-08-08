@@ -7,8 +7,6 @@ namespace PhilApprovalFlow
     {
         ICollection<T> Transitions { get; set; }
 
-        void AddTransition(Transition transition);
-
         object GetID();
 
         string GetShortDescription();

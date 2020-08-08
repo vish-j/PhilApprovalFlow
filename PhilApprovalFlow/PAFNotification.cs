@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace PhilApprovalFlow
 {
-    public class AFNotification
+    public class PAFNotification
     {
         public string From { get; set; }
         public string To { get; set; }

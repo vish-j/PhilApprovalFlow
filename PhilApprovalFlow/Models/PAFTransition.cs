@@ -4,13 +4,13 @@ using System.ComponentModel.DataAnnotations;
 
 namespace PhilApprovalFlow.Models
 {
-    public class Transition : ITransition
+    public abstract class PAFTransition : ITransition
     {
-        public Transition()
+        public PAFTransition()
         {
         }
 
-        public Transition(Transition t)
+        public PAFTransition(PAFTransition t)
         {
             TransitionID = t.TransitionID;
             Order = t.Order;
@@ -39,5 +39,15 @@ namespace PhilApprovalFlow.Models
         public DateTime RequestedDate { get; set; }
 
         public string RequesterComments { get; set; }
+
+        public void Initalize(int order, string requester, string approver, string comments)
+        {
+            Order = order;
+            RequesterID = requester;
+            RequestedDate = DateTime.Now;
+            ApproverID = approver;
+            ApproverDecision = DecisionType.AwaitingDecision;
+            RequesterComments = comments;
+        }
     }
 }
