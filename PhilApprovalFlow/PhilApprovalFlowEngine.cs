@@ -6,11 +6,12 @@ using System.Linq;
 
 namespace PhilApprovalFlow
 {
-    internal class PhilApprovalFlowEngine<T> : ICanSetUser, ICanAction where T : ITransition, new()
+    internal class PhilApprovalFlowEngine<T> : ICanSetUser, ICanAction where T : IPAFTransition, new()
     {
         private IApprovalFlow<T> approvalFlow;
         private string user;
-        private ITransition _transition;
+        private Dictionary<string, string> metadata;
+        private IPAFTransition transition;
         private List<PAFNotification> pafNotifications;
 
         private PhilApprovalFlowEngine(ref IApprovalFlow<T> value)
@@ -30,7 +31,7 @@ namespace PhilApprovalFlow
         }
 
         /// <summary>
-        /// Reset Approvals for every transistion
+        /// Reset Approvals for every transistion to Awaiting Decision
         /// </summary>
         /// <param name="comments"></param>
         public void ResetTransitions(string comments = null)
@@ -41,6 +42,18 @@ namespace PhilApprovalFlow
                 setDecision(DecisionType.AwaitingDecision, comments);
             }
         }
+
+        public ICanAction SetMetadata(string key, string value)
+        {
+            if (metadata == null)
+                metadata = new Dictionary<string, string>();
+
+            metadata.Add(key, value);
+            return this;
+        }
+
+        public string GetMetadata(string key) => metadata[key];
+        
 
         public ICanAction RequestApproval(string approver) =>
              RequestApproval(approver, null);
@@ -76,27 +89,27 @@ namespace PhilApprovalFlow
 
         public ICanAction LoadNotification(string approver, string[] usersToCC = null)
         {
-            if (_transition != null)
+            if (transition != null)
             {
-                _transition = approvalFlow.Transitions.Where(t => t.ApproverID == approver).FirstOrDefault();
+                transition = approvalFlow.Transitions.Where(t => t.ApproverID == approver).FirstOrDefault();
             }
 
             string to;
             string from = null;
             string comments;
-            if (_transition.ApproverDecision == DecisionType.AwaitingDecision || _transition.ApproverDecision == DecisionType.Invalidated)
+            if (transition.ApproverDecision == DecisionType.AwaitingDecision || transition.ApproverDecision == DecisionType.Invalidated)
             {
-                to = _transition.ApproverID;
-                comments = _transition.RequesterComments;
-                if (_transition.ApproverID != _transition.RequesterID)
-                    from = _transition.RequesterID;
+                to = transition.ApproverID;
+                comments = transition.RequesterComments;
+                if (transition.ApproverID != transition.RequesterID)
+                    from = transition.RequesterID;
             }
             else
             {
-                to = _transition.RequesterID;
-                comments = _transition.ApproverComments;
-                if (_transition.ApproverID != _transition.RequesterID)
-                    from = _transition.ApproverID;
+                to = transition.RequesterID;
+                comments = transition.ApproverComments;
+                if (transition.ApproverID != transition.RequesterID)
+                    from = transition.ApproverID;
             }
 
             if (pafNotifications == null)
@@ -107,7 +120,7 @@ namespace PhilApprovalFlow
                 From = from,
                 To = to,
                 Comments = comments,
-                DecisionType = _transition.ApproverDecision,
+                DecisionType = transition.ApproverDecision,
                 UsersToCC = usersToCC,
             });
 
@@ -122,13 +135,13 @@ namespace PhilApprovalFlow
 
         private void setDecision(DecisionType decision, string comments)
         {
-            _transition = approvalFlow.Transitions.Where(t => t.ApproverID == user).FirstOrDefault();
-            if (_transition != null)
+            transition = approvalFlow.Transitions.Where(t => t.ApproverID == user).FirstOrDefault();
+            if (transition != null)
             {
-                _transition.ApproverDecision = decision;
-                _transition.AcknowledgementDate = decision == DecisionType.AwaitingDecision ? null : (DateTime?)DateTime.Now;
-                _transition.ApproverComments = comments;
-                editTransition((PAFTransition)_transition);
+                transition.ApproverDecision = decision;
+                transition.AcknowledgementDate = decision == DecisionType.AwaitingDecision ? null : (DateTime?)DateTime.Now;
+                transition.ApproverComments = comments;
+                editTransition((PAFTransition)transition);
             }
         }
 

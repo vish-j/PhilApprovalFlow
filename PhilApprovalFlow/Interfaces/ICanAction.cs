@@ -1,9 +1,11 @@
-﻿using System.Collections.Generic;
-
-namespace PhilApprovalFlow
+﻿namespace PhilApprovalFlow
 {
     public interface ICanAction
     {
+        ICanAction SetMetadata(string key, string value);
+
+        string GetMetadata(string key);
+
         ICanAction RequestApproval(string approver);
 
         ICanAction RequestApproval(string approver, string comments);
@@ -17,7 +19,5 @@ namespace PhilApprovalFlow
         ICanAction LoadNotification(string approver, string[] usersToCC = null);
 
         void ClearNotifications();
-
-
     }
 }
