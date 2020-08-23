@@ -53,7 +53,6 @@ namespace PhilApprovalFlow
         }
 
         public string GetMetadata(string key) => metadata[key];
-        
 
         public ICanAction RequestApproval(string approver) =>
              RequestApproval(approver, null);
@@ -125,6 +124,11 @@ namespace PhilApprovalFlow
             });
 
             return this;
+        }
+
+        public IEnumerable<IPAFNotification> GetPAFNotifications()
+        {
+            return pafNotifications;
         }
 
         public void ClearNotifications()

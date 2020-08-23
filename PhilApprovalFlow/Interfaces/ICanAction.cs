@@ -1,4 +1,6 @@
-﻿namespace PhilApprovalFlow
+﻿using System.Collections.Generic;
+
+namespace PhilApprovalFlow
 {
     public interface ICanAction
     {
@@ -17,6 +19,8 @@
         ICanAction Invalidate(string username, string Comments = null);
 
         ICanAction LoadNotification(string approver, string[] usersToCC = null);
+
+        IEnumerable<IPAFNotification> GetPAFNotifications();
 
         void ClearNotifications();
     }
