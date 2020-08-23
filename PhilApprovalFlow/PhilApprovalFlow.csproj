@@ -6,6 +6,8 @@
     <Version>1.0.2</Version>
     <FileVersion>1.0.2.0</FileVersion>
     <AssemblyVersion>1.0.2.0</AssemblyVersion>
+    <Description>Simple Approval Flow Library for .NET Projects</Description>
+	<RepositoryUrl>https://github.com/vish-j/PhilApprovalFlow</RepositoryUrl>
   </PropertyGroup>
 
   <ItemGroup>
