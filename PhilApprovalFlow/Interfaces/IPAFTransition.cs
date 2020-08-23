@@ -3,7 +3,7 @@ using System;
 
 namespace PhilApprovalFlow
 {
-    public interface ITransition
+    public interface IPAFTransition
     {
         Guid TransitionID { get; set; }
         int Order { get; set; }

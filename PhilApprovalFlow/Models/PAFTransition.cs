@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace PhilApprovalFlow.Models
 {
-    public abstract class PAFTransition : ITransition
+    public abstract class PAFTransition : IPAFTransition
     {
         public PAFTransition()
         {
