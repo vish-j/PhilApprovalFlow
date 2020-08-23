@@ -1,13 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace PhilApprovalFlow.Enum
+﻿namespace PhilApprovalFlow.Enum
 {
     public enum DecisionType
     {
-        [Display(Name= "Awaiting Decision")]
-        AwaitingDecision,
-        Approved,
-        Rejected,
-        Invalidated
+        AwaitingDecision = 0,
+        Approved = 1,
+        Rejected = 2,
+        Invalidated = 3,
     }
 }

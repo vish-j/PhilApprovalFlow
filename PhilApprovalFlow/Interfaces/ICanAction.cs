@@ -20,6 +20,8 @@ namespace PhilApprovalFlow
 
         ICanAction LoadNotification(string approver, string[] usersToCC = null);
 
+        void SetEntityMetaData();
+
         IEnumerable<IPAFNotification> GetPAFNotifications();
 
         void ClearNotifications();

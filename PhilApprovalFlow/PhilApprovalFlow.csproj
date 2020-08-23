@@ -12,10 +12,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="System.ComponentModel.Annotations" Version="4.7.0" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Include="GNU_AGPLv3.txt">
       <Pack>True</Pack>
       <PackagePath></PackagePath>

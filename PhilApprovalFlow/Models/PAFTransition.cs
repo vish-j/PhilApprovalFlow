@@ -1,6 +1,5 @@
 ﻿using PhilApprovalFlow.Enum;
 using System;
-using System.ComponentModel.DataAnnotations;
 
 namespace PhilApprovalFlow.Models
 {
@@ -23,7 +22,6 @@ namespace PhilApprovalFlow.Models
             AcknowledgementDate = t.AcknowledgementDate;
         }
 
-        [Key]
         public Guid TransitionID { get; set; }
 
         public int Order { get; set; }

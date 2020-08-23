@@ -1,22 +1,25 @@
-﻿using PhilApprovalFlow.Enum;
+﻿using PhilApprovalFlow.Attributes;
+using PhilApprovalFlow.Enum;
 using PhilApprovalFlow.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 
 namespace PhilApprovalFlow
 {
     internal class PhilApprovalFlowEngine<T> : ICanSetUser, ICanAction where T : IPAFTransition, new()
     {
-        private IApprovalFlow<T> approvalFlow;
+        private IApprovalFlow<T> approvalFlowEntity;
         private string user;
         private Dictionary<string, string> metadata;
         private IPAFTransition transition;
         private List<PAFNotification> pafNotifications;
 
-        private PhilApprovalFlowEngine(ref IApprovalFlow<T> value)
+        private PhilApprovalFlowEngine(ref IApprovalFlow<T> entity)
         {
-            approvalFlow = value;
+            approvalFlowEntity = entity;
+            metadata = entity.GetType().GetCustomAttributes<PAFMetadataAttribute>().ToDictionary(c => c.Key, c => c.Value);
         }
 
         public static ICanSetUser SetEntity(ref IApprovalFlow<T> entity)
@@ -36,7 +39,7 @@ namespace PhilApprovalFlow
         /// <param name="comments"></param>
         public void ResetTransitions(string comments = null)
         {
-            foreach (var item in approvalFlow.Transitions)
+            foreach (var item in approvalFlowEntity.Transitions)
             {
                 user = item.ApproverID;
                 setDecision(DecisionType.AwaitingDecision, comments);
@@ -45,9 +48,6 @@ namespace PhilApprovalFlow
 
         public ICanAction SetMetadata(string key, string value)
         {
-            if (metadata == null)
-                metadata = new Dictionary<string, string>();
-
             metadata.Add(key, value);
             return this;
         }
@@ -90,7 +90,7 @@ namespace PhilApprovalFlow
         {
             if (transition != null)
             {
-                transition = approvalFlow.Transitions.Where(t => t.ApproverID == approver).FirstOrDefault();
+                transition = approvalFlowEntity.Transitions.Where(t => t.ApproverID == approver).FirstOrDefault();
             }
 
             string to;
@@ -126,6 +126,13 @@ namespace PhilApprovalFlow
             return this;
         }
 
+        public void SetEntityMetaData()
+        {
+            metadata.Add("id", approvalFlowEntity.GetID().ToString());
+            metadata.Add("shortDescription", approvalFlowEntity.GetShortDescription());
+            metadata.Add("longDescription", approvalFlowEntity.GetLongDescription());
+        }
+
         public IEnumerable<IPAFNotification> GetPAFNotifications()
         {
             return pafNotifications;
@@ -139,7 +146,7 @@ namespace PhilApprovalFlow
 
         private void setDecision(DecisionType decision, string comments)
         {
-            transition = approvalFlow.Transitions.Where(t => t.ApproverID == user).FirstOrDefault();
+            transition = approvalFlowEntity.Transitions.Where(t => t.ApproverID == user).FirstOrDefault();
             if (transition != null)
             {
                 transition.ApproverDecision = decision;
@@ -151,15 +158,15 @@ namespace PhilApprovalFlow
 
         private void createTransition(string requester, string approver, string comments)
         {
-            if (!approvalFlow.Transitions.Any(t => t.ApproverID == approver))
+            if (!approvalFlowEntity.Transitions.Any(t => t.ApproverID == approver))
             {
-                int order = !approvalFlow.Transitions.Any() ? 1 : approvalFlow.Transitions.Max(a => a.Order) + 1;
+                int order = !approvalFlowEntity.Transitions.Any() ? 1 : approvalFlowEntity.Transitions.Max(a => a.Order) + 1;
                 var newTransition = new T();
                 newTransition.Initalize(order, requester, approver, comments);
-                approvalFlow.Transitions.Add(newTransition);
+                approvalFlowEntity.Transitions.Add(newTransition);
             }
 
-            if (approvalFlow.Transitions.Any(t => t.ApproverID == approver && t.ApproverDecision == DecisionType.Invalidated))
+            if (approvalFlowEntity.Transitions.Any(t => t.ApproverID == approver && t.ApproverDecision == DecisionType.Invalidated))
             {
                 user = approver;
                 setDecision(DecisionType.AwaitingDecision, comments);
@@ -168,7 +175,7 @@ namespace PhilApprovalFlow
 
         private void editTransition(PAFTransition transition)
         {
-            var t = approvalFlow.Transitions.FirstOrDefault(tr => tr.TransitionID == transition.TransitionID);
+            var t = approvalFlowEntity.Transitions.FirstOrDefault(tr => tr.TransitionID == transition.TransitionID);
 
             t.Order = transition.Order;
             t.RequesterID = transition.RequesterID;
