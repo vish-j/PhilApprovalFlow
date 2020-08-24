@@ -9,6 +9,6 @@ namespace PhilApprovalFlow
         DecisionType DecisionType { get; set; }
         string From { get; set; }
         string To { get; set; }
-        IEnumerable<string> UsersToCC { get; set; }
+        string[] UsersToCC { get; set; }
     }
 }
