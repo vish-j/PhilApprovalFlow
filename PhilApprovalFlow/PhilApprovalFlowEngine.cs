@@ -132,7 +132,7 @@ namespace PhilApprovalFlow
 
         public IEnumerable<IPAFNotification> GetPAFNotifications()
         {
-            return pafNotifications;
+            return pafNotifications ?? new List<PAFNotification>();
         }
 
         public void ClearNotifications()
