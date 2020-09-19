@@ -6,6 +6,18 @@ namespace PhilApprovalFlow
 {
     public static class ApprovalEngineExtensions
     {
+        public static bool IsInTransitions(this IEnumerable<IPAFTransition> transitions, string username, bool includeInvalidated = false)
+        {
+            if (!transitions.Any())
+                return false;
+
+            var list = transitions;
+            if (!includeInvalidated)
+                list = transitions.Where(t => t.ApproverDecision != DecisionType.Invalidated);
+
+            return list.Any(t => t.ApproverID == username);
+        }
+
         public static bool IsApprovedEnabled(this IEnumerable<IPAFTransition> transitions, string username)
         {
             return getApproverTransition(transitions, username)

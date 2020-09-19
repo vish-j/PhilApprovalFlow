@@ -52,12 +52,18 @@ namespace PhilApprovalFlow
 
         public string GetMetadata(string key) => metadata[key];
 
-        public ICanAction RequestApproval(string approver) =>
-             RequestApproval(approver, null);
+        public ICanAction RequestApproval(string approver, string role) =>
+             RequestApproval(approver, role, null);
 
-        public ICanAction RequestApproval(string approver, string Comments)
+        public ICanAction RequestApproval(string approver, string role, string comments)
         {
-            createTransition(user, approver, Comments);
+            createTransition(user, approver, role, comments);
+            return this;
+        }
+
+        public ICanAction CheckIn()
+        {
+            checkin(user);
             return this;
         }
 
@@ -75,9 +81,8 @@ namespace PhilApprovalFlow
 
         public ICanAction Invalidate(string username, string comments = null)
         {
-
             setDecision(DecisionType.Invalidated, username, comments);
-       
+
             return this;
         }
 
@@ -141,6 +146,20 @@ namespace PhilApprovalFlow
                 pafNotifications.Clear();
         }
 
+        private void checkin(string approver)
+        {
+            IPAFTransition transition = approvalFlowEntity.Transitions.Where(t => t.ApproverID == approver).FirstOrDefault();
+
+            if (transition == null)
+            {
+                throw new NullReferenceException("No transition found");
+            }
+
+            transition.ApproverCheckInDate = (DateTime?)DateTime.Now;
+
+            editTransition((PAFTransition)transition);
+        }
+
         private void setDecision(DecisionType decision, string approver, string comments)
         {
             IPAFTransition transition = approvalFlowEntity.Transitions.Where(t => t.ApproverID == approver).FirstOrDefault();
@@ -151,18 +170,21 @@ namespace PhilApprovalFlow
             }
 
             transition.ApproverDecision = decision;
+            if (transition.ApproverCheckInDate == null && decision != DecisionType.AwaitingDecision)
+                transition.ApproverCheckInDate = (DateTime?)DateTime.Now;
             transition.AcknowledgementDate = decision == DecisionType.AwaitingDecision ? null : (DateTime?)DateTime.Now;
             transition.ApproverComments = comments;
+
             editTransition((PAFTransition)transition);
         }
 
-        private void createTransition(string requester, string approver, string comments)
+        private void createTransition(string requester, string approver, string role, string comments)
         {
             if (!approvalFlowEntity.Transitions.Any(t => t.ApproverID == approver))
             {
                 int order = !approvalFlowEntity.Transitions.Any() ? 1 : approvalFlowEntity.Transitions.Max(a => a.Order) + 1;
                 var newTransition = new T();
-                newTransition.Initalize(order, requester, approver, comments);
+                newTransition.Initalize(order, requester, approver, role, comments);
                 approvalFlowEntity.Transitions.Add(newTransition);
             }
 

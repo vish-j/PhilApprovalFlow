@@ -16,9 +16,11 @@ namespace PhilApprovalFlow.Models
             RequesterID = t.RequesterID;
             RequestedDate = t.RequestedDate;
             ApproverID = t.ApproverID;
+            ApproverRole = t.ApproverRole;
             ApproverDecision = t.ApproverDecision;
             RequesterComments = t.RequesterComments;
             ApproverComments = t.ApproverComments;
+            ApproverCheckInDate = t.ApproverCheckInDate;
             AcknowledgementDate = t.AcknowledgementDate;
         }
 
@@ -27,6 +29,10 @@ namespace PhilApprovalFlow.Models
         public int Order { get; set; }
 
         public string ApproverID { get; set; }
+
+        public string ApproverRole { get; set; }
+
+        public DateTime? ApproverCheckInDate { get; set; }
         public DateTime? AcknowledgementDate { get; set; }
 
         public DecisionType ApproverDecision { get; set; }
@@ -38,12 +44,15 @@ namespace PhilApprovalFlow.Models
 
         public string RequesterComments { get; set; }
 
-        public void Initalize(int order, string requester, string approver, string comments)
+        public bool IsCheckedIn => ApproverCheckInDate != null;
+
+        public void Initalize(int order, string requester, string approver, string role, string comments)
         {
             Order = order;
             RequesterID = requester;
             RequestedDate = DateTime.Now;
             ApproverID = approver;
+            ApproverRole = role;
             ApproverDecision = DecisionType.AwaitingDecision;
             RequesterComments = comments;
         }

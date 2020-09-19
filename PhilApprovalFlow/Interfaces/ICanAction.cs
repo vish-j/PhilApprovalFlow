@@ -8,9 +8,11 @@ namespace PhilApprovalFlow
 
         string GetMetadata(string key);
 
-        ICanAction RequestApproval(string approver);
+        ICanAction RequestApproval(string approver, string role);
 
-        ICanAction RequestApproval(string approver, string comments);
+        ICanAction RequestApproval(string approver, string role, string comments);
+
+        ICanAction CheckIn();
 
         ICanAction Approve(string comments = null);
 
