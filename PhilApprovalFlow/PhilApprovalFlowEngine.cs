@@ -86,7 +86,7 @@ namespace PhilApprovalFlow
             return this;
         }
 
-        public ICanAction LoadNotification(string approver, string[] usersToCC = null)
+        public ICanAction LoadNotification(string approver, string[] usersToCC = null, string[] mailsToCC = null)
         {
             IPAFTransition transition = approvalFlowEntity.Transitions.Where(t => t.ApproverID == approver).FirstOrDefault();
 
@@ -123,6 +123,7 @@ namespace PhilApprovalFlow
                 Comments = comments,
                 DecisionType = transition.ApproverDecision,
                 UsersToCC = usersToCC,
+                MailsToCC = mailsToCC,
             });
 
             return this;

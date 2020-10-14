@@ -10,5 +10,6 @@ namespace PhilApprovalFlow
         public string Comments { get; set; }
         public DecisionType DecisionType { get; set; }
         public string[] UsersToCC { get; set; }
+        public string[] MailsToCC { get; set; }
     }
 }

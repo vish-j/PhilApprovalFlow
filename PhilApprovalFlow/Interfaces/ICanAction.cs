@@ -20,7 +20,7 @@ namespace PhilApprovalFlow
 
         ICanAction Invalidate(string username, string Comments = null);
 
-        ICanAction LoadNotification(string approver, string[] usersToCC = null);
+        ICanAction LoadNotification(string approver, string[] usersToCC = null, string[] mailsToCC = null);
 
         void SetEntityMetaData();
 
