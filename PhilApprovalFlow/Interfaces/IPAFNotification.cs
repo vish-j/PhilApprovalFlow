@@ -1,5 +1,4 @@
 ﻿using PhilApprovalFlow.Enum;
-using System.Collections.Generic;
 
 namespace PhilApprovalFlow
 {
@@ -10,5 +9,7 @@ namespace PhilApprovalFlow
         string From { get; set; }
         string To { get; set; }
         string[] UsersToCC { get; set; }
+
+        string[] MailsToCC { get; set; }
     }
 }
