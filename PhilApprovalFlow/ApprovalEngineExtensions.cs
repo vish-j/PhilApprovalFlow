@@ -36,9 +36,11 @@ namespace PhilApprovalFlow
             return !(currentT == null || currentT.ApproverDecision == DecisionType.AwaitingDecision);
         }
 
+        public static bool IsCheckedIn(this IEnumerable<IPAFTransition> transitions, string user) => transitions.Any() && transitions.Any(t => t.ApproverID == user && t.IsCheckedIn);
+
         public static bool IsApproved(this IEnumerable<IPAFTransition> transitions) => transitions.Any() && transitions.Where(t => t.ApproverDecision != DecisionType.Invalidated).All(t => t.ApproverDecision == DecisionType.Approved);
 
-        public static bool IsAnyApproved(this IEnumerable<IPAFTransition> transitions) => transitions.Where(t => t.ApproverDecision != DecisionType.Invalidated).Any(t => t.ApproverDecision == DecisionType.Approved);
+        public static bool IsAnyApproved(this IEnumerable<IPAFTransition> transitions) => transitions.Any() && transitions.Where(t => t.ApproverDecision != DecisionType.Invalidated).Any(t => t.ApproverDecision == DecisionType.Approved);
 
         public static bool IsAnyDecisionPending(this IEnumerable<IPAFTransition> transitions) => transitions.Any() && transitions.Where(t => t.ApproverDecision != DecisionType.Invalidated).Any(t => t.ApproverDecision == DecisionType.AwaitingDecision);
 

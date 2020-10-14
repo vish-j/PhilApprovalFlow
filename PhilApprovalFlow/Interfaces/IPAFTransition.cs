@@ -16,7 +16,7 @@ namespace PhilApprovalFlow
         string RequesterID { get; set; }
         DateTime RequestedDate { get; set; }
         string RequesterComments { get; set; }
-
+        bool IsCheckedIn { get; }
         void Initalize(int order, string requester, string approver, string role, string comments);
     }
 }
