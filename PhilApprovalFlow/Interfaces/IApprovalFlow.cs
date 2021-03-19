@@ -2,7 +2,7 @@
 
 namespace PhilApprovalFlow
 {
-    public interface IApprovalFlow<T>
+    public interface IApprovalFlow<T> where T: IPAFTransition
     {
         ICollection<T> Transitions { get; set; }
 
