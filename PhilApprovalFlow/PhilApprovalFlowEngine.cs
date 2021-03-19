@@ -32,10 +32,6 @@ namespace PhilApprovalFlow
             return this;
         }
 
-        /// <summary>
-        /// Reset Approvals for every transistion to Awaiting Decision
-        /// </summary>
-        /// <param name="comments"></param>
         public void ResetTransitions(string comments = null)
         {
             foreach (var item in approvalFlowEntity.Transitions)
