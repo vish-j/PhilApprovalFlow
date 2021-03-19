@@ -81,7 +81,7 @@ namespace PhilApprovalFlow
         /// <summary>
         /// Retrieve Notifications from PAF Notifications List
         /// </summary>
-        /// <returns>IEnumerable<IPAFNotification></returns>
+        /// <returns>Enumerable of IPAFNotification</returns>
         IEnumerable<IPAFNotification> GetPAFNotifications();
 
         /// <summary>
