@@ -1,0 +1,349 @@
+{
+  "homepages": [],
+  "source_base_path": "C:/Users/vishv/source/repos/PhilApprovalFlow/PhilApprovalFlow.Documentation",
+  "xrefmap": "xrefmap.yml",
+  "files": [
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/PhilApprovalFlow.ApprovalEngineExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/PhilApprovalFlow.ApprovalEngineExtensions.html",
+          "hash": "BcZqS7SOoaulJ7iIB/XsFQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/PhilApprovalFlow.Attributes.PAFMetadataAttribute.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/PhilApprovalFlow.Attributes.PAFMetadataAttribute.html",
+          "hash": "yGflqQvjJ6LveaBbz45ozw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/PhilApprovalFlow.Attributes.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/PhilApprovalFlow.Attributes.html",
+          "hash": "TMZsyuGd1cA85dkso1A2Uw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/PhilApprovalFlow.Enum.DecisionType.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/PhilApprovalFlow.Enum.DecisionType.html",
+          "hash": "nRDaDztZf6jyl/0bHwmYEw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/PhilApprovalFlow.Enum.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/PhilApprovalFlow.Enum.html",
+          "hash": "Mo55KRhXw5huEt9p0uLgSQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/PhilApprovalFlow.Flow.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/PhilApprovalFlow.Flow.html",
+          "hash": "qmW3qHblUvd7NuC9F75pwA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/PhilApprovalFlow.IApprovalFlow-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/PhilApprovalFlow.IApprovalFlow-1.html",
+          "hash": "ZUPD5bl6e5iJ0cgPl4kiHA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/PhilApprovalFlow.ICanAction.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/PhilApprovalFlow.ICanAction.html",
+          "hash": "y9sK2CxiW3NZwbrfHHmC4Q=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/PhilApprovalFlow.ICanSetUser.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/PhilApprovalFlow.ICanSetUser.html",
+          "hash": "qW6m54sA6gau3zJk+kux+Q=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/PhilApprovalFlow.IPAFNotification.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/PhilApprovalFlow.IPAFNotification.html",
+          "hash": "Vnbtb4CdkJIEht0k9H2lcg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/PhilApprovalFlow.IPAFTransition.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/PhilApprovalFlow.IPAFTransition.html",
+          "hash": "n7cg+VAbR4uib/yPmrtb4Q=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/PhilApprovalFlow.Models.PAFTransition.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/PhilApprovalFlow.Models.PAFTransition.html",
+          "hash": "ul449Nzzkc1cEgDslsoAaQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/PhilApprovalFlow.Models.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/PhilApprovalFlow.Models.html",
+          "hash": "3651s/sJBQY9bjo6Wc/DqQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/PhilApprovalFlow.PAFNotification.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/PhilApprovalFlow.PAFNotification.html",
+          "hash": "Zxvn4srO82cqh3TrFasJpQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/PhilApprovalFlow.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/PhilApprovalFlow.html",
+          "hash": "pdI4jFLtSvLF/Lw1MFWsOA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "api/index.md",
+      "output": {
+        ".html": {
+          "relative_path": "api/index.html",
+          "hash": "3F5mY2q/kXgvGvyCEJMVog=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "api/toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/toc.html",
+          "hash": "HnG1gbvlI6wDu0DykpMViw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "articles/implementation.md",
+      "output": {
+        ".html": {
+          "relative_path": "articles/implementation.html",
+          "hash": "ccLEevaDRJspJkEOTeHLiQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "articles/intro.md",
+      "output": {
+        ".html": {
+          "relative_path": "articles/intro.html",
+          "hash": "6TDBcyTInfwdIjdudyMpJw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "articles/toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "articles/toc.html",
+          "hash": "21FdEUTXDj7aRhQ6KqUb6A=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "favicon.ico",
+      "output": {
+        "resource": {
+          "relative_path": "favicon.ico"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "index.md",
+      "output": {
+        ".html": {
+          "relative_path": "index.html",
+          "hash": "qYkvtGGlQYIn0YqPjVt1bQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "logo.svg",
+      "output": {
+        "resource": {
+          "relative_path": "logo.svg"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "toc.html",
+          "hash": "2/U2xHgb7TLD3JOglsQt0Q=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    }
+  ],
+  "incremental_info": [
+    {
+      "status": {
+        "can_incremental": false,
+        "details": "Disable incremental build by force rebuild option.",
+        "incrementalPhase": "build",
+        "total_file_count": 0,
+        "skipped_file_count": 0,
+        "full_build_reason_code": "ForceRebuild"
+      },
+      "processors": {
+        "ConceptualDocumentProcessor": {
+          "can_incremental": false,
+          "incrementalPhase": "build",
+          "total_file_count": 4,
+          "skipped_file_count": 0
+        },
+        "ManagedReferenceDocumentProcessor": {
+          "can_incremental": false,
+          "incrementalPhase": "build",
+          "total_file_count": 15,
+          "skipped_file_count": 0
+        },
+        "ResourceDocumentProcessor": {
+          "can_incremental": false,
+          "details": "Processor ResourceDocumentProcessor cannot support incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
+          "incrementalPhase": "build",
+          "total_file_count": 0,
+          "skipped_file_count": 0
+        },
+        "TocDocumentProcessor": {
+          "can_incremental": false,
+          "details": "Processor TocDocumentProcessor cannot support incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
+          "incrementalPhase": "build",
+          "total_file_count": 0,
+          "skipped_file_count": 0
+        }
+      }
+    },
+    {
+      "status": {
+        "can_incremental": false,
+        "details": "Cannot support incremental post processing, the reason is: it's disabled.",
+        "incrementalPhase": "postProcessing",
+        "total_file_count": 0,
+        "skipped_file_count": 0
+      },
+      "processors": {}
+    }
+  ],
+  "version_info": {},
+  "groups": [
+    {
+      "xrefmap": "xrefmap.yml"
+    }
+  ]
+}
