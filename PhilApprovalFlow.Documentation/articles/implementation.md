@@ -1,0 +1,1 @@
+The Entity should inherit PAFTransition to enable workflows

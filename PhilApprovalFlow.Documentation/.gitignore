@@ -1,0 +1,17 @@
+###############
+#    folder   #
+###############
+/**/DROP/
+/**/TEMP/
+/**/packages/
+/**/bin/
+/**/obj/
+_site
+log.txt
+templates/darkfx/partials/affix.tmpl.partial
+templates/darkfx/partials/head.tmpl.partial
+templates/darkfx/styles/toggle-theme.js
+templates/darkfx/styles/main.css
+logo.svg
+favicon.ico
+docfx.json
