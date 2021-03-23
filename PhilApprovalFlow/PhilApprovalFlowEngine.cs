@@ -206,6 +206,7 @@ namespace PhilApprovalFlow
             transition.RequesterID = pafT.RequesterID;
             transition.RequestedDate = pafT.RequestedDate;
             transition.ApproverID = pafT.ApproverID;
+            transition.ApproverRole = pafT.ApproverRole;
             transition.ApproverDecision = pafT.ApproverDecision;
             transition.RequesterComments = pafT.RequesterComments;
             transition.ApproverComments = pafT.ApproverComments;
