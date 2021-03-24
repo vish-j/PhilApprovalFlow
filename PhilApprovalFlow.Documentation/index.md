@@ -1,4 +1,4 @@
-Approval Flow Library for .NET Projects (beta)\
+Approval Flow Library for .NET Projects\
 \
 Features:\
 \
