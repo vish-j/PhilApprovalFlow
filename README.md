@@ -1,5 +1,5 @@
 # PhilApprovalFlow
-Simple Approval Flow Library for .NET Projects (beta)
+Simple Approval Flow Library for .NET Projects
 
 Features:
 
