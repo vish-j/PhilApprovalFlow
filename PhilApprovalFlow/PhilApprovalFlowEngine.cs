@@ -186,9 +186,12 @@ namespace PhilApprovalFlow
                 approvalFlowEntity.Transitions.Add(newTransition);
             }
 
-            if (approvalFlowEntity.Transitions.Any(t => t.ApproverID == approver && t.ApproverDecision == DecisionType.Invalidated))
+            if (approvalFlowEntity.Transitions.Any(t => t.ApproverID == approver && (t.ApproverDecision == DecisionType.Invalidated || t.ApproverDecision == DecisionType.AwaitingDecision)))
             {
                 IPAFTransition transition = getTransition(approver);
+                transition.ApproverRole = role;
+                if (comments != null)
+                    transition.RequesterComments = comments;
                 setDecision(transition, DecisionType.AwaitingDecision, comments);
             }
         }
