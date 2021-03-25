@@ -79,7 +79,11 @@ namespace PhilApprovalFlow.Tests
 
             workflow.RequestApproval("User1", "Reviewer").Invalidate("User1");
 
-            Assert.AreEqual(DecisionType.Invalidated, entity.Transitions.First().ApproverDecision);
+            Assert.AreEqual(DecisionType.Invalidated, entity.Transitions.First(c => c.ApproverID == "User1").ApproverDecision);
+
+            workflow.RequestApproval("User2", "Reviewer").Invalidate("User2");
+
+            Assert.AreEqual(DecisionType.Invalidated, entity.Transitions.First(c => c.ApproverID == "User2").ApproverDecision);
         }
     }
 }
