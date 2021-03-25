@@ -14,5 +14,5 @@ https://vish-j.github.io/PhilApprovalFlow/  \
 \
 Installation via nuget:
 ```
- Install-Package PhilApprovalFlow -Version 1.1.0
+ Install-Package PhilApprovalFlow -Version 1.1.1
 ```
