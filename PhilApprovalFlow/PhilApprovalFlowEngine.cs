@@ -11,7 +11,7 @@ namespace PhilApprovalFlow
     internal class PhilApprovalFlowEngine<T> : ICanSetUser, ICanAction where T : IPAFTransition, new()
     {
         private IApprovalFlow<T> approvalFlowEntity;
-        private string user;
+        private string userContext;
         private Dictionary<string, string> metadata;
         private List<PAFNotification> pafNotifications;
 
@@ -28,7 +28,7 @@ namespace PhilApprovalFlow
 
         public ICanAction SetUserName(string username)
         {
-            user = username;
+            userContext = username;
             return this;
         }
 
@@ -53,34 +53,34 @@ namespace PhilApprovalFlow
 
         public ICanAction RequestApproval(string approver, string role, string comments)
         {
-            createTransition(user, approver, role, comments);
+            createTransition(userContext, approver, role, comments);
             return this;
         }
 
         public ICanAction CheckIn()
         {
-            IPAFTransition transition = getTransition(user);
+            IPAFTransition transition = getTransition(userContext);
             checkin(transition);
             return this;
         }
 
         public ICanAction Approve(string comments = null)
         {
-            IPAFTransition transition = getTransition(user);
+            IPAFTransition transition = getTransition(userContext);
             setDecision(transition, DecisionType.Approved, comments);
             return this;
         }
 
         public ICanAction Reject(string comments = null)
         {
-            IPAFTransition transition = getTransition(user);
+            IPAFTransition transition = getTransition(userContext);
             setDecision(transition, DecisionType.Rejected, comments);
             return this;
         }
 
-        public ICanAction Invalidate(string username, string comments = null)
+        public ICanAction Invalidate(string approver, string comments = null)
         {
-            IPAFTransition transition = getTransition(user);
+            IPAFTransition transition = getTransition(approver);
             setDecision(transition, DecisionType.Invalidated, comments);
             return this;
         }

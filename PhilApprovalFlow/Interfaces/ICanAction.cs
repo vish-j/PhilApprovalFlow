@@ -57,12 +57,12 @@ namespace PhilApprovalFlow
         ICanAction Reject(string comments = null);
 
         /// <summary>
-        /// Invalidates Transition of the user in context
+        /// Invalidates Transition of the approver
         /// </summary>
-        /// <param name="username"></param>
-        /// <param name="Comments"></param>
+        /// <param name="approver">Username of Approver</param>
+        /// <param name="comments"></param>
         /// <returns>ICanAction</returns>
-        ICanAction Invalidate(string username, string Comments = null);
+        ICanAction Invalidate(string approver, string comments = null);
 
         /// <summary>
         /// Loads the Notification into a List.
