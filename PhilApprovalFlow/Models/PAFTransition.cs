@@ -32,6 +32,8 @@ namespace PhilApprovalFlow.Models
 
         public string ApproverRole { get; set; }
 
+        public PAFApproverGroup ApproverGroup { get; set; }
+
         public DateTime? ApproverCheckInDate { get; set; }
         public DateTime? AcknowledgementDate { get; set; }
 
