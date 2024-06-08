@@ -1,5 +1,6 @@
 ﻿using PhilApprovalFlow.Attributes;
 using PhilApprovalFlow.Enum;
+using PhilApprovalFlow.Interfaces;
 using PhilApprovalFlow.Models;
 using System;
 using System.Collections.Generic;
@@ -56,7 +57,11 @@ namespace PhilApprovalFlow
             createTransition(userContext, approver, role, comments);
             return this;
         }
-
+        public ICanAction RequestApproval(IPAFGroup group, string role, string comments)
+        {
+            createTransition(userContext, group, role, comments);
+            return this;
+        }
         public ICanAction CheckIn()
         {
             IPAFTransition transition = getTransition(userContext);
@@ -195,7 +200,25 @@ namespace PhilApprovalFlow
                 setDecision(transition, DecisionType.AwaitingDecision, comments);
             }
         }
+        private void createTransition(string requester, IPAFGroup group, string role, string comments)
+        {
+            if (!approvalFlowEntity.Transitions.Any(t => t.ApproverGroup.Any(ag => ag.ApproverIDs.Contains(approver))  || group.at.ApproverID == approver))
+            {
+                int order = !approvalFlowEntity.Transitions.Any() ? 1 : approvalFlowEntity.Transitions.Max(a => a.Order) + 1;
+                var newTransition = new T();
+                newTransition.Initalize(order, requester, approver, role, comments);
+                approvalFlowEntity.Transitions.Add(newTransition);
+            }
 
+            if (approvalFlowEntity.Transitions.Any(t => t.ApproverID == approver && (t.ApproverDecision == DecisionType.Invalidated || t.ApproverDecision == DecisionType.AwaitingDecision)))
+            {
+                IPAFTransition transition = getTransition(approver);
+                transition.ApproverRole = role;
+                if (comments != null)
+                    transition.RequesterComments = comments;
+                setDecision(transition, DecisionType.AwaitingDecision, comments);
+            }
+        }
         private void editTransition(PAFTransition pafT)
         {
             IPAFTransition transition = getTransition(pafT.ApproverID);
