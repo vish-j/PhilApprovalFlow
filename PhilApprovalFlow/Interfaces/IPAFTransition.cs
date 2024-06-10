@@ -21,6 +21,6 @@ namespace PhilApprovalFlow
         bool IsCheckedIn { get; }
         PAFApproverGroup ApproverGroup { get; set; }
         void Initalize(int order, string requester, string approver, string role, string comments);
-        void Initalize(int order, string requester, IPAFGroup group, string role, string comments);
+        void Initalize(int order, string requester, IPAFApproverGroup group, string role, string comments);
     }
 }

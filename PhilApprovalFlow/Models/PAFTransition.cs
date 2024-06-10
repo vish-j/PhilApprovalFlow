@@ -17,6 +17,7 @@ namespace PhilApprovalFlow.Models
             RequesterID = t.RequesterID;
             RequestedDate = t.RequestedDate;
             ApproverID = t.ApproverID;
+            ApproverGroup = t.ApproverGroup;
             ApproverRole = t.ApproverRole;
             ApproverDecision = t.ApproverDecision;
             RequesterComments = t.RequesterComments;
@@ -60,7 +61,7 @@ namespace PhilApprovalFlow.Models
             RequesterComments = comments;
         }
 
-        public void Initalize(int order, string requester, IPAFGroup group, string role, string comments)
+        public void Initalize(int order, string requester, IPAFApproverGroup group, string role, string comments)
         {
             Order = order;
             RequesterID = requester;

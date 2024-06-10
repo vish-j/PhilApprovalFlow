@@ -44,7 +44,7 @@ namespace PhilApprovalFlow
         /// <param name="role"></param>
         /// <param name="comments">Requester Comments</param>
         /// <returns>ICanAction</returns>
-        ICanAction RequestApproval(IPAFGroup group, string role, string comments);
+        ICanAction RequestApproval(IPAFApproverGroup group, string role, string comments);
 
         /// <summary>
         /// Records DateTime when User Checks In 
