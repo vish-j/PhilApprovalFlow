@@ -1,4 +1,5 @@
 ﻿using PhilApprovalFlow.Enum;
+using PhilApprovalFlow.Interfaces;
 using System;
 
 namespace PhilApprovalFlow.Models
@@ -54,6 +55,17 @@ namespace PhilApprovalFlow.Models
             RequesterID = requester;
             RequestedDate = DateTime.Now;
             ApproverID = approver;
+            ApproverRole = role;
+            ApproverDecision = DecisionType.AwaitingDecision;
+            RequesterComments = comments;
+        }
+
+        public void Initalize(int order, string requester, IPAFGroup group, string role, string comments)
+        {
+            Order = order;
+            RequesterID = requester;
+            RequestedDate = DateTime.Now;
+            ApproverGroup = group as PAFApproverGroup;
             ApproverRole = role;
             ApproverDecision = DecisionType.AwaitingDecision;
             RequesterComments = comments;

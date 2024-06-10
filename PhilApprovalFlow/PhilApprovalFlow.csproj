@@ -12,7 +12,9 @@
 	<PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
   <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
-
+	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
+		<Exec Command="docfx build &quot;../PhilApprovalFlow.Documentation/docfx.json&quot;" />
+	</Target>
   <ItemGroup>
     <None Include="GNU_AGPLv3.txt">
       <Pack>True</Pack>

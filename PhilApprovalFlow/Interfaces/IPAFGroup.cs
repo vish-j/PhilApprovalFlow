@@ -1,12 +1,10 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace PhilApprovalFlow.Interfaces
 {
-    public interface IPAFGroup
+    public interface IPAFGroup : IEnumerable<string>
     {
+        IEnumerable<string> ApproverIDs { get; set; }
         bool IsExists(string ID);
     }
 }

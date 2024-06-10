@@ -1,13 +1,12 @@
+using PhilApprovalFlow.Interfaces;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using PhilApprovalFlow.Interfaces;
 
 namespace PhilApprovalFlow.Models
 {
-    public class PAFApproverGroup : IPAFGroup, IEnumerable<string>
+    public class PAFApproverGroup : IPAFGroup
     {
         public IEnumerable<string> ApproverIDs { get; set; }
 
@@ -18,7 +17,7 @@ namespace PhilApprovalFlow.Models
 
         public bool IsExists(string ID)
         {
-           return ApproverIDs.Contains(ID);
+            return ApproverIDs.Contains(ID);
         }
 
         IEnumerator IEnumerable.GetEnumerator()

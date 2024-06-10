@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using PhilApprovalFlow.Interfaces;
+using System.Collections.Generic;
 
 namespace PhilApprovalFlow
 {
@@ -35,6 +36,15 @@ namespace PhilApprovalFlow
         /// <param name="comments">Requester Comments</param>
         /// <returns>ICanAction</returns>
         ICanAction RequestApproval(string approver, string role, string comments);
+
+        /// <summary>
+        /// Add Approver Group with their role into workflow.
+        /// </summary>
+        /// <param name="approver"></param>
+        /// <param name="role"></param>
+        /// <param name="comments">Requester Comments</param>
+        /// <returns>ICanAction</returns>
+        ICanAction RequestApproval(IPAFGroup group, string role, string comments);
 
         /// <summary>
         /// Records DateTime when User Checks In 

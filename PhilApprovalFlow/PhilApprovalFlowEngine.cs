@@ -11,9 +11,9 @@ namespace PhilApprovalFlow
 {
     internal class PhilApprovalFlowEngine<T> : ICanSetUser, ICanAction where T : IPAFTransition, new()
     {
-        private IApprovalFlow<T> approvalFlowEntity;
+        private readonly IApprovalFlow<T> approvalFlowEntity;
         private string userContext;
-        private Dictionary<string, string> metadata;
+        private readonly Dictionary<string, string> metadata;
         private List<PAFNotification> pafNotifications;
 
         private PhilApprovalFlowEngine(ref IApprovalFlow<T> entity)
@@ -47,10 +47,15 @@ namespace PhilApprovalFlow
             return this;
         }
 
-        public string GetMetadata(string key) => metadata[key];
+        public string GetMetadata(string key)
+        {
+            return metadata[key];
+        }
 
-        public ICanAction RequestApproval(string approver, string role) =>
-             RequestApproval(approver, role, null);
+        public ICanAction RequestApproval(string approver, string role)
+        {
+            return RequestApproval(approver, role, null);
+        }
 
         public ICanAction RequestApproval(string approver, string role, string comments)
         {
@@ -107,18 +112,24 @@ namespace PhilApprovalFlow
                 to = transition.ApproverID;
                 comments = transition.RequesterComments;
                 if (transition.ApproverID != transition.RequesterID)
+                {
                     from = transition.RequesterID;
+                }
             }
             else
             {
                 to = transition.RequesterID;
                 comments = transition.ApproverComments;
                 if (transition.ApproverID != transition.RequesterID)
+                {
                     from = transition.ApproverID;
+                }
             }
 
             if (pafNotifications == null)
+            {
                 pafNotifications = new List<PAFNotification>();
+            }
 
             pafNotifications.Add(new PAFNotification
             {
@@ -148,7 +159,9 @@ namespace PhilApprovalFlow
         public void ClearNotifications()
         {
             if (pafNotifications != null)
+            {
                 pafNotifications.Clear();
+            }
         }
 
         private void checkin(IPAFTransition transition)
@@ -173,7 +186,9 @@ namespace PhilApprovalFlow
             transition.ApproverDecision = decision;
 
             if (transition.ApproverCheckInDate == null && decision != DecisionType.AwaitingDecision)
+            {
                 transition.ApproverCheckInDate = (DateTime?)DateTime.Now;
+            }
 
             transition.AcknowledgementDate = decision == DecisionType.AwaitingDecision ? null : (DateTime?)DateTime.Now;
             transition.ApproverComments = comments;
@@ -196,26 +211,32 @@ namespace PhilApprovalFlow
                 IPAFTransition transition = getTransition(approver);
                 transition.ApproverRole = role;
                 if (comments != null)
+                {
                     transition.RequesterComments = comments;
+                }
+
                 setDecision(transition, DecisionType.AwaitingDecision, comments);
             }
         }
         private void createTransition(string requester, IPAFGroup group, string role, string comments)
         {
-            if (!approvalFlowEntity.Transitions.Any(t => t.ApproverGroup.Any(ag => ag.ApproverIDs.Contains(approver))  || group.at.ApproverID == approver))
+            if (!approvalFlowEntity.Transitions.Any(t => t.ApproverGroup == group || group.ApproverIDs.Contains(t.ApproverID)))
             {
                 int order = !approvalFlowEntity.Transitions.Any() ? 1 : approvalFlowEntity.Transitions.Max(a => a.Order) + 1;
                 var newTransition = new T();
-                newTransition.Initalize(order, requester, approver, role, comments);
+                newTransition.Initalize(order, requester, group, role, comments);
                 approvalFlowEntity.Transitions.Add(newTransition);
             }
 
-            if (approvalFlowEntity.Transitions.Any(t => t.ApproverID == approver && (t.ApproverDecision == DecisionType.Invalidated || t.ApproverDecision == DecisionType.AwaitingDecision)))
+            if (approvalFlowEntity.Transitions.Any(t => group.ApproverIDs.Contains(t.ApproverID) && (t.ApproverDecision == DecisionType.Invalidated || t.ApproverDecision == DecisionType.AwaitingDecision)))
             {
-                IPAFTransition transition = getTransition(approver);
+                IPAFTransition transition = getTransition(group);
                 transition.ApproverRole = role;
                 if (comments != null)
+                {
                     transition.RequesterComments = comments;
+                }
+
                 setDecision(transition, DecisionType.AwaitingDecision, comments);
             }
         }
@@ -241,7 +262,12 @@ namespace PhilApprovalFlow
 
         private IPAFTransition getTransition(string approver)
         {
-            return approvalFlowEntity.Transitions.Where(t => t.ApproverID == approver).FirstOrDefault();
+            return approvalFlowEntity.Transitions.Where(t => t.ApproverID == approver || t.ApproverGroup.Contains(approver)).FirstOrDefault();
+        }
+
+        private IPAFTransition getTransition(IPAFGroup group)
+        {
+            return approvalFlowEntity.Transitions.Where(t => t.ApproverGroup == group || group.Contains(t.ApproverID)).FirstOrDefault();
         }
     }
 }

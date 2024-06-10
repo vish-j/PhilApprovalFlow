@@ -1,4 +1,6 @@
 ﻿using PhilApprovalFlow.Enum;
+using PhilApprovalFlow.Interfaces;
+using PhilApprovalFlow.Models;
 using System;
 
 namespace PhilApprovalFlow
@@ -17,7 +19,8 @@ namespace PhilApprovalFlow
         DateTime RequestedDate { get; set; }
         string RequesterComments { get; set; }
         bool IsCheckedIn { get; }
-        PAFApproverGroup ApproverGroup{ get; set; }
+        PAFApproverGroup ApproverGroup { get; set; }
         void Initalize(int order, string requester, string approver, string role, string comments);
+        void Initalize(int order, string requester, IPAFGroup group, string role, string comments);
     }
 }
