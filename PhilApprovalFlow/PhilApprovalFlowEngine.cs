@@ -62,11 +62,18 @@ namespace PhilApprovalFlow
             createTransition(userContext, approver, role, comments);
             return this;
         }
+
+        public ICanAction RequestApproval(IPAFApproverGroup group, string role)
+        {
+            return RequestApproval(group, role, null);
+        }
+
         public ICanAction RequestApproval(IPAFApproverGroup group, string role, string comments)
         {
             createTransition(userContext, group, role, comments);
             return this;
         }
+
         public ICanAction CheckIn()
         {
             IPAFTransition transition = getTransition(userContext);
@@ -104,25 +111,55 @@ namespace PhilApprovalFlow
                 throw new NullReferenceException("No transition found");
             }
 
-            string to;
-            string from = null;
-            string comments;
-            if (transition.ApproverDecision == DecisionType.AwaitingDecision || transition.ApproverDecision == DecisionType.Invalidated)
+            addNotification(transition.RequesterID, transition.ApproverID, transition.ApproverDecision, usersToCC, mailsToCC, transition.RequesterComments, transition.ApproverComments);
+            return this;
+        }
+
+        public ICanAction LoadNotification(IPAFApproverGroup group, string[] usersToCC = null, string[] mailsToCC = null)
+        {
+            IPAFTransition transition = getTransition(group);
+
+            if (transition == null)
             {
-                to = transition.ApproverID;
-                comments = transition.RequesterComments;
-                if (transition.ApproverID != transition.RequesterID)
+                throw new NullReferenceException("No transition found");
+            }
+
+            if (transition.ApproverID == null)
+            {
+                foreach (var approver in group)
                 {
-                    from = transition.RequesterID;
+                    addNotification(transition.RequesterID, approver, transition.ApproverDecision, usersToCC, mailsToCC, transition.RequesterComments, transition.ApproverComments, group.GroupID);
                 }
             }
             else
             {
-                to = transition.RequesterID;
-                comments = transition.ApproverComments;
-                if (transition.ApproverID != transition.RequesterID)
+                addNotification(transition.RequesterID, transition.ApproverID, transition.ApproverDecision, usersToCC, mailsToCC, transition.RequesterComments, transition.ApproverComments);
+            }
+
+            return this;
+        }
+
+        private void addNotification(string requesterID, string approverID, DecisionType decision, string[] usersToCC, string[] mailsToCC, string requesterComments, string approverComments, long? groupID = null)
+        {
+            string to;
+            string from = null;
+            string comments;
+            if (decision == DecisionType.AwaitingDecision || decision == DecisionType.Invalidated)
+            {
+                to = approverID;
+                comments = requesterComments;
+                if (approverID != requesterID)
                 {
-                    from = transition.ApproverID;
+                    from = requesterID;
+                }
+            }
+            else
+            {
+                to = requesterID;
+                comments = approverComments;
+                if (approverID != requesterID)
+                {
+                    from = approverID;
                 }
             }
 
@@ -136,12 +173,10 @@ namespace PhilApprovalFlow
                 From = from,
                 To = to,
                 Comments = comments,
-                DecisionType = transition.ApproverDecision,
+                DecisionType = decision,
                 UsersToCC = usersToCC,
                 MailsToCC = mailsToCC,
             });
-
-            return this;
         }
 
         public void SetEntityMetaData()
@@ -198,6 +233,16 @@ namespace PhilApprovalFlow
 
         private void createTransition(string requester, string approver, string role, string comments)
         {
+            if (requester == null)
+            {
+                throw new ArgumentNullException("Requester is missing");
+            }
+
+            if (approver == null)
+            {
+                throw new ArgumentNullException("Approver is missing");
+            }
+
             if (!approvalFlowEntity.Transitions.Any(t => t.ApproverID == approver))
             {
                 int order = !approvalFlowEntity.Transitions.Any() ? 1 : approvalFlowEntity.Transitions.Max(a => a.Order) + 1;
@@ -221,6 +266,16 @@ namespace PhilApprovalFlow
 
         private void createTransition(string requester, IPAFApproverGroup group, string role, string comments)
         {
+            if (requester == null)
+            {
+                throw new ArgumentNullException("Requester is missing");
+            }
+
+            if (group == null)
+            {
+                throw new ArgumentNullException("Approver Group is missing");
+            }
+
             if (!approvalFlowEntity.Transitions.Any(t => t.ApproverGroup == group || group.Contains(t.ApproverID)))
             {
                 int order = !approvalFlowEntity.Transitions.Any() ? 1 : approvalFlowEntity.Transitions.Max(a => a.Order) + 1;
@@ -269,12 +324,12 @@ namespace PhilApprovalFlow
 
         private IPAFTransition getTransition(string approver)
         {
-            return approvalFlowEntity.Transitions.Where(t => t.ApproverID == approver || t.ApproverGroup.Contains(approver)).FirstOrDefault();
+            return approvalFlowEntity.Transitions.Where(t => t.ApproverID == approver || (t.ApproverGroup != null && (t.ApproverGroup.Contains(approver) && t.ApproverGroup.IsActive)) && t.ApproverID == null).FirstOrDefault();
         }
 
         private IPAFTransition getTransition(IPAFApproverGroup group)
         {
-            return approvalFlowEntity.Transitions.Where(t => t.ApproverGroup == group || group.Contains(t.ApproverID)).FirstOrDefault();
+            return approvalFlowEntity.Transitions.Where(t => t.ApproverGroup == group || (group.Contains(t.ApproverID))).FirstOrDefault();
         }
     }
 }

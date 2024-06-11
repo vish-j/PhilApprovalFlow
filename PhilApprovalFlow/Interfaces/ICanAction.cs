@@ -40,7 +40,15 @@ namespace PhilApprovalFlow
         /// <summary>
         /// Add Approver Group with their role into workflow.
         /// </summary>
-        /// <param name="approver"></param>
+        /// <param name="group"></param>
+        /// <param name="role"></param>
+        /// <returns>ICanAction</returns>
+        ICanAction RequestApproval(IPAFApproverGroup group, string role);
+
+        /// <summary>
+        /// Add Approver Group with their role into workflow.
+        /// </summary>
+        /// <param name="group"></param>
         /// <param name="role"></param>
         /// <param name="comments">Requester Comments</param>
         /// <returns>ICanAction</returns>
@@ -82,6 +90,15 @@ namespace PhilApprovalFlow
         /// <param name="mailsToCC">CC to all email addresses in array</param>
         /// <returns></returns>S
         ICanAction LoadNotification(string approver, string[] usersToCC = null, string[] mailsToCC = null);
+
+        /// <summary>
+        /// Loads the Notification into a List.
+        /// </summary>
+        /// <param name="group"></param>
+        /// <param name="usersToCC">CC to all usernames in array</param>
+        /// <param name="mailsToCC">CC to all email addresses in array</param>
+        /// <returns></returns>S
+        ICanAction LoadNotification(IPAFApproverGroup group, string[] usersToCC = null, string[] mailsToCC = null);
 
         /// <summary>
         /// Set Information from entity into Metadata Dictionary

@@ -1,11 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.1</TargetFramework>
+    <TargetFramework>netstandard2.0</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>1.2.0-beta</Version>
-    <FileVersion>1.2.0.0</FileVersion>
-    <AssemblyVersion>1.2.0.0</AssemblyVersion>
+    <Version>1.2.2-beta</Version>
+    <FileVersion>1.2.2.0</FileVersion>
+    <AssemblyVersion>1.2.2.0</AssemblyVersion>
     <Description>Simple Approval Flow Library for .NET Projects</Description>
 	<RepositoryUrl>https://github.com/vish-j/PhilApprovalFlow</RepositoryUrl>
 	<PackageLicenseFile>GNU_AGPLv3.txt</PackageLicenseFile>
@@ -20,6 +20,6 @@
       <Pack>True</Pack>
       <PackagePath></PackagePath>
     </None>       
-    <None Include="..\README.md" Pack="true" PackagePath="\"/>
+    <None Include="..\README.md" Pack="true" PackagePath="\" />
   </ItemGroup>
 </Project>
