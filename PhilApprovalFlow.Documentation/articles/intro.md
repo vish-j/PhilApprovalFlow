@@ -1,1 +1,1 @@
-The Phil ApprovalFlow Framework to tool handle approval related business logic for a given entity.
+The PhilApprovalFlow Framework to tool handle approval related business logic for a given entity.
