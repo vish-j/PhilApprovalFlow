@@ -14,13 +14,19 @@ namespace PhilApprovalFlow
         public static bool IsInTransitions(this IEnumerable<IPAFTransition> transitions, string username, bool includeInvalidated = false)
         {
             if (!transitions.Any())
+            {
                 return false;
+            }
 
             var list = transitions;
             if (!includeInvalidated)
+            {
                 list = transitions.Where(t => t.ApproverDecision != DecisionType.Invalidated);
+            }
 
-            return list.Any(t => t.ApproverID == username);
+            return list.Any(t => t.ApproverID == username || (((t.ApproverGroup?.GroupID ?? 0) != 0) &&
+                     t.ApproverGroup.Contains(username) &&
+                     t.ApproverGroup.IsActive()));
         }
 
         /// <summary>
@@ -29,7 +35,7 @@ namespace PhilApprovalFlow
         /// <param name="username">Approver's username</param>
         public static bool IsApprovedEnabled(this IEnumerable<IPAFTransition> transitions, string username)
         {
-            return getApproverTransition(transitions, username)
+            return GetApproverTransitions(transitions, username)
                .Any(t => t.ApproverDecision != DecisionType.Approved) || transitions.Any(t => t.ApproverDecision == DecisionType.Rejected);
         }
 
@@ -39,7 +45,7 @@ namespace PhilApprovalFlow
         /// <param name="username">Approver's username</param>
         public static bool IsRejectEnabled(this IEnumerable<IPAFTransition> transitions, string username)
         {
-            return getApproverTransition(transitions, username)
+            return GetApproverTransitions(transitions, username)
                .All(t => t.ApproverDecision != DecisionType.Approved) || transitions.Any(t => t.ApproverDecision == DecisionType.Rejected);
         }
 
@@ -49,25 +55,43 @@ namespace PhilApprovalFlow
         /// <param name="username">Approver's username</param>
         public static bool IsTakenDecision(this IEnumerable<IPAFTransition> transitions, string username)
         {
-            var currentT = getApproverTransition(transitions, username).OrderByDescending(o => o.Order).FirstOrDefault();
+            var currentT = GetApproverTransitions(transitions, username).OrderByDescending(o => o.Order).FirstOrDefault();
             return !(currentT == null || currentT.ApproverDecision == DecisionType.AwaitingDecision);
         }
 
         /// <summary>Check if approver has made a decision</summary>
-        public static bool IsCheckedIn(this IEnumerable<IPAFTransition> transitions, string user) => transitions.Any() && transitions.Any(t => t.ApproverID == user && t.IsCheckedIn);
+        public static bool IsCheckedIn(this IEnumerable<IPAFTransition> transitions, string username)
+        {
+            return transitions.Any() && transitions.Any(t => (t.ApproverID == username || (((t.ApproverGroup?.GroupID ?? 0) != 0) &&
+                     t.ApproverID == null &&
+                     t.ApproverGroup.Contains(username) &&
+                     t.ApproverGroup.IsActive())) && t.IsCheckedIn);
+        }
 
         /// <summary>Check if all approvers have approved</summary>
-        public static bool IsApproved(this IEnumerable<IPAFTransition> transitions) => transitions.Any() && transitions.Where(t => t.ApproverDecision != DecisionType.Invalidated).All(t => t.ApproverDecision == DecisionType.Approved);
+        public static bool IsApproved(this IEnumerable<IPAFTransition> transitions)
+        {
+            return transitions.Any() && transitions.Where(t => t.ApproverDecision != DecisionType.Invalidated).All(t => t.ApproverDecision == DecisionType.Approved);
+        }
 
         /// <summary>Check if any approver has approved</summary>
-        public static bool IsAnyApproved(this IEnumerable<IPAFTransition> transitions) => transitions.Any() && transitions.Where(t => t.ApproverDecision != DecisionType.Invalidated).Any(t => t.ApproverDecision == DecisionType.Approved);
+        public static bool IsAnyApproved(this IEnumerable<IPAFTransition> transitions)
+        {
+            return transitions.Any() && transitions.Where(t => t.ApproverDecision != DecisionType.Invalidated).Any(t => t.ApproverDecision == DecisionType.Approved);
+        }
 
         /// <summary>Check if any approver has yet to make a decision</summary>
-        public static bool IsAnyDecisionPending(this IEnumerable<IPAFTransition> transitions) => transitions.Any() && transitions.Where(t => t.ApproverDecision != DecisionType.Invalidated).Any(t => t.ApproverDecision == DecisionType.AwaitingDecision);
-
-        private static IEnumerable<IPAFTransition> getApproverTransition(IEnumerable<IPAFTransition> transitions, string username)
+        public static bool IsAnyDecisionPending(this IEnumerable<IPAFTransition> transitions)
         {
-            return transitions?.Where(t => t.ApproverID == username) ?? new List<IPAFTransition>();
+            return transitions.Any() && transitions.Where(t => t.ApproverDecision != DecisionType.Invalidated).Any(t => t.ApproverDecision == DecisionType.AwaitingDecision);
+        }
+
+        private static IEnumerable<IPAFTransition> GetApproverTransitions(IEnumerable<IPAFTransition> transitions, string username)
+        {
+            return transitions?.Where(t => t.ApproverID == username || (((t.ApproverGroup?.GroupID ?? 0) != 0) &&
+                     t.ApproverID == null &&
+                     t.ApproverGroup.Contains(username) &&
+                     t.ApproverGroup.IsActive())) ?? new List<IPAFTransition>();
         }
     }
 }
