@@ -8,6 +8,11 @@ namespace PhilApprovalFlow.Models
     /// <summary>
     /// Represents a group of approvers in an approval flow.
     /// </summary>
+    /// <remarks>
+    /// This class implements <see cref="IEnumerable{T}"/> for <see cref="string"/>, allowing
+    /// iteration over the approver IDs in the group. Use <see cref="GetApprovers"/> to access
+    /// the full collection of approver IDs.
+    /// </remarks>
     public class PAFApproverGroup : IPAFApproverGroup
     {
         /// <summary>

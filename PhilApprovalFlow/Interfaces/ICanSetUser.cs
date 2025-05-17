@@ -14,6 +14,7 @@
         /// Resets all transitions to a default "Awaiting Decision" state with optional comments.
         /// </summary>
         /// <param name="comments">Optional comments to associate with the reset transitions.</param>
-        void ResetTransitions(string comments = null);
+        /// <returns>An instance of <see cref="ICanSetUser"/> to chain additional actions.</returns>
+        ICanAction ResetTransitions(string comments = null);
     }
 }

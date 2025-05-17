@@ -1,4 +1,5 @@
 ﻿using PhilApprovalFlow.Enum;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -10,11 +11,17 @@ namespace PhilApprovalFlow
         /// Check if approver exists in workflow
         /// </summary>
         /// <param name="transitions">The collection of transitions to check</param>
-        /// <param name="username">Approver's username</param>
-        /// <param name="includeInvalidated">Include Invalidated Transitions</param>
+        /// <param name="username">Approver's username to find in the transitions</param>
+        /// <param name="includeInvalidated">If true, includes invalidated transitions in the search; otherwise, excludes them</param>
         /// <returns>True if the approver exists in the workflow; otherwise, false</returns>
+        /// <exception cref="ArgumentNullException">Thrown if transitions is null</exception>
         public static bool IsInTransitions(this IEnumerable<IPAFTransition> transitions, string username, bool includeInvalidated = false)
         {
+            if (transitions == null)
+            {
+                throw new ArgumentNullException(nameof(transitions), "Transitions collection cannot be null");
+            }
+
             // Check if there are any transitions
             var transitionsList = transitions.ToList();
             if (transitionsList.Count == 0)
@@ -97,8 +104,15 @@ namespace PhilApprovalFlow
         /// </summary>
         /// <param name="transitions">The collection of transitions to check</param>
         /// <returns>True if all approvers have approved; otherwise, false</returns>
+        /// <exception cref="ArgumentNullException">Thrown if transitions is null</exception>
         public static bool IsApproved(this IEnumerable<IPAFTransition> transitions)
         {
+            if (transitions == null)
+            {
+                throw new ArgumentNullException(nameof(transitions), "Transitions collection cannot be null");
+            }
+            
+            // Use ToList only once for performance
             var validTransitions = transitions
                 .Where(t => t.ApproverDecision != DecisionType.Invalidated)
                 .ToList();
@@ -106,33 +120,43 @@ namespace PhilApprovalFlow
             return validTransitions.Count > 0 && 
                    validTransitions.All(t => t.ApproverDecision == DecisionType.Approved);
         }
-
+        
         /// <summary>
         /// Check if any approver has approved
         /// </summary>
         /// <param name="transitions">The collection of transitions to check</param>
         /// <returns>True if any approver has approved; otherwise, false</returns>
+        /// <exception cref="ArgumentNullException">Thrown if transitions is null</exception>
         public static bool IsAnyApproved(this IEnumerable<IPAFTransition> transitions)
         {
-            var validTransitions = transitions
-                .Where(t => t.ApproverDecision != DecisionType.Invalidated)
-                .ToList();
+            if (transitions == null)
+            {
+                throw new ArgumentNullException(nameof(transitions), "Transitions collection cannot be null");
+            }
             
-            return validTransitions.Any(t => t.ApproverDecision == DecisionType.Approved);
+            // No need to convert to list for Any operation - directly use Where+Any 
+            return transitions
+                .Where(t => t.ApproverDecision != DecisionType.Invalidated)
+                .Any(t => t.ApproverDecision == DecisionType.Approved);
         }
-
+        
         /// <summary>
         /// Check if any approver has yet to make a decision
         /// </summary>
         /// <param name="transitions">The collection of transitions to check</param>
         /// <returns>True if any approver has a pending decision; otherwise, false</returns>
+        /// <exception cref="ArgumentNullException">Thrown if transitions is null</exception>
         public static bool IsAnyDecisionPending(this IEnumerable<IPAFTransition> transitions)
         {
-            var validTransitions = transitions
-                .Where(t => t.ApproverDecision != DecisionType.Invalidated)
-                .ToList();
+            if (transitions == null)
+            {
+                throw new ArgumentNullException(nameof(transitions), "Transitions collection cannot be null");
+            }
             
-            return validTransitions.Any(t => t.ApproverDecision == DecisionType.AwaitingDecision);
+            // Only use ToList if we need to iterate multiple times
+            return transitions
+                .Where(t => t.ApproverDecision != DecisionType.Invalidated)
+                .Any(t => t.ApproverDecision == DecisionType.AwaitingDecision);
         }
 
         /// <summary>

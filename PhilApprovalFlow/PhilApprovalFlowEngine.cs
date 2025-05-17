@@ -27,8 +27,10 @@ namespace PhilApprovalFlow
         /// <exception cref="ArgumentNullException">Thrown if the entity is null.</exception>
         private PhilApprovalFlowEngine(ref IApprovalFlow<T> entity)
         {
-            approvalFlowEntity = entity;
-            metadata = entity.GetType().GetCustomAttributes<PAFMetadataAttribute>().ToDictionary(c => c.Key, c => c.Value);
+            approvalFlowEntity = entity ?? throw new ArgumentNullException(nameof(entity));
+            metadata = entity.GetType().GetCustomAttributes<PAFMetadataAttribute>()?.ToDictionary(c => c.Key, c => c.Value)
+                       ?? new Dictionary<string, string>();
+            pafNotifications = new List<PAFNotification>();
         }
 
         /// <summary>
@@ -36,8 +38,13 @@ namespace PhilApprovalFlow
         /// </summary>
         /// <param name="entity">The approval flow entity.</param>
         /// <returns>An instance of <see cref="ICanSetUser"/> to configure the user context.</returns>
+        /// <exception cref="ArgumentNullException">Thrown if the entity is null.</exception>
         public static ICanSetUser SetEntity(ref IApprovalFlow<T> entity)
         {
+            if (entity == null)
+            {
+                throw new ArgumentNullException(nameof(entity), "Entity cannot be null.");
+            }
             return new PhilApprovalFlowEngine<T>(ref entity);
         }
 
@@ -62,12 +69,14 @@ namespace PhilApprovalFlow
         /// Resets all transitions to a default "Awaiting Decision" state with optional comments.
         /// </summary>
         /// <param name="comments">Optional comments to associate with the reset transitions.</param>
-        public void ResetTransitions(string comments = null)
+        /// <returns>An instance of <see cref="ICanAction"/> to chain additional actions.</returns>
+        public ICanAction ResetTransitions(string comments = null)
         {
             foreach (var item in approvalFlowEntity.Transitions)
             {
                 SetDecision(item, DecisionType.AwaitingDecision, comments);
             }
+            return this;
         }
 
         /// <summary>
@@ -246,7 +255,7 @@ namespace PhilApprovalFlow
             string to;
             string from = null;
             string comments;
-            
+
             if (decision == DecisionType.AwaitingDecision || decision == DecisionType.Invalidated)
             {
                 to = approverID;
@@ -264,11 +273,6 @@ namespace PhilApprovalFlow
                 {
                     from = approverID;
                 }
-            }
-
-            if (pafNotifications == null)
-            {
-                pafNotifications = new List<PAFNotification>();
             }
 
             pafNotifications.Add(new PAFNotification
@@ -304,7 +308,7 @@ namespace PhilApprovalFlow
         /// <returns>A collection of notifications.</returns>
         public IEnumerable<IPAFNotification> GetPAFNotifications()
         {
-            return pafNotifications ?? new List<PAFNotification>();
+            return pafNotifications;
         }
 
         /// <summary>
@@ -346,11 +350,13 @@ namespace PhilApprovalFlow
 
             transition.ApproverDecision = decision;
 
+            // Only set check-in date if transition is not already checked in
             if (transition.ApproverCheckInDate == null && decision != DecisionType.AwaitingDecision)
             {
-                transition.ApproverCheckInDate = (DateTime?)DateTime.Now;
+                transition.ApproverCheckInDate = DateTime.Now;
             }
 
+            // Set acknowledgement date based on decision
             transition.AcknowledgementDate = decision == DecisionType.AwaitingDecision ? null : (DateTime?)DateTime.Now;
             transition.ApproverComments = comments;
         }

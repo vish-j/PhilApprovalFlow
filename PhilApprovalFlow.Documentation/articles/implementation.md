@@ -1,1 +1,1 @@
-The Entity should inherit PAFTransition to enable workflows
+The Entity should implement IApprovalFlow<T> where T inherits PAFTransition to enable workflows. This pattern allows entities to have an approval workflow attached while maintaining separation of concerns.

@@ -3,9 +3,9 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>1.2.13-beta</Version>
-    <FileVersion>1.2.13.0</FileVersion>
-    <AssemblyVersion>1.2.13.0</AssemblyVersion>
+    <Version>1.2.14</Version>
+    <FileVersion>1.2.14.0</FileVersion>
+    <AssemblyVersion>1.2.14.0</AssemblyVersion>
     <Description>Simple Approval Flow Library for .NET Projects</Description>
     <RepositoryUrl>https://github.com/vish-j/PhilApprovalFlow</RepositoryUrl>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>

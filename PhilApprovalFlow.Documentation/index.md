@@ -10,5 +10,5 @@ Notification Cache in Engine
 
 Installation via nuget:
 ```
- Install-Package PhilApprovalFlow -Version 1.1.1
+ Install-Package PhilApprovalFlow -Version 1.2.14
 ```
