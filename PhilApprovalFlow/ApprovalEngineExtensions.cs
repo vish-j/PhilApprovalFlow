@@ -71,19 +71,37 @@ namespace PhilApprovalFlow
         /// <summary>Check if all approvers have approved</summary>
         public static bool IsApproved(this IEnumerable<IPAFTransition> transitions)
         {
-            return transitions.Any() && transitions.Where(t => t.ApproverDecision != DecisionType.Invalidated).All(t => t.ApproverDecision == DecisionType.Approved);
+            if (!transitions.Any())
+            {
+                return false;
+            }
+            
+            var validTransitions = transitions.Where(t => t.ApproverDecision != DecisionType.Invalidated).ToList();
+            return validTransitions.Any() && validTransitions.All(t => t.ApproverDecision == DecisionType.Approved);
         }
 
         /// <summary>Check if any approver has approved</summary>
         public static bool IsAnyApproved(this IEnumerable<IPAFTransition> transitions)
         {
-            return transitions.Any() && transitions.Where(t => t.ApproverDecision != DecisionType.Invalidated).Any(t => t.ApproverDecision == DecisionType.Approved);
+            if (!transitions.Any())
+            {
+                return false;
+            }
+
+            var validTransitions = transitions.Where(t => t.ApproverDecision != DecisionType.Invalidated).ToList();
+            return validTransitions.Any(t => t.ApproverDecision == DecisionType.Approved);
         }
 
         /// <summary>Check if any approver has yet to make a decision</summary>
         public static bool IsAnyDecisionPending(this IEnumerable<IPAFTransition> transitions)
         {
-            return transitions.Any() && transitions.Where(t => t.ApproverDecision != DecisionType.Invalidated).Any(t => t.ApproverDecision == DecisionType.AwaitingDecision);
+            if (!transitions.Any())
+            {
+                return false;
+            }
+            
+            var validTransitions = transitions.Where(t => t.ApproverDecision != DecisionType.Invalidated).ToList();
+            return validTransitions.Any(t => t.ApproverDecision == DecisionType.AwaitingDecision);
         }
 
         private static IEnumerable<IPAFTransition> GetApproverTransitions(IEnumerable<IPAFTransition> transitions, string username)

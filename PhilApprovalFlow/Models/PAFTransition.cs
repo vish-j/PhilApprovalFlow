@@ -116,7 +116,7 @@ namespace PhilApprovalFlow.Models
         /// <param name="role">The role of the approver.</param>
         /// <param name="comments">The comments provided by the requester.</param>
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="requester"/> or <paramref name="approver"/> is null or whitespace.</exception>
-        public void Initalize(int order, string requester, string approver, string role, string comments)
+        public void Initialize(int order, string requester, string approver, string role, string comments)
         {
             if (string.IsNullOrWhiteSpace(requester))
             {

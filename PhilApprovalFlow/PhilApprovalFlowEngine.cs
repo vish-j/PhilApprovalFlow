@@ -75,7 +75,25 @@ namespace PhilApprovalFlow
         /// <exception cref="ArgumentNullException">Thrown if the value is null.</exception>
         public ICanAction SetMetadata(string key, string value)
         {
-            metadata.Add(key, value);
+            if (string.IsNullOrWhiteSpace(key))
+            {
+                throw new ArgumentException("Key cannot be null or whitespace", nameof(key));
+            }
+            
+            if (value == null)
+            {
+                throw new ArgumentNullException(nameof(value), "Value cannot be null");
+            }
+            
+            if (metadata.ContainsKey(key))
+            {
+                metadata[key] = value;
+            }
+            else
+            {
+                metadata.Add(key, value);
+            }
+            
             return this;
         }
 
@@ -174,7 +192,7 @@ namespace PhilApprovalFlow
         /// <exception cref="InvalidOperationException">Thrown if no transition is found for the approver.</exception>
         public ICanAction LoadNotification(string approver, string[] usersToCC = null, string[] mailsToCC = null)
         {
-            IPAFTransition transition = GetTransition(approver) ?? throw new NullReferenceException("No transition found by approver");
+            IPAFTransition transition = GetTransition(approver) ?? throw new InvalidOperationException($"No transition found for approver '{approver}'");
             AddNotification(transition.RequesterID, transition.ApproverID, transition.ApproverDecision, usersToCC, mailsToCC, transition.RequesterComments, transition.ApproverComments);
             return this;
         }
@@ -312,32 +330,36 @@ namespace PhilApprovalFlow
         {
             if (requester == null)
             {
-                throw new ArgumentNullException("Requester is missing");
+                throw new ArgumentNullException(nameof(requester), "Requester cannot be null or empty");
             }
-
+        
             if (approver == null)
             {
-                throw new ArgumentNullException("Approver is missing");
+                throw new ArgumentNullException(nameof(approver), "Approver cannot be null or empty");
             }
-
-            if (!approvalFlowEntity.Transitions.Any(t => t.ApproverID == approver))
+        
+            // Find existing transition once
+            var existingTransition = approvalFlowEntity.Transitions.FirstOrDefault(t => t.ApproverID == approver);
+            
+            if (existingTransition == null)
             {
+                // No existing transition, create a new one
                 int order = !approvalFlowEntity.Transitions.Any() ? 1 : approvalFlowEntity.Transitions.Max(a => a.Order) + 1;
                 var newTransition = new T();
-                newTransition.Initalize(order, requester, approver, role, comments);
+                newTransition.Initialize(order, requester, approver, role, comments);
                 approvalFlowEntity.Transitions.Add(newTransition);
             }
-
-            if (approvalFlowEntity.Transitions.Any(t => t.ApproverID == approver && (t.ApproverDecision == DecisionType.Invalidated || t.ApproverDecision == DecisionType.AwaitingDecision)))
+            else if (existingTransition.ApproverDecision == DecisionType.Invalidated || 
+                     existingTransition.ApproverDecision == DecisionType.AwaitingDecision)
             {
-                IPAFTransition transition = GetTransition(approver);
-                transition.ApproverRole = role;
+                // Update existing transition
+                existingTransition.ApproverRole = role;
                 if (comments != null)
                 {
-                    transition.RequesterComments = comments;
+                    existingTransition.RequesterComments = comments;
                 }
-
-                SetDecision(transition, DecisionType.AwaitingDecision, comments);
+        
+                SetDecision(existingTransition, DecisionType.AwaitingDecision, comments);
             }
         }
 
