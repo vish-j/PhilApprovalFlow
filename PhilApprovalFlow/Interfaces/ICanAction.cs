@@ -1,8 +1,12 @@
 ﻿using PhilApprovalFlow.Interfaces;
+using System;
 using System.Collections.Generic;
 
 namespace PhilApprovalFlow
 {
+    /// <summary>
+    /// Defines the operations that can be performed on an approval flow after setting the user context.
+    /// </summary>
     public interface ICanAction
     {
         /// <summary>
@@ -30,6 +34,8 @@ namespace PhilApprovalFlow
         /// <param name="role">The approver's role.</param>
         /// <param name="comments">Optional comments to include with the request.</param>
         /// <returns>An instance of <see cref="ICanAction"/> to chain additional actions.</returns>
+        /// <exception cref="ArgumentNullException">Thrown if approver is null.</exception>
+        /// <exception cref="ArgumentException">Thrown if approver is empty or whitespace.</exception>
         ICanAction RequestApproval(string approver, string role, string comments = null);
 
         /// <summary>
@@ -39,12 +45,14 @@ namespace PhilApprovalFlow
         /// <param name="role">The approvers' role.</param>
         /// <param name="comments">Optional comments to include with the request.</param>
         /// <returns>An instance of <see cref="ICanAction"/> to chain additional actions.</returns>
+        /// <exception cref="ArgumentNullException">Thrown if group is null.</exception>
         ICanAction RequestApproval(IPAFApproverGroup group, string role, string comments = null);
 
         /// <summary>
         /// Marks the current user's transition as "Checked In".
         /// </summary>
         /// <returns>An instance of <see cref="ICanAction"/> to chain additional actions.</returns>
+        /// <exception cref="NullReferenceException">Thrown if no transition is found for the current user.</exception>
         ICanAction CheckIn();
 
         /// <summary>
@@ -52,6 +60,7 @@ namespace PhilApprovalFlow
         /// </summary>
         /// <param name="comments">Optional comments to include with the approval.</param>
         /// <returns>An instance of <see cref="ICanAction"/> to chain additional actions.</returns>
+        /// <exception cref="NullReferenceException">Thrown if no transition is found for the current user.</exception>
         ICanAction Approve(string comments = null);
 
         /// <summary>
@@ -59,6 +68,7 @@ namespace PhilApprovalFlow
         /// </summary>
         /// <param name="comments">Optional comments to include with the rejection.</param>
         /// <returns>An instance of <see cref="ICanAction"/> to chain additional actions.</returns>
+        /// <exception cref="NullReferenceException">Thrown if no transition is found for the current user.</exception>
         ICanAction Reject(string comments = null);
 
         /// <summary>
@@ -67,6 +77,7 @@ namespace PhilApprovalFlow
         /// <param name="approver">The approver's identifier.</param>
         /// <param name="comments">Optional comments to include with the invalidation.</param>
         /// <returns>An instance of <see cref="ICanAction"/> to chain additional actions.</returns>
+        /// <exception cref="NullReferenceException">Thrown if no transition is found for the specified approver.</exception>
         ICanAction Invalidate(string approver, string comments = null);
 
         /// <summary>
@@ -95,7 +106,7 @@ namespace PhilApprovalFlow
         /// </summary>
         /// <remarks>
         /// This method extracts metadata from the entity using its methods and adds it to the internal metadata dictionary.
-        /// If a key already exists, an exception will be thrown. Ensure the metadata dictionary is clear of duplicates before calling this method.
+        /// If a key already exists, it will be overwritten. Keys added include: "id", "shortDescription", and "longDescription".
         /// </remarks>
         /// <exception cref="ArgumentException">Thrown if the metadata dictionary already contains a key being added.</exception>
         void SetEntityMetaData();
@@ -103,12 +114,16 @@ namespace PhilApprovalFlow
         /// <summary>
         /// Gets all pending notifications.
         /// </summary>
-        /// <returns>A collection of notifications.</returns>
+        /// <returns>A collection of notifications, which may be empty if no notifications exist.</returns>
         IEnumerable<IPAFNotification> GetPAFNotifications();
 
         /// <summary>
         /// Clears all notifications.
         /// </summary>
+        /// <remarks>
+        /// This method removes all notifications from the internal notification cache. 
+        /// If there are no notifications, this method has no effect.
+        /// </remarks>
         void ClearNotifications();
     }
 }

@@ -115,6 +115,7 @@ namespace PhilApprovalFlow
         /// <param name="role">The approver's role.</param>
         /// <param name="comments">Optional comments to include with the request.</param>
         /// <returns>An instance of <see cref="ICanAction"/> to chain additional actions.</returns>
+        /// <exception cref="ArgumentNullException">Thrown if requester or approver is null.</exception>
         public ICanAction RequestApproval(string approver, string role, string comments = null)
         {
             CreateTransition(userContext, approver, role, comments);
@@ -128,6 +129,7 @@ namespace PhilApprovalFlow
         /// <param name="role">The approvers' role.</param>
         /// <param name="comments">Optional comments to include with the request.</param>
         /// <returns>An instance of <see cref="ICanAction"/> to chain additional actions.</returns>
+        /// <exception cref="ArgumentNullException">Thrown if requester or group is null.</exception>
         public ICanAction RequestApproval(IPAFApproverGroup group, string role, string comments = null)
         {
             CreateTransition(userContext, group, role, comments);
@@ -138,6 +140,7 @@ namespace PhilApprovalFlow
         /// Marks the current user's transition as "Checked In".
         /// </summary>
         /// <returns>An instance of <see cref="ICanAction"/> to chain additional actions.</returns>
+        /// <exception cref="NullReferenceException">Thrown if no transition is found for the current user.</exception>
         public ICanAction CheckIn()
         {
             IPAFTransition transition = GetTransition(userContext);
@@ -150,6 +153,7 @@ namespace PhilApprovalFlow
         /// </summary>
         /// <param name="comments">Optional comments to include with the approval.</param>
         /// <returns>An instance of <see cref="ICanAction"/> to chain additional actions.</returns>
+        /// <exception cref="NullReferenceException">Thrown if no transition is found for the current user.</exception>
         public ICanAction Approve(string comments = null)
         {
             IPAFTransition transition = GetTransition(userContext);
@@ -162,6 +166,7 @@ namespace PhilApprovalFlow
         /// </summary>
         /// <param name="comments">Optional comments to include with the rejection.</param>
         /// <returns>An instance of <see cref="ICanAction"/> to chain additional actions.</returns>
+        /// <exception cref="NullReferenceException">Thrown if no transition is found for the current user.</exception>
         public ICanAction Reject(string comments = null)
         {
             IPAFTransition transition = GetTransition(userContext);
@@ -175,6 +180,7 @@ namespace PhilApprovalFlow
         /// <param name="approver">The approver's identifier.</param>
         /// <param name="comments">Optional comments to include with the invalidation.</param>
         /// <returns>An instance of <see cref="ICanAction"/> to chain additional actions.</returns>
+        /// <exception cref="NullReferenceException">Thrown if no transition is found for the approver.</exception>
         public ICanAction Invalidate(string approver, string comments = null)
         {
             IPAFTransition transition = GetTransition(approver);
@@ -208,7 +214,12 @@ namespace PhilApprovalFlow
         /// <exception cref="InvalidOperationException">Thrown if no transition is found for the specified group.</exception>
         public ICanAction LoadNotification(IPAFApproverGroup group, string[] usersToCC = null, string[] mailsToCC = null)
         {
-            IPAFTransition transition = GetTransition(group) ?? throw new NullReferenceException("No transition found by group");
+            if (group == null)
+            {
+                throw new ArgumentNullException(nameof(group), "Approver group cannot be null");
+            }
+
+            IPAFTransition transition = FindTransitionByGroup(group) ?? throw new InvalidOperationException($"No transition found for group with ID {group.GroupID}");
 
             if (transition.ApproverID == null)
             {
@@ -230,6 +241,7 @@ namespace PhilApprovalFlow
             string to;
             string from = null;
             string comments;
+            
             if (decision == DecisionType.AwaitingDecision || decision == DecisionType.Invalidated)
             {
                 to = approverID;
@@ -337,8 +349,8 @@ namespace PhilApprovalFlow
             {
                 throw new ArgumentNullException(nameof(approver), "Approver cannot be null or empty");
             }
-        
-            // Find existing transition once
+            
+            // Find existing transition by approver
             var existingTransition = approvalFlowEntity.Transitions.FirstOrDefault(t => t.ApproverID == approver);
             
             if (existingTransition == null)
@@ -349,8 +361,7 @@ namespace PhilApprovalFlow
                 newTransition.Initialize(order, requester, approver, role, comments);
                 approvalFlowEntity.Transitions.Add(newTransition);
             }
-            else if (existingTransition.ApproverDecision == DecisionType.Invalidated || 
-                     existingTransition.ApproverDecision == DecisionType.AwaitingDecision)
+            else if (IsTransitionAwaitingOrInvalidated(existingTransition))
             {
                 // Update existing transition
                 existingTransition.ApproverRole = role;
@@ -367,57 +378,88 @@ namespace PhilApprovalFlow
         {
             if (requester == null)
             {
-                throw new ArgumentNullException("Requester is missing");
+                throw new ArgumentNullException(nameof(requester), "Requester cannot be null or empty");
             }
 
             if (group == null)
             {
-                throw new ArgumentNullException("Approver Group is missing");
+                throw new ArgumentNullException(nameof(group), "Approver Group cannot be null");
             }
 
-            if (!approvalFlowEntity.Transitions.Any(t => t.ApproverGroup == group))
+            // Find existing transition by group
+            var existingTransition = FindTransitionByGroup(group);
+            
+            if (existingTransition == null)
             {
+                // No existing transition, create a new one
                 int order = !approvalFlowEntity.Transitions.Any() ? 1 : approvalFlowEntity.Transitions.Max(a => a.Order) + 1;
                 var newTransition = new T();
-                newTransition.Initalize(order, requester, group, role, comments);
+                newTransition.Initialize(order, requester, group, role, comments);
                 approvalFlowEntity.Transitions.Add(newTransition);
             }
-
-            if (approvalFlowEntity.Transitions.Any(t => t.ApproverGroup == group && (t.ApproverDecision == DecisionType.Invalidated || t.ApproverDecision == DecisionType.AwaitingDecision)))
+            else if (IsTransitionAwaitingOrInvalidated(existingTransition))
             {
-                IPAFTransition transition = GetTransition(group);
-                if (transition.ApproverGroup == null)
+                // Update existing transition
+                if (existingTransition.ApproverGroup == null)
                 {
-                    transition.ApproverGroup = group as PAFApproverGroup;
+                    existingTransition.ApproverGroup = group as PAFApproverGroup;
                 }
-                transition.ApproverRole = role;
+                existingTransition.ApproverRole = role;
                 if (comments != null)
                 {
-                    transition.RequesterComments = comments;
+                    existingTransition.RequesterComments = comments;
                 }
 
-                SetDecision(transition, DecisionType.AwaitingDecision, comments);
+                SetDecision(existingTransition, DecisionType.AwaitingDecision, comments);
             }
         }
 
+        // Helper method to check if a transition is awaiting a decision or has been invalidated
+        private bool IsTransitionAwaitingOrInvalidated(IPAFTransition transition)
+        {
+            return transition.ApproverDecision == DecisionType.Invalidated || 
+                   transition.ApproverDecision == DecisionType.AwaitingDecision;
+        }
+
+        // Helper method to find a transition by approver group
+        private IPAFTransition FindTransitionByGroup(IPAFApproverGroup group)
+        {
+            return approvalFlowEntity.Transitions
+                .FirstOrDefault(t => t.ApproverGroup?.GroupID == group.GroupID);
+        }
+
+        // Helper method to find a transition by approver ID
         private IPAFTransition GetTransition(string approver)
         {
             return approvalFlowEntity.Transitions
-                .Where(t =>
-                    t.ApproverID == approver ||
-                    (((t.ApproverGroup?.GroupID ?? 0) != 0) &&
-                     t.ApproverID == null &&
-                     t.ApproverGroup.Contains(approver) &&
-                     t.ApproverGroup.IsActive()))
-                .FirstOrDefault();
+                .FirstOrDefault(t => IsApproverMatch(t, approver));
         }
 
-
-        private IPAFTransition GetTransition(IPAFApproverGroup group)
+        // Helper method to check if a transition is for a specific approver
+        private bool IsApproverMatch(IPAFTransition transition, string approver)
         {
-            return approvalFlowEntity.Transitions
-                .Where(t => t.ApproverGroup.GroupID == group.GroupID)
-                .FirstOrDefault();
+            // Direct match to approver ID
+            if (transition.ApproverID == approver)
+            {
+                return true;
+            }
+            
+            // Check if approver is in an active group
+            if (HasActiveApproverGroup(transition) && 
+                transition.ApproverID == null &&
+                transition.ApproverGroup.Contains(approver) &&
+                transition.ApproverGroup.IsActive())
+            {
+                return true;
+            }
+            
+            return false;
+        }
+
+        // Helper method to check if a transition has an active approver group
+        private bool HasActiveApproverGroup(IPAFTransition transition)
+        {
+            return (transition.ApproverGroup?.GroupID ?? 0) != 0;
         }
     }
 }
