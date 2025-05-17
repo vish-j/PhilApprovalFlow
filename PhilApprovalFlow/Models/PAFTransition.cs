@@ -161,7 +161,7 @@ namespace PhilApprovalFlow.Models
             Order = order;
             RequesterID = requester;
             RequestedDate = DateTime.Now;
-            ApproverGroup = group as PAFApproverGroup;
+            ApproverGroup = group as PAFApproverGroup ?? throw new ArgumentException($"The group must be of type {nameof(PAFApproverGroup)}", nameof(group));
             ApproverRole = role;
             ApproverDecision = DecisionType.AwaitingDecision;
             RequesterComments = comments;

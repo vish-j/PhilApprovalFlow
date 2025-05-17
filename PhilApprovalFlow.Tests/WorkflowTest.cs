@@ -129,7 +129,7 @@ namespace PhilApprovalFlow.Tests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [ExpectedException(typeof(ArgumentException))]
         public void InvalidUserContextTest()
         {
             TestEntity entity = new TestEntity();
