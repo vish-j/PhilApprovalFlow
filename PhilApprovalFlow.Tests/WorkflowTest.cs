@@ -70,6 +70,7 @@ namespace PhilApprovalFlow.Tests
 
             var group = new PAFApproverGroup() { GroupID = 1 };
             group.SetApprovers(["User1"]);
+            group.SetActiveStatus(true);
             workflow.RequestApproval(group, "Reviewer", null).Approve();
 
             Assert.AreEqual(DecisionType.Approved, entity.Transitions.First().ApproverDecision);
