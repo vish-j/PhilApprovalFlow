@@ -140,7 +140,7 @@ namespace PhilApprovalFlow
         /// Marks the current user's transition as "Checked In".
         /// </summary>
         /// <returns>An instance of <see cref="ICanAction"/> to chain additional actions.</returns>
-        /// <exception cref="NullReferenceException">Thrown if no transition is found for the current user.</exception>
+        /// <exception cref="InvalidOperationException">Thrown if no transition is found for the current user.</exception>
         public ICanAction CheckIn()
         {
             IPAFTransition transition = GetTransition(userContext);
@@ -153,7 +153,7 @@ namespace PhilApprovalFlow
         /// </summary>
         /// <param name="comments">Optional comments to include with the approval.</param>
         /// <returns>An instance of <see cref="ICanAction"/> to chain additional actions.</returns>
-        /// <exception cref="NullReferenceException">Thrown if no transition is found for the current user.</exception>
+        /// <exception cref="InvalidOperationException">Thrown if no transition is found for the current user.</exception>
         public ICanAction Approve(string comments = null)
         {
             IPAFTransition transition = GetTransition(userContext);
@@ -166,7 +166,7 @@ namespace PhilApprovalFlow
         /// </summary>
         /// <param name="comments">Optional comments to include with the rejection.</param>
         /// <returns>An instance of <see cref="ICanAction"/> to chain additional actions.</returns>
-        /// <exception cref="NullReferenceException">Thrown if no transition is found for the current user.</exception>
+        /// <exception cref="InvalidOperationException">Thrown if no transition is found for the current user.</exception>
         public ICanAction Reject(string comments = null)
         {
             IPAFTransition transition = GetTransition(userContext);
@@ -180,7 +180,7 @@ namespace PhilApprovalFlow
         /// <param name="approver">The approver's identifier.</param>
         /// <param name="comments">Optional comments to include with the invalidation.</param>
         /// <returns>An instance of <see cref="ICanAction"/> to chain additional actions.</returns>
-        /// <exception cref="NullReferenceException">Thrown if no transition is found for the approver.</exception>
+        /// <exception cref="InvalidOperationException">Thrown if no transition is found for the approver.</exception>
         public ICanAction Invalidate(string approver, string comments = null)
         {
             IPAFTransition transition = GetTransition(approver);
@@ -314,7 +314,7 @@ namespace PhilApprovalFlow
         {
             if (transition == null)
             {
-                throw new NullReferenceException("No transition found");
+                throw new InvalidOperationException("No transition found");
             }
 
             transition.ApproverCheckInDate = (DateTime?)DateTime.Now;
@@ -324,7 +324,7 @@ namespace PhilApprovalFlow
         {
             if (transition == null)
             {
-                throw new NullReferenceException("No transition found");
+                throw new InvalidOperationException("No transition found");
             }
 
             transition.ApproverDecision = decision;
@@ -447,8 +447,8 @@ namespace PhilApprovalFlow
             // Check if approver is in an active group
             if (HasActiveApproverGroup(transition) && 
                 transition.ApproverID == null &&
-                transition.ApproverGroup.Contains(approver) &&
-                transition.ApproverGroup.IsActive())
+                transition.ApproverGroup.Contains(approver) 
+                )
             {
                 return true;
             }
@@ -459,7 +459,8 @@ namespace PhilApprovalFlow
         // Helper method to check if a transition has an active approver group
         private bool HasActiveApproverGroup(IPAFTransition transition)
         {
-            return (transition.ApproverGroup?.GroupID ?? 0) != 0;
+            return (transition.ApproverGroup?.GroupID ?? 0) != 0
+            && transition.ApproverGroup.IsActive();
         }
     }
 }
