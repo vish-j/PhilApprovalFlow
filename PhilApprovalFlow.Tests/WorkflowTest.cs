@@ -183,5 +183,87 @@ namespace PhilApprovalFlow.Tests
             Assert.IsTrue(notifications.Any(n => n.To == "User2"));
             Assert.IsTrue(notifications.Any(n => n.To == "User3"));
         }
+
+        [TestMethod]
+        public void ClearNotificationsTest()
+        {
+            TestEntity entity = new TestEntity();
+            var workflow = entity.GetApprovalFlow().SetUserName("User1");
+            
+            workflow.RequestApproval("User2", "Reviewer").LoadNotification("User2");
+            Assert.AreEqual(1, workflow.GetPAFNotifications().Count());
+            
+            workflow.ClearNotifications();
+            Assert.AreEqual(0, workflow.GetPAFNotifications().Count());
+        }
+        
+        [TestMethod]
+        public void SetEntityMetaDataTest()
+        {
+            TestEntity entity = new TestEntity();
+            var workflow = entity.GetApprovalFlow().SetUserName("User1");
+            
+            workflow.SetEntityMetaData();
+            
+            Assert.AreEqual(entity.TestEntityID.ToString(), workflow.GetMetadata("id"));
+            Assert.AreEqual("Test Short Description", workflow.GetMetadata("shortDescription"));
+            Assert.AreEqual("Test Long Description", workflow.GetMetadata("longDescription"));
+        }
+        
+        [TestMethod]
+        public void IsApprovedEnabledTest()
+        {
+            TestEntity entity = new TestEntity();
+            var workflow = entity.GetApprovalFlow().SetUserName("User1");
+            
+            workflow.RequestApproval("User1", "Reviewer");
+            Assert.IsTrue(entity.Transitions.IsApprovedEnabled("User1"));
+            
+            workflow.Approve();
+            Assert.IsFalse(entity.Transitions.IsApprovedEnabled("User1"));
+        }
+        
+        [TestMethod]
+        public void ComplexWorkflowTest()
+        {
+            TestEntity entity = new TestEntity();
+            var workflow = entity.GetApprovalFlow();
+            
+            // Sequential approval flow
+            workflow.SetUserName("User1").RequestApproval("User2", "Reviewer");
+            workflow.SetUserName("User2").Approve();
+            
+            workflow.SetUserName("User2").RequestApproval("User3", "Manager");
+            workflow.SetUserName("User3").Approve();
+            
+            Assert.IsTrue(entity.Transitions.IsApproved());
+        }
+        
+        [TestMethod]
+        public void GetApproversGroupTest()
+        {
+            TestEntity entity = new TestEntity();
+            var workflow = entity.GetApprovalFlow().SetUserName("User1");
+            
+            var approvers = new[] { "User2", "User3", "User4" };
+            var group = new PAFApproverGroup() { GroupID = 1 };
+            group.SetApprovers(approvers);
+            
+            var retrievedApprovers = group.GetApprovers();
+            CollectionAssert.AreEqual(approvers, retrievedApprovers.ToArray());
+        }
+        
+        [TestMethod]
+        public void CheckInStatusTest()
+        {
+            TestEntity entity = new TestEntity();
+                    var workflow = entity.GetApprovalFlow();
+            
+            workflow.SetUserName("User1").RequestApproval("User2", "Reviewer");
+            Assert.IsFalse(entity.Transitions.IsCheckedIn("User2"));
+            
+            workflow.SetUserName("User2").CheckIn();
+            Assert.IsTrue(entity.Transitions.IsCheckedIn("User2"));
+        }
     }
 }
