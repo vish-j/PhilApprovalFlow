@@ -1,4 +1,6 @@
 - name: Introduction
-  href: intro.md
+  href: introduction.md
+- name: Getting Started
+  href: getting-started.md
 - name: Implementation
   href: implementation.md

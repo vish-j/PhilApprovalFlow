@@ -66,7 +66,7 @@ bool isApproved = invoice.Transitions.IsApproved();
 
 ## 📚 Documentation Sections
 
-### [Getting Started](docs/getting-started.md)
+### [Getting Started](articles/getting-started.md)
 Learn how to set up and use PhilApprovalFlow in your project.
 
 ### [Implementation Guide](articles/implementation.md)

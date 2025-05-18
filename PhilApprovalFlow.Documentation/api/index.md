@@ -359,4 +359,4 @@ PhilApprovalFlow is designed for concurrent access scenarios. However, you shoul
 
 ---
 
-For implementation examples and best practices, see the [Getting Started Guide](../docs/getting-started.md) and [Implementation Guide](../articles/implementation.md).
+For implementation examples and best practices, see the [Getting Started Guide](../articles/getting-started.md) and [Implementation Guide](../articles/implementation.md).

@@ -4,7 +4,9 @@ Welcome to PhilApprovalFlow, a powerful and flexible approval workflow library f
 
 ## What is PhilApprovalFlow?
 
-PhilApprovalFlow is a .NET library that provides a comprehensive framework for managing approval workflows. It offers a fluent API that makes it easy to:
+PhilApprovalFlow is a comprehensive approval workflow framework designed to streamline and automate approval processes in .NET applications. Whether you're building enterprise applications, document management systems, or any application requiring structured approval workflows, PhilApprovalFlow provides the tools you need.
+
+This business logic tool handles approval-related workflows for any entity in your application, offering a fluent API that makes it easy to:
 
 - **Attach approval workflows to any entity** in your application
 - **Track approval status** through various decision states
@@ -34,9 +36,8 @@ PhilApprovalFlow is a .NET library that provides a comprehensive framework for m
 
 ## Core Concepts
 
-### Entities and Transitions
-
-In PhilApprovalFlow, any class can become an "approval entity" by implementing the `IApprovalFlow<T>` interface:
+### 1. Approval Entities
+Any class can become an approval entity by implementing the `IApprovalFlow<T>` interface, where `T` is your custom transition type that inherits from `PAFTransition`.
 
 ```csharp
 public class PurchaseOrder : IApprovalFlow<PurchaseOrderTransition>
@@ -48,6 +49,7 @@ public class PurchaseOrder : IApprovalFlow<PurchaseOrderTransition>
 }
 ```
 
+### 2. Transitions
 **Transitions** represent individual approval steps, each containing:
 - Approver information (user ID or group)
 - Decision status (Awaiting, Approved, Rejected, Invalidated)
@@ -55,9 +57,8 @@ public class PurchaseOrder : IApprovalFlow<PurchaseOrderTransition>
 - Timestamps for audit purposes
 - Role information for context
 
-### Fluent API Workflow
-
-The library provides an intuitive fluent interface:
+### 3. Fluent API Workflow
+The library provides an intuitive fluent interface that reads like natural language:
 
 ```csharp
 // Request approval
@@ -71,8 +72,7 @@ entity.GetApprovalFlow()
       .Approve("Approved - within budget");
 ```
 
-### Decision States
-
+### 4. Decision States
 Each transition can be in one of four states:
 
 - **AwaitingDecision**: Initial state, waiting for approver action
@@ -80,8 +80,7 @@ Each transition can be in one of four states:
 - **Rejected**: Approver has rejected the request  
 - **Invalidated**: Approver is no longer required (removed from workflow)
 
-### Approver Groups
-
+### 5. Approver Groups
 Support for group-based approvals where any group member can approve:
 
 ```csharp
@@ -245,7 +244,7 @@ While PhilApprovalFlow handles workflow logic, you should implement:
 Ready to dive deeper? Here's where to go next:
 
 1. **[Getting Started Guide](getting-started.md)**: Step-by-step tutorial with code examples
-2. **[Implementation Guide](../articles/implementation.md)**: Detailed implementation patterns
+2. **[Implementation Guide](implementation.md)**: Detailed implementation patterns
 3. **[API Reference](../api/index.md)**: Complete API documentation
 
 ## Support and Community

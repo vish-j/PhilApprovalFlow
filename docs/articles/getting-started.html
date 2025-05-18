@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Getting Started with PhilApprovalFlow </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Getting Started with PhilApprovalFlow ">
+    
+    
+      <link rel="shortcut icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../styles/docfx.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta property="docfx:navrel" content="../toc.html">
+      <meta property="docfx:tocrel" content="toc.html">
+    
+    
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="getting-started-with-philapprovalflow">Getting Started with PhilApprovalFlow</h1>
+
+<p>Welcome to PhilApprovalFlow! This guide will help you get up and running with approval workflows in your .NET application in just a few minutes.</p>
+<h2 id="installation">Installation</h2>
+<h3 id="package-manager-console">Package Manager Console</h3>
+<pre><code class="lang-powershell">Install-Package PhilApprovalFlow -Version 1.2.14
+</code></pre>
+<h3 id="net-cli">.NET CLI</h3>
+<pre><code class="lang-bash">dotnet add package PhilApprovalFlow --version 1.2.14
+</code></pre>
+<h3 id="packagereference">PackageReference</h3>
+<p>Add this to your <code>.csproj</code> file:</p>
+<pre><code class="lang-xml">&lt;PackageReference Include=&quot;PhilApprovalFlow&quot; Version=&quot;1.2.14&quot; /&gt;
+</code></pre>
+<h2 id="quick-start-example">Quick Start Example</h2>
+<p>Let's create a simple invoice approval workflow:</p>
+<h3 id="1-create-your-models">1. Create Your Models</h3>
+<pre><code class="lang-csharp">using PhilApprovalFlow;
+using PhilApprovalFlow.Models;
+using System;
+using System.Collections.Generic;
+
+// Your transition model
+public class InvoiceTransition : PAFTransition, IPAFTransition
+{
+    // Add custom properties if needed
+    public string InvoiceNumber { get; set; }
+}
+
+// Your entity that needs approval
+public class Invoice : IApprovalFlow&lt;InvoiceTransition&gt;
+{
+    public Guid Id { get; set; }
+    public string InvoiceNumber { get; set; }
+    public decimal Amount { get; set; }
+    public string Vendor { get; set; }
+    public string Description { get; set; }
+    
+    // Required by IApprovalFlow
+    public ICollection&lt;InvoiceTransition&gt; Transitions { get; set; }
+    
+    public Invoice()
+    {
+        Id = Guid.NewGuid();
+        Transitions = new HashSet&lt;InvoiceTransition&gt;();
+    }
+    
+    // Required method implementations
+    public object GetID() =&gt; Id;
+    public string GetShortDescription() =&gt; $&quot;Invoice {InvoiceNumber} - {Amount:C}&quot;;
+    public string GetLongDescription() =&gt; $&quot;Invoice {InvoiceNumber} from {Vendor} for {Description} - Amount: {Amount:C}&quot;;
+}
+</code></pre>
+<h3 id="2-basic-workflow-operations">2. Basic Workflow Operations</h3>
+<pre><code class="lang-csharp">using PhilApprovalFlow;
+using PhilApprovalFlow.Enum;
+
+class Program
+{
+    static void Main()
+    {
+        // Create an invoice
+        var invoice = new Invoice
+        {
+            InvoiceNumber = &quot;INV-001&quot;,
+            Amount = 5000m,
+            Vendor = &quot;Acme Corp&quot;,
+            Description = &quot;Office Supplies&quot;
+        };
+        
+        // Request approval workflow
+        RequestApproval(invoice);
+        
+        // Manager approves
+        ApproveInvoice(invoice);
+        
+        // Check status
+        CheckApprovalStatus(invoice);
+    }
+    
+    static void RequestApproval(Invoice invoice)
+    {
+        var workflow = invoice.GetApprovalFlow();
+        
+        // Employee requests approval from manager
+        workflow.SetUserName(&quot;employee@company.com&quot;)
+               .RequestApproval(&quot;manager@company.com&quot;, &quot;Manager&quot;, 
+                               &quot;Please approve this invoice for office supplies&quot;);
+        
+        Console.WriteLine(&quot;✓ Approval requested from manager&quot;);
+    }
+    
+    static void ApproveInvoice(Invoice invoice)
+    {
+        var workflow = invoice.GetApprovalFlow();
+        
+        // Manager approves the invoice
+        workflow.SetUserName(&quot;manager@company.com&quot;)
+               .Approve(&quot;Approved - expense is justified&quot;);
+        
+        Console.WriteLine(&quot;✓ Invoice approved by manager&quot;);
+    }
+    
+    static void CheckApprovalStatus(Invoice invoice)
+    {
+        bool isApproved = invoice.Transitions.IsApproved();
+        bool hasPendingDecisions = invoice.Transitions.IsAnyDecisionPending();
+        
+        Console.WriteLine($&quot;Invoice Status:&quot;);
+        Console.WriteLine($&quot;  - Fully Approved: {isApproved}&quot;);
+        Console.WriteLine($&quot;  - Has Pending Decisions: {hasPendingDecisions}&quot;);
+        
+        // Print all transitions
+        foreach (var transition in invoice.Transitions)
+        {
+            Console.WriteLine($&quot;  - {transition.ApproverRole}: {transition.ApproverDecision}&quot;);
+            if (!string.IsNullOrEmpty(transition.ApproverComments))
+                Console.WriteLine($&quot;    Comment: {transition.ApproverComments}&quot;);
+        }
+    }
+}
+</code></pre>
+<h2 id="working-with-groups">Working with Groups</h2>
+<p>Here's how to set up group-based approvals:</p>
+<pre><code class="lang-csharp">using PhilApprovalFlow.Models;
+
+static void RequestGroupApproval(Invoice invoice)
+{
+    // Create a finance approval group
+    var financeGroup = new PAFApproverGroup { GroupID = 1 };
+    financeGroup.SetApprovers(new[] 
+    {
+        &quot;finance1@company.com&quot;,
+        &quot;finance2@company.com&quot;,
+        &quot;finance3@company.com&quot;
+    });
+    financeGroup.SetActiveStatus(true);
+    
+    var workflow = invoice.GetApprovalFlow();
+    workflow.SetUserName(&quot;employee@company.com&quot;)
+           .RequestApproval(financeGroup, &quot;Finance Team&quot;, 
+                           &quot;Finance approval required for this invoice&quot;);
+    
+    Console.WriteLine(&quot;✓ Approval requested from finance team&quot;);
+}
+
+static void GroupMemberApproves(Invoice invoice)
+{
+    var workflow = invoice.GetApprovalFlow();
+    
+    // Any member of the finance group can approve
+    workflow.SetUserName(&quot;finance1@company.com&quot;)
+           .Approve(&quot;Budget verified and approved&quot;);
+    
+    Console.WriteLine(&quot;✓ Invoice approved by finance team member&quot;);
+}
+</code></pre>
+<h2 id="handling-notifications">Handling Notifications</h2>
+<pre><code class="lang-csharp">using PhilApprovalFlow.Enum;
+
+static void SetupNotifications(Invoice invoice)
+{
+    var workflow = invoice.GetApprovalFlow();
+    
+    // Load notification for the approver
+    workflow.SetUserName(&quot;employee@company.com&quot;)
+           .LoadNotification(&quot;manager@company.com&quot;, 
+                           usersToCC: new[] { &quot;admin@company.com&quot; },
+                           mailsToCC: new[] { &quot;notifications@company.com&quot; });
+    
+    // Get all pending notifications
+    var notifications = workflow.GetPAFNotifications();
+    
+    foreach (var notification in notifications)
+    {
+        Console.WriteLine($&quot;Notification:&quot;);
+        Console.WriteLine($&quot;  From: {notification.From}&quot;);
+        Console.WriteLine($&quot;  To: {notification.To}&quot;);
+        Console.WriteLine($&quot;  Type: {notification.DecisionType}&quot;);
+        Console.WriteLine($&quot;  Comments: {notification.Comments}&quot;);
+        
+        // Here you would send the actual notification
+        // SendEmail(notification);
+    }
+    
+    // Clear notifications to prevent duplicates
+    workflow.ClearNotifications();
+}
+</code></pre>
+<h2 id="multiple-approvals-scenario">Multiple Approvals Scenario</h2>
+<p>Here's a more complex example with sequential approvals:</p>
+<pre><code class="lang-csharp">static void MultiLevelApproval(Invoice invoice)
+{
+    var workflow = invoice.GetApprovalFlow();
+    
+    // Set up multi-level approval based on amount
+    workflow.SetUserName(&quot;employee@company.com&quot;);
+    
+    if (invoice.Amount &gt; 10000)
+    {
+        // High-value invoices need multiple approvals
+        workflow.RequestApproval(&quot;supervisor@company.com&quot;, &quot;Supervisor&quot;)
+               .RequestApproval(&quot;manager@company.com&quot;, &quot;Manager&quot;)
+               .RequestApproval(&quot;director@company.com&quot;, &quot;Director&quot;);
+    }
+    else if (invoice.Amount &gt; 1000)
+    {
+        // Medium-value invoices need manager approval
+        workflow.RequestApproval(&quot;manager@company.com&quot;, &quot;Manager&quot;);
+    }
+    else
+    {
+        // Low-value invoices need supervisor approval
+        workflow.RequestApproval(&quot;supervisor@company.com&quot;, &quot;Supervisor&quot;);
+    }
+    
+    Console.WriteLine($&quot;✓ Approval workflow set up for {invoice.Amount:C} invoice&quot;);
+}
+
+static void ProcessApprovals(Invoice invoice)
+{
+    var workflow = invoice.GetApprovalFlow();
+    
+    // Supervisor approves first
+    if (invoice.Transitions.IsInTransitions(&quot;supervisor@company.com&quot;))
+    {
+        workflow.SetUserName(&quot;supervisor@company.com&quot;)
+               .Approve(&quot;Supervisor approval completed&quot;);
+        Console.WriteLine(&quot;✓ Supervisor approved&quot;);
+    }
+    
+    // Manager approves second
+    if (invoice.Transitions.IsInTransitions(&quot;manager@company.com&quot;))
+    {
+        workflow.SetUserName(&quot;manager@company.com&quot;)
+               .Approve(&quot;Manager approval completed&quot;);
+        Console.WriteLine(&quot;✓ Manager approved&quot;);
+    }
+    
+    // Director approves last
+    if (invoice.Transitions.IsInTransitions(&quot;director@company.com&quot;))
+    {
+        workflow.SetUserName(&quot;director@company.com&quot;)
+               .Approve(&quot;Director approval completed&quot;);
+        Console.WriteLine(&quot;✓ Director approved&quot;);
+    }
+}
+</code></pre>
+<h2 id="using-metadata">Using Metadata</h2>
+<pre><code class="lang-csharp">static void WorkingWithMetadata(Invoice invoice)
+{
+    var workflow = invoice.GetApprovalFlow();
+    
+    // Set custom metadata
+    workflow.SetUserName(&quot;employee@company.com&quot;)
+           .SetMetadata(&quot;Priority&quot;, &quot;High&quot;)
+           .SetMetadata(&quot;Department&quot;, &quot;IT&quot;)
+           .SetMetadata(&quot;BudgetCode&quot;, &quot;IT-2024-Q1&quot;)
+           .SetEntityMetaData(); // This sets id, shortDescription, longDescription
+    
+    // Retrieve metadata
+    try
+    {
+        string priority = workflow.GetMetadata(&quot;Priority&quot;);
+        string department = workflow.GetMetadata(&quot;Department&quot;);
+        string entityId = workflow.GetMetadata(&quot;id&quot;);
+        string shortDesc = workflow.GetMetadata(&quot;shortDescription&quot;);
+        
+        Console.WriteLine($&quot;Invoice Metadata:&quot;);
+        Console.WriteLine($&quot;  Priority: {priority}&quot;);
+        Console.WriteLine($&quot;  Department: {department}&quot;);
+        Console.WriteLine($&quot;  Entity ID: {entityId}&quot;);
+        Console.WriteLine($&quot;  Description: {shortDesc}&quot;);
+    }
+    catch (KeyNotFoundException ex)
+    {
+        Console.WriteLine($&quot;Metadata key not found: {ex.Message}&quot;);
+    }
+}
+</code></pre>
+<h2 id="check-in-functionality">Check-in Functionality</h2>
+<pre><code class="lang-csharp">static void DemonstrateCheckIn(Invoice invoice)
+{
+    var workflow = invoice.GetApprovalFlow();
+    
+    // Request approval
+    workflow.SetUserName(&quot;employee@company.com&quot;)
+           .RequestApproval(&quot;manager@company.com&quot;, &quot;Manager&quot;);
+    
+    // Manager checks in (indicates they've seen the request)
+    workflow.SetUserName(&quot;manager@company.com&quot;)
+           .CheckIn();
+    
+    // Check if manager has checked in
+    bool isCheckedIn = invoice.Transitions.IsCheckedIn(&quot;manager@company.com&quot;);
+    Console.WriteLine($&quot;Manager checked in: {isCheckedIn}&quot;);
+    
+    // Later, manager makes a decision
+    workflow.SetUserName(&quot;manager@company.com&quot;)
+           .Approve(&quot;Reviewed and approved&quot;);
+    
+    bool hasDecision = invoice.Transitions.IsTakenDecision(&quot;manager@company.com&quot;);
+    Console.WriteLine($&quot;Manager has made decision: {hasDecision}&quot;);
+}
+</code></pre>
+<h2 id="error-handling">Error Handling</h2>
+<pre><code class="lang-csharp">static void ErrorHandlingExample(Invoice invoice)
+{
+    try
+    {
+        var workflow = invoice.GetApprovalFlow();
+        
+        // This will throw an exception if no transition exists
+        workflow.SetUserName(&quot;nonexistent@company.com&quot;)
+               .Approve();
+    }
+    catch (InvalidOperationException ex)
+    {
+        Console.WriteLine($&quot;Workflow error: {ex.Message}&quot;);
+    }
+    catch (ArgumentNullException ex)
+    {
+        Console.WriteLine($&quot;Validation error: {ex.Message}&quot;);
+    }
+    catch (KeyNotFoundException ex)
+    {
+        Console.WriteLine($&quot;Metadata error: {ex.Message}&quot;);
+    }
+}
+</code></pre>
+<h2 id="best-practices-for-getting-started">Best Practices for Getting Started</h2>
+<h3 id="1-always-initialize-collections">1. Always Initialize Collections</h3>
+<pre><code class="lang-csharp">public Invoice()
+{
+    Transitions = new HashSet&lt;InvoiceTransition&gt;();
+}
+</code></pre>
+<h3 id="2-use-meaningful-roles">2. Use Meaningful Roles</h3>
+<pre><code class="lang-csharp">workflow.RequestApproval(&quot;user@company.com&quot;, &quot;Finance Manager&quot;, &quot;Budget verification needed&quot;);
+</code></pre>
+<h3 id="3-add-helpful-comments">3. Add Helpful Comments</h3>
+<pre><code class="lang-csharp">workflow.Approve(&quot;Approved after verifying against Q1 budget allocation&quot;);
+</code></pre>
+<h3 id="4-check-states-before-actions">4. Check States Before Actions</h3>
+<pre><code class="lang-csharp">if (invoice.Transitions.IsApprovedEnabled(&quot;user@company.com&quot;))
+{
+    workflow.Approve();
+}
+</code></pre>
+<h3 id="5-handle-rejections">5. Handle Rejections</h3>
+<pre><code class="lang-csharp">if (transitions.Any(t =&gt; t.ApproverDecision == DecisionType.Rejected))
+{
+    // Handle rejection logic
+    Console.WriteLine(&quot;Invoice was rejected and needs revision&quot;);
+}
+</code></pre>
+<h2 id="next-steps">Next Steps</h2>
+<p>Now that you have the basics down, you can:</p>
+<ol>
+<li><strong>Integrate with a Database</strong>: Use Entity Framework to persist your workflows</li>
+<li><strong>Add Email Notifications</strong>: Implement email sending based on the notification system</li>
+<li><strong>Build a UI</strong>: Create views for users to manage their approvals</li>
+<li><strong>Add Authentication</strong>: Integrate with your application's user management</li>
+<li><strong>Customize Workflows</strong>: Explore advanced scenarios and custom business rules</li>
+</ol>
+<p>For more detailed information, check out our <a href="implementation.html">Implementation Guide</a> and <a href="../api/index.html">API Documentation</a>.</p>
+<h2 id="sample-project">Sample Project</h2>
+<p>For a complete working example, check out our <a href="https://github.com/vish-j/PhilApprovalFlow/tree/main/samples">sample project on GitHub</a> that demonstrates all these concepts in a real application.</p>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/vish-j/PhilApprovalFlow/blob/ImprovedWorkflowWithGroup/PhilApprovalFlow.Documentation/articles/getting-started.md/#L1" class="contribution-link">Edit this page</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>
