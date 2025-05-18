@@ -51,9 +51,12 @@ namespace PhilApprovalFlow
         /// <summary>
         /// Sets the username context for the approval flow.
         /// </summary>
-        /// <param name="username">The username of the current user.</param>
+        /// <param name="username">The username of the current user who will perform subsequent actions.</param>
         /// <returns>An instance of <see cref="ICanAction"/> to chain additional actions.</returns>
-        /// <exception cref="ArgumentException">Thrown if the username is null or whitespace.</exception>
+        /// <exception cref="ArgumentException">
+        /// Thrown when <paramref name="username"/> is null, empty, or contains only whitespace.
+        /// The exception message will be: "Username cannot be null or whitespace".
+        /// </exception>
         public ICanAction SetUserName(string username)
         {
             if (string.IsNullOrWhiteSpace(username))
@@ -125,11 +128,12 @@ namespace PhilApprovalFlow
         /// <summary>
         /// Creates a transition to request approval from a specified approver.
         /// </summary>
-        /// <param name="approver">The approver's identifier.</param>
-        /// <param name="role">The approver's role.</param>
-        /// <param name="comments">Optional comments to include with the request.</param>
+        /// <param name="approver">The approver's identifier. Cannot be null or empty.</param>
+        /// <param name="role">The approver's role. This identifies the function or responsibility of the approver.</param>
+        /// <param name="comments">Optional comments to include with the request. If null, any existing comments will be preserved when updating existing transitions.</param>
         /// <returns>An instance of <see cref="ICanAction"/> to chain additional actions.</returns>
-        /// <exception cref="ArgumentNullException">Thrown if requester or approver is null.</exception>
+        /// <exception cref="ArgumentNullException">Thrown if approver or userContext is null.</exception>
+        /// <exception cref="ArgumentException">Thrown if approver or userContext is empty or whitespace.</exception>
         public ICanAction RequestApproval(string approver, string role, string comments = null)
         {
             CreateTransition(userContext, approver, role, comments);
@@ -339,7 +343,7 @@ namespace PhilApprovalFlow
         /// </summary>
         /// <param name="transition">The transition to update.</param>
         /// <param name="decision">The decision to set.</param>
-        /// <param name="comments">Optional comments associated with the decision.</param>
+        /// <param name="comments">Optional comments associated with the decision. If null, any existing comments will be preserved.</param>
         /// <exception cref="InvalidOperationException">Thrown if the transition is null.</exception>
         private void SetDecision(IPAFTransition transition, DecisionType decision, string comments)
         {
