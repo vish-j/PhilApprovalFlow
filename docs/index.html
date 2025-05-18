@@ -1,28 +1,29 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <!--[if IE]><![endif]-->
 <html>
-  
+
   <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title> </title>
-    <meta name="viewport" content="width=device-width">
-    <meta name="title" content=" ">
-    <meta name="generator" content="docfx 2.56.7.0">
-    
-    <link rel="shortcut icon" href="favicon.ico">
-    <link rel="stylesheet" href="styles/docfx.vendor.css">
-    <link rel="stylesheet" href="styles/docfx.css">
-    <link rel="stylesheet" href="styles/main.css">
-    <meta property="docfx:navrel" content="toc.html">
-    <meta property="docfx:tocrel" content="toc.html">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>PhilApprovalFlow Library </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="PhilApprovalFlow Library ">
     
     
+      <link rel="shortcut icon" href="favicon.ico">
+      <link rel="stylesheet" href="styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="styles/docfx.css">
+      <link rel="stylesheet" href="styles/main.css">
+      <meta property="docfx:navrel" content="toc.html">
+      <meta property="docfx:tocrel" content="toc.html">
     
-  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
     <div id="wrapper">
       <header>
-        
+
         <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
           <div class="container">
             <div class="navbar-header">
@@ -32,7 +33,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
               </button>
-              
+
               <a class="navbar-brand" href="index.html">
                 <img id="logo" class="svg" src="logo.svg" alt="">
               </a>
@@ -46,7 +47,7 @@
             </div>
           </div>
         </nav>
-        
+
         <div class="subnav navbar navbar-default">
           <div class="container hide-when-search" id="breadcrumb">
             <ul class="breadcrumb">
@@ -59,53 +60,101 @@
         <div class="article row grid">
           <div class="col-md-10">
             <article class="content wrap" id="_content" data-uid="">
+<h1 id="philapprovalflow-library">PhilApprovalFlow Library</h1>
 
-<p>Approval Flow Library for .NET Projects<br>
-<br>
-Features:<br>
-<br>
-Fluent API<br>
-Attaches to the entity<br>
-Can work with .net framework and .net core<br>
-Based on .Net Standard 2.0<br>
-Notification Cache in Engine</p>
-<p>Installation via nuget:</p>
-<pre><code> Install-Package PhilApprovalFlow -Version 1.1.1
+<p><strong>Approval Flow Library for .NET Projects</strong></p>
+<p>PhilApprovalFlow is a powerful and flexible approval workflow library designed for .NET applications. It provides a fluent API to easily implement approval processes for any entity in your application.</p>
+<h2 id="-key-features">🚀 Key Features</h2>
+<ul>
+<li><strong>Fluent API Design</strong> - Intuitive and readable method chaining for building approval workflows</li>
+<li><strong>Entity Attachment</strong> - Seamlessly attaches to any entity implementing the IApprovalFlow interface</li>
+<li><strong>Multi-Framework Support</strong> - Works with .NET Framework 4.8+ and .NET 8+</li>
+<li><strong>Built on .NET Standard 2.0</strong> - Ensures broad compatibility across different .NET implementations</li>
+<li><strong>Individual &amp; Group Approvers</strong> - Support for both single approvers and approver groups</li>
+<li><strong>Rich Transition Management</strong> - Track approval states, comments, and timestamps</li>
+<li><strong>Built-in Notification System</strong> - Generate notifications for approvers and requesters</li>
+<li><strong>Metadata Support</strong> - Attach custom metadata to workflows and entities</li>
+<li><strong>Check-in Functionality</strong> - Track when approvers view pending requests</li>
+<li><strong>Decision States</strong> - Comprehensive decision tracking (Approved, Rejected, Invalidated, Awaiting)</li>
+</ul>
+<h2 id="-installation">📦 Installation</h2>
+<p>Install PhilApprovalFlow via NuGet Package Manager:</p>
+<pre><code class="lang-bash">Install-Package PhilApprovalFlow -Version 1.2.14
 </code></pre>
+<p>Or via .NET CLI:</p>
+<pre><code class="lang-bash">dotnet add package PhilApprovalFlow --version 1.2.14
+</code></pre>
+<h2 id="-quick-start">🔥 Quick Start</h2>
+<pre><code class="lang-csharp">// 1. Create an entity that implements IApprovalFlow
+public class Invoice : IApprovalFlow&lt;InvoiceTransition&gt;
+{
+    public ICollection&lt;InvoiceTransition&gt; Transitions { get; set; }
+    public Guid InvoiceId { get; set; }
+    
+    public object GetID() =&gt; InvoiceId;
+    public string GetShortDescription() =&gt; $&quot;Invoice #{InvoiceId}&quot;;
+    public string GetLongDescription() =&gt; $&quot;Invoice for {Amount:C} - {Description}&quot;;
+}
+
+// 2. Create your transition type
+public class InvoiceTransition : PAFTransition, IPAFTransition { }
+
+// 3. Use the fluent API
+var invoice = new Invoice();
+var workflow = invoice.GetApprovalFlow();
+
+// Request approval from a manager
+workflow.SetUserName(&quot;employee@company.com&quot;)
+        .RequestApproval(&quot;manager@company.com&quot;, &quot;Manager&quot;, &quot;Please approve this invoice&quot;);
+
+// Manager approves the request
+workflow.SetUserName(&quot;manager@company.com&quot;)
+        .Approve(&quot;Approved - looks good!&quot;);
+
+// Check if fully approved
+bool isApproved = invoice.Transitions.IsApproved();
+</code></pre>
+<h2 id="-documentation-sections">📚 Documentation Sections</h2>
+<h3 id="getting-started"><a href="articles/getting-started.html">Getting Started</a></h3>
+<p>Learn how to set up and use PhilApprovalFlow in your project.</p>
+<h3 id="implementation-guide"><a href="articles/implementation.html">Implementation Guide</a></h3>
+<p>Detailed guide on implementing approval workflows in your entities.</p>
+<h3 id="api-reference"><a href="api/index.html">API Reference</a></h3>
+<p>Complete API documentation for all classes and methods.</p>
+<h2 id="-useful-links">🔗 Useful Links</h2>
+<ul>
+<li><strong>GitHub Repository</strong>: <a href="https://github.com/vish-j/PhilApprovalFlow">https://github.com/vish-j/PhilApprovalFlow</a></li>
+<li><strong>NuGet Package</strong>: <a href="https://www.nuget.org/packages/PhilApprovalFlow/">PhilApprovalFlow on NuGet</a></li>
+<li><strong>Issues &amp; Support</strong>: <a href="https://github.com/vish-j/PhilApprovalFlow/issues">GitHub Issues</a></li>
+</ul>
+<h2 id="-contributing">🤝 Contributing</h2>
+<p>We welcome contributions! Please see our <a href="https://github.com/vish-j/PhilApprovalFlow/blob/main/CONTRIBUTING.md">Contributing Guidelines</a> for details.</p>
+<h2 id="-license">📄 License</h2>
+<p>This project is licensed under the MIT License - see the <a href="https://github.com/vish-j/PhilApprovalFlow/blob/main/LICENSE">LICENSE</a> file for details.</p>
+<hr>
+<p><em>Built with ❤️ for the .NET Community</em></p>
+
 </article>
           </div>
-          
+
           <div class="hidden-sm col-md-2" role="complementary">
             <div class="sideaffix">
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://github.com/vish-j/PhilApprovalFlow/blob/master/PhilApprovalFlow.Documentation/index.md/#L1" class="contribution-link">Improve this Doc</a>
+                    <a href="https://github.com/vish-j/PhilApprovalFlow/blob/ImprovedWorkflowWithGroup/PhilApprovalFlow.Documentation/index.md/#L1" class="contribution-link">Edit this page</a>
                   </li>
                 </ul>
               </div>
-              <div class="toggle-mode">
-                <div class="icon">
-                  <i aria-hidden="true">☀</i>
-                </div>
-                <label class="switch">
-                  <input type="checkbox" id="switch-style">
-                  <span class="slider round"></span>
-                </label>
-                <div class="icon">
-                  <i aria-hidden="true">☾</i>
-                </div>
-                <script type="text/javascript" src="styles/toggle-theme.js"></script>
-              </div>
-          
               <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
-              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+                <h5>In this article</h5>
+                <div></div>
               </nav>
             </div>
           </div>
         </div>
       </div>
-      
+
       <footer>
         <div class="grad-bottom"></div>
         <div class="footer">
@@ -113,14 +162,14 @@ Notification Cache in Engine</p>
             <span class="pull-right">
               <a href="#top">Back to top</a>
             </span>
-            
-            <span>Generated by <strong>DocFX</strong></span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
           </div>
         </div>
       </footer>
     </div>
-    
-    <script type="text/javascript" src="styles/docfx.vendor.js"></script>
+
+    <script type="text/javascript" src="styles/docfx.vendor.min.js"></script>
     <script type="text/javascript" src="styles/docfx.js"></script>
     <script type="text/javascript" src="styles/main.js"></script>
   </body>

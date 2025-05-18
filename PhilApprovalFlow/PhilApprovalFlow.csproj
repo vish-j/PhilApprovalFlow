@@ -3,20 +3,30 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>1.1.1</Version>
-    <FileVersion>1.1.1.0</FileVersion>
-    <AssemblyVersion>1.1.1.0</AssemblyVersion>
+    <Version>1.2.14</Version>
+    <FileVersion>1.2.14.0</FileVersion>
+    <AssemblyVersion>1.2.14.0</AssemblyVersion>
     <Description>Simple Approval Flow Library for .NET Projects</Description>
-	<RepositoryUrl>https://github.com/vish-j/PhilApprovalFlow</RepositoryUrl>
-	<PackageLicenseFile>GNU_AGPLv3.txt</PackageLicenseFile>
-	<PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <RepositoryUrl>https://github.com/vish-j/PhilApprovalFlow</RepositoryUrl>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
-
-  <ItemGroup>
-    <None Include="GNU_AGPLv3.txt">
+  
+  <!-- Cross-platform conditional target for documentation build -->
+  <Target Name="BuildDocumentation" AfterTargets="PostBuildEvent" Condition="$(Configuration) == 'Release'">
+    <!-- Windows command -->
+    <Exec Command="docfx build &quot;../PhilApprovalFlow.Documentation/docfx.json&quot;" Condition="'$(OS)' == 'Windows_NT'" ContinueOnError="true" />
+    
+    <!-- macOS/Linux command -->
+    <Exec Command="docfx build ../PhilApprovalFlow.Documentation/docfx.json" Condition="'$(OS)' != 'Windows_NT'" ContinueOnError="true" />
+  </Target>
+  
+  <ItemGroup>       
+    <None Include="..\README.md" Pack="true" PackagePath="\" />
+    <None Include="..\LICENSE">
       <Pack>True</Pack>
       <PackagePath></PackagePath>
     </None>
   </ItemGroup>
-
 </Project>

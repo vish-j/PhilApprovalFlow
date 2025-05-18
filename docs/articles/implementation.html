@@ -1,28 +1,29 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <!--[if IE]><![endif]-->
 <html>
-  
+
   <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title> </title>
-    <meta name="viewport" content="width=device-width">
-    <meta name="title" content=" ">
-    <meta name="generator" content="docfx 2.56.7.0">
-    
-    <link rel="shortcut icon" href="../favicon.ico">
-    <link rel="stylesheet" href="../styles/docfx.vendor.css">
-    <link rel="stylesheet" href="../styles/docfx.css">
-    <link rel="stylesheet" href="../styles/main.css">
-    <meta property="docfx:navrel" content="../toc.html">
-    <meta property="docfx:tocrel" content="toc.html">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Implementation Guide </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Implementation Guide ">
     
     
+      <link rel="shortcut icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../styles/docfx.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta property="docfx:navrel" content="../toc.html">
+      <meta property="docfx:tocrel" content="toc.html">
     
-  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
     <div id="wrapper">
       <header>
-        
+
         <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
           <div class="container">
             <div class="navbar-header">
@@ -32,7 +33,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
               </button>
-              
+
               <a class="navbar-brand" href="../index.html">
                 <img id="logo" class="svg" src="../logo.svg" alt="">
               </a>
@@ -46,7 +47,7 @@
             </div>
           </div>
         </nav>
-        
+
         <div class="subnav navbar navbar-default">
           <div class="container hide-when-search" id="breadcrumb">
             <ul class="breadcrumb">
@@ -56,7 +57,7 @@
         </div>
       </header>
       <div role="main" class="container body-content hide-when-search">
-        
+
         <div class="sidenav hide-when-search">
           <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
           <div class="sidetoggle collapse" id="sidetoggle">
@@ -66,42 +67,390 @@
         <div class="article row grid-right">
           <div class="col-md-10">
             <article class="content wrap" id="_content" data-uid="">
+<h1 id="implementation-guide">Implementation Guide</h1>
 
-<p>The Entity should inherit PAFTransition to enable workflows</p>
+<p>This guide walks you through implementing PhilApprovalFlow in your .NET application, from basic setup to advanced scenarios.</p>
+<h2 id="prerequisites">Prerequisites</h2>
+<ul>
+<li>.NET Framework 4.8+ or .NET 8+</li>
+<li>Basic understanding of C# interfaces and generics</li>
+<li>Entity Framework (optional, for persistence)</li>
+</ul>
+<h2 id="step-1-define-your-transition-model">Step 1: Define Your Transition Model</h2>
+<p>First, create a transition class that inherits from <code>PAFTransition</code>:</p>
+<pre><code class="lang-csharp">using PhilApprovalFlow.Models;
+
+public class DocumentTransition : PAFTransition, IPAFTransition
+{
+    // You can add custom properties specific to your domain
+    public string DocumentType { get; set; }
+    public decimal? Amount { get; set; }
+    public string Department { get; set; }
+}
+</code></pre>
+<h2 id="step-2-implement-iapprovalflow-in-your-entity">Step 2: Implement IApprovalFlow in Your Entity</h2>
+<p>Make your entity implement the <code>IApprovalFlow&lt;T&gt;</code> interface:</p>
+<pre><code class="lang-csharp">using PhilApprovalFlow;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+
+public class Document : IApprovalFlow&lt;DocumentTransition&gt;
+{
+    [Key]
+    public int DocumentId { get; set; }
+    
+    public string Title { get; set; }
+    public string Content { get; set; }
+    public string Author { get; set; }
+    public decimal Amount { get; set; }
+    
+    // Required by IApprovalFlow
+    public virtual ICollection&lt;DocumentTransition&gt; Transitions { get; set; }
+    
+    public Document()
+    {
+        Transitions = new HashSet&lt;DocumentTransition&gt;();
+    }
+    
+    // Required method implementations
+    public object GetID() =&gt; DocumentId;
+    
+    public string GetShortDescription() =&gt; $&quot;Document: {Title}&quot;;
+    
+    public string GetLongDescription() =&gt; 
+        $&quot;Document '{Title}' by {Author} - Amount: {Amount:C}&quot;;
+}
+</code></pre>
+<h2 id="step-3-database-configuration-optional">Step 3: Database Configuration (Optional)</h2>
+<p>If using Entity Framework, configure your DbContext:</p>
+<pre><code class="lang-csharp">public class ApplicationDbContext : DbContext
+{
+    public DbSet&lt;Document&gt; Documents { get; set; }
+    public DbSet&lt;DocumentTransition&gt; DocumentTransitions { get; set; }
+    
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        // Configure the relationship
+        modelBuilder.Entity&lt;Document&gt;()
+            .HasMany(d =&gt; d.Transitions)
+            .WithOne()
+            .HasForeignKey(&quot;DocumentId&quot;);
+            
+        // Configure DocumentTransition
+        modelBuilder.Entity&lt;DocumentTransition&gt;()
+            .HasKey(t =&gt; t.TransitionID);
+            
+        base.OnModelCreating(modelBuilder);
+    }
+}
+</code></pre>
+<h2 id="step-4-basic-workflow-implementation">Step 4: Basic Workflow Implementation</h2>
+<p>Now you can use the fluent API to manage approvals:</p>
+<pre><code class="lang-csharp">public class DocumentService
+{
+    private readonly ApplicationDbContext _context;
+    
+    public DocumentService(ApplicationDbContext context)
+    {
+        _context = context;
+    }
+    
+    public async Task&lt;Document&gt; CreateDocumentAsync(Document document, string authorId)
+    {
+        // Save the document
+        _context.Documents.Add(document);
+        await _context.SaveChangesAsync();
+        
+        // Request approval from manager
+        var workflow = document.GetApprovalFlow();
+        workflow.SetUserName(authorId)
+               .RequestApproval(&quot;manager@company.com&quot;, &quot;Manager&quot;, 
+                               &quot;Please review this document&quot;)
+               .SetEntityMetaData(); // Automatically set entity metadata
+        
+        await _context.SaveChangesAsync();
+        return document;
+    }
+    
+    public async Task ApproveDocumentAsync(int documentId, string approverId, string comments = null)
+    {
+        var document = await _context.Documents
+            .Include(d =&gt; d.Transitions)
+            .FirstOrDefaultAsync(d =&gt; d.DocumentId == documentId);
+            
+        if (document == null) return;
+        
+        var workflow = document.GetApprovalFlow();
+        workflow.SetUserName(approverId)
+               .Approve(comments);
+        
+        await _context.SaveChangesAsync();
+    }
+    
+    public async Task RejectDocumentAsync(int documentId, string approverId, string comments)
+    {
+        var document = await _context.Documents
+            .Include(d =&gt; d.Transitions)
+            .FirstOrDefaultAsync(d =&gt; d.DocumentId == documentId);
+            
+        if (document == null) return;
+        
+        var workflow = document.GetApprovalFlow();
+        workflow.SetUserName(approverId)
+               .Reject(comments);
+        
+        await _context.SaveChangesAsync();
+    }
+}
+</code></pre>
+<h2 id="step-5-working-with-approver-groups">Step 5: Working with Approver Groups</h2>
+<p>For group-based approvals:</p>
+<pre><code class="lang-csharp">public class GroupApprovalService
+{
+    public void SetupFinanceApproval(Document document, string requesterId)
+    {
+        // Create approver group
+        var financeTeam = new PAFApproverGroup { GroupID = 1 };
+        financeTeam.SetApprovers(new[] 
+        {
+            &quot;finance.manager@company.com&quot;,
+            &quot;finance.director@company.com&quot;,
+            &quot;cfo@company.com&quot;
+        });
+        financeTeam.SetActiveStatus(true);
+        
+        // Request approval from the group
+        var workflow = document.GetApprovalFlow();
+        workflow.SetUserName(requesterId)
+               .RequestApproval(financeTeam, &quot;Finance Team&quot;, 
+                               &quot;Requires finance approval for budget allocation&quot;);
+    }
+    
+    public void ApproveAsGroupMember(Document document, string approverId)
+    {
+        var workflow = document.GetApprovalFlow();
+        workflow.SetUserName(approverId)
+               .Approve(&quot;Approved by finance team member&quot;);
+    }
+}
+</code></pre>
+<h2 id="step-6-notifications">Step 6: Notifications</h2>
+<p>Generate and handle notifications:</p>
+<pre><code class="lang-csharp">public class NotificationService
+{
+    public async Task SendApprovalNotificationsAsync(Document document, string requesterId)
+    {
+        var workflow = document.GetApprovalFlow();
+        
+        // Load notifications for all pending approvers
+        workflow.SetUserName(requesterId);
+        
+        foreach (var transition in document.Transitions.Where(t =&gt; 
+            t.ApproverDecision == DecisionType.AwaitingDecision))
+        {
+            if (transition.ApproverID != null)
+            {
+                workflow.LoadNotification(transition.ApproverID, 
+                    usersToCC: new[] { &quot;admin@company.com&quot; },
+                    mailsToCC: new[] { &quot;notifications@company.com&quot; });
+            }
+            else if (transition.ApproverGroup != null)
+            {
+                workflow.LoadNotification(transition.ApproverGroup);
+            }
+        }
+        
+        // Get all notifications and send them
+        var notifications = workflow.GetPAFNotifications();
+        foreach (var notification in notifications)
+        {
+            await SendEmailNotificationAsync(notification);
+        }
+        
+        // Clear notifications to prevent duplicates
+        workflow.ClearNotifications();
+    }
+    
+    private async Task SendEmailNotificationAsync(IPAFNotification notification)
+    {
+        // Implement your email sending logic here
+        var subject = GetEmailSubject(notification.DecisionType);
+        var body = BuildEmailBody(notification);
+        
+        // Send email using your preferred email service
+        // await _emailService.SendAsync(notification.From, notification.To, subject, body);
+    }
+    
+    private string GetEmailSubject(DecisionType decisionType)
+    {
+        return decisionType switch
+        {
+            DecisionType.AwaitingDecision =&gt; &quot;Approval Required&quot;,
+            DecisionType.Approved =&gt; &quot;Request Approved&quot;,
+            DecisionType.Rejected =&gt; &quot;Request Rejected&quot;,
+            DecisionType.Invalidated =&gt; &quot;Approval Request Cancelled&quot;,
+            _ =&gt; &quot;Workflow Notification&quot;
+        };
+    }
+}
+</code></pre>
+<h2 id="step-7-querying-workflow-states">Step 7: Querying Workflow States</h2>
+<p>Use extension methods to query workflow states:</p>
+<pre><code class="lang-csharp">public class WorkflowQueryService
+{
+    public DocumentStatus GetDocumentStatus(Document document)
+    {
+        var transitions = document.Transitions;
+        
+        if (!transitions.Any())
+            return DocumentStatus.Draft;
+            
+        if (transitions.IsApproved())
+            return DocumentStatus.Approved;
+            
+        if (transitions.Any(t =&gt; t.ApproverDecision == DecisionType.Rejected))
+            return DocumentStatus.Rejected;
+            
+        if (transitions.IsAnyDecisionPending())
+            return DocumentStatus.PendingApproval;
+            
+        return DocumentStatus.Unknown;
+    }
+    
+    public List&lt;Document&gt; GetDocumentsPendingApproval(string approverId)
+    {
+        return _context.Documents
+            .Include(d =&gt; d.Transitions)
+            .Where(d =&gt; d.Transitions.IsInTransitions(approverId) &amp;&amp;
+                       d.Transitions.IsApprovedEnabled(approverId))
+            .ToList();
+    }
+    
+    public bool CanUserApprove(Document document, string userId)
+    {
+        return document.Transitions.IsInTransitions(userId) &amp;&amp;
+               document.Transitions.IsApprovedEnabled(userId);
+    }
+}
+
+public enum DocumentStatus
+{
+    Draft,
+    PendingApproval,
+    Approved,
+    Rejected,
+    Unknown
+}
+</code></pre>
+<h2 id="step-8-advanced-scenarios">Step 8: Advanced Scenarios</h2>
+<h3 id="sequential-approvals">Sequential Approvals</h3>
+<pre><code class="lang-csharp">public void SetupSequentialApproval(Document document, string requesterId)
+{
+    var workflow = document.GetApprovalFlow();
+    workflow.SetUserName(requesterId)
+           .RequestApproval(&quot;supervisor@company.com&quot;, &quot;Supervisor&quot;)
+           .RequestApproval(&quot;manager@company.com&quot;, &quot;Manager&quot;)
+           .RequestApproval(&quot;director@company.com&quot;, &quot;Director&quot;);
+}
+</code></pre>
+<h3 id="conditional-approvals">Conditional Approvals</h3>
+<pre><code class="lang-csharp">public void SetupConditionalApproval(Document document, string requesterId)
+{
+    var workflow = document.GetApprovalFlow();
+    workflow.SetUserName(requesterId);
+    
+    // Different approval chains based on amount
+    if (document.Amount &lt; 1000)
+    {
+        workflow.RequestApproval(&quot;supervisor@company.com&quot;, &quot;Supervisor&quot;);
+    }
+    else if (document.Amount &lt; 10000)
+    {
+        workflow.RequestApproval(&quot;manager@company.com&quot;, &quot;Manager&quot;);
+    }
+    else
+    {
+        workflow.RequestApproval(&quot;director@company.com&quot;, &quot;Director&quot;)
+               .RequestApproval(&quot;ceo@company.com&quot;, &quot;CEO&quot;);
+    }
+}
+</code></pre>
+<h3 id="metadata-usage">Metadata Usage</h3>
+<pre><code class="lang-csharp">public void SetCustomMetadata(Document document, string requesterId)
+{
+    var workflow = document.GetApprovalFlow();
+    workflow.SetUserName(requesterId)
+           .SetMetadata(&quot;Priority&quot;, &quot;High&quot;)
+           .SetMetadata(&quot;DueDate&quot;, DateTime.Now.AddDays(7).ToString())
+           .SetMetadata(&quot;CostCenter&quot;, &quot;IT-001&quot;)
+           .SetEntityMetaData(); // Also set entity metadata
+    
+    // Retrieve metadata later
+    string priority = workflow.GetMetadata(&quot;Priority&quot;);
+    string entityId = workflow.GetMetadata(&quot;id&quot;);
+}
+</code></pre>
+<h2 id="best-practices">Best Practices</h2>
+<ol>
+<li><strong>Always Include Error Handling</strong>: Wrap workflow operations in try-catch blocks</li>
+<li><strong>Use Transactions</strong>: Ensure data consistency when persisting workflows</li>
+<li><strong>Implement Proper Authorization</strong>: Verify users can perform requested actions</li>
+<li><strong>Log Workflow Changes</strong>: Maintain audit trails for compliance</li>
+<li><strong>Handle Concurrent Updates</strong>: Implement optimistic concurrency control</li>
+<li><strong>Test Thoroughly</strong>: Create unit tests for all workflow scenarios</li>
+</ol>
+<h2 id="troubleshooting">Troubleshooting</h2>
+<h3 id="common-issues">Common Issues</h3>
+<ol>
+<li><p><strong>InvalidOperationException</strong>: No transition found</p>
+<ul>
+<li>Ensure the user has a transition before calling Approve/Reject</li>
+<li>Check if the approver is part of an active group</li>
+</ul>
+</li>
+<li><p><strong>ArgumentNullException</strong>: Null parameters</p>
+<ul>
+<li>Validate input parameters before calling workflow methods</li>
+<li>Ensure entities are properly initialized</li>
+</ul>
+</li>
+<li><p><strong>KeyNotFoundException</strong>: Metadata not found</p>
+<ul>
+<li>Check if the metadata key exists before accessing</li>
+<li>Use TryGetValue pattern for safe access</li>
+</ul>
+</li>
+</ol>
+<h3 id="performance-considerations">Performance Considerations</h3>
+<ul>
+<li>Use <code>Include()</code> to eagerly load transitions when querying entities</li>
+<li>Consider using projection queries for read-only operations</li>
+<li>Implement caching for frequently accessed approval groups</li>
+<li>Use async methods for database operations</li>
+</ul>
+<p>This completes the basic implementation guide. Your approval workflow should now be fully functional and ready for production use.</p>
+
 </article>
           </div>
-          
+
           <div class="hidden-sm col-md-2" role="complementary">
             <div class="sideaffix">
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://github.com/vish-j/PhilApprovalFlow/blob/master/PhilApprovalFlow.Documentation/articles/implementation.md/#L1" class="contribution-link">Improve this Doc</a>
+                    <a href="https://github.com/vish-j/PhilApprovalFlow/blob/ImprovedWorkflowWithGroup/PhilApprovalFlow.Documentation/articles/implementation.md/#L1" class="contribution-link">Edit this page</a>
                   </li>
                 </ul>
               </div>
-              <div class="toggle-mode">
-                <div class="icon">
-                  <i aria-hidden="true">☀</i>
-                </div>
-                <label class="switch">
-                  <input type="checkbox" id="switch-style">
-                  <span class="slider round"></span>
-                </label>
-                <div class="icon">
-                  <i aria-hidden="true">☾</i>
-                </div>
-                <script type="text/javascript" src="../styles/toggle-theme.js"></script>
-              </div>
-          
               <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
-              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+                <h5>In this article</h5>
+                <div></div>
               </nav>
             </div>
           </div>
         </div>
       </div>
-      
+
       <footer>
         <div class="grad-bottom"></div>
         <div class="footer">
@@ -109,14 +458,14 @@
             <span class="pull-right">
               <a href="#top">Back to top</a>
             </span>
-            
-            <span>Generated by <strong>DocFX</strong></span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
           </div>
         </div>
       </footer>
     </div>
-    
-    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
     <script type="text/javascript" src="../styles/docfx.js"></script>
     <script type="text/javascript" src="../styles/main.js"></script>
   </body>

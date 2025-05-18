@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Introduction to PhilApprovalFlow </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Introduction to PhilApprovalFlow ">
+    
+    
+      <link rel="shortcut icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../styles/docfx.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta property="docfx:navrel" content="../toc.html">
+      <meta property="docfx:tocrel" content="toc.html">
+    
+    
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="introduction-to-philapprovalflow">Introduction to PhilApprovalFlow</h1>
+
+<p>Welcome to PhilApprovalFlow, a powerful and flexible approval workflow library for .NET applications. This library is designed to simplify the implementation of complex approval processes in your business applications.</p>
+<h2 id="what-is-philapprovalflow">What is PhilApprovalFlow?</h2>
+<p>PhilApprovalFlow is a comprehensive approval workflow framework designed to streamline and automate approval processes in .NET applications. Whether you're building enterprise applications, document management systems, or any application requiring structured approval workflows, PhilApprovalFlow provides the tools you need.</p>
+<p>This business logic tool handles approval-related workflows for any entity in your application, offering a fluent API that makes it easy to:</p>
+<ul>
+<li><strong>Attach approval workflows to any entity</strong> in your application</li>
+<li><strong>Track approval status</strong> through various decision states</li>
+<li><strong>Support both individual and group approvers</strong></li>
+<li><strong>Generate notifications</strong> for workflow participants</li>
+<li><strong>Maintain complete audit trails</strong> of approval decisions</li>
+</ul>
+<h2 id="why-choose-philapprovalflow">Why Choose PhilApprovalFlow?</h2>
+<h3 id="-developer-friendly">🚀 Developer-Friendly</h3>
+<ul>
+<li><strong>Fluent API</strong>: Intuitive, readable code that flows naturally</li>
+<li><strong>Strong Typing</strong>: Compile-time safety with full IntelliSense support</li>
+<li><strong>Minimal Configuration</strong>: Get started with just a few lines of code</li>
+<li><strong>Well Documented</strong>: Comprehensive XML documentation for all APIs</li>
+</ul>
+<h3 id="-business-ready">🏢 Business-Ready</h3>
+<ul>
+<li><strong>Flexible Workflows</strong>: Support for simple to complex approval chains</li>
+<li><strong>Group Approvals</strong>: Any member of a group can approve requests</li>
+<li><strong>State Management</strong>: Automatic tracking of all workflow states</li>
+<li><strong>Audit Trail</strong>: Complete history of who did what and when</li>
+</ul>
+<h3 id="-technical-excellence">🔧 Technical Excellence</h3>
+<ul>
+<li><strong>.NET Standard 2.0</strong>: Compatible with .NET Framework 4.8+ and .NET 8+</li>
+<li><strong>Framework Agnostic</strong>: Works with any .NET application architecture</li>
+<li><strong>Entity Framework Ready</strong>: Seamless integration with EF Core/Framework</li>
+<li><strong>Thread Safe</strong>: Designed for concurrent access scenarios</li>
+</ul>
+<h2 id="core-concepts">Core Concepts</h2>
+<h3 id="1-approval-entities">1. Approval Entities</h3>
+<p>Any class can become an approval entity by implementing the <code>IApprovalFlow&lt;T&gt;</code> interface, where <code>T</code> is your custom transition type that inherits from <code>PAFTransition</code>.</p>
+<pre><code class="lang-csharp">public class PurchaseOrder : IApprovalFlow&lt;PurchaseOrderTransition&gt;
+{
+    public ICollection&lt;PurchaseOrderTransition&gt; Transitions { get; set; }
+    public object GetID() =&gt; Id;
+    public string GetShortDescription() =&gt; $&quot;PO #{Number}&quot;;
+    public string GetLongDescription() =&gt; $&quot;Purchase Order #{Number} - {Description}&quot;;
+}
+</code></pre>
+<h3 id="2-transitions">2. Transitions</h3>
+<p><strong>Transitions</strong> represent individual approval steps, each containing:</p>
+<ul>
+<li>Approver information (user ID or group)</li>
+<li>Decision status (Awaiting, Approved, Rejected, Invalidated)</li>
+<li>Comments from both requester and approver</li>
+<li>Timestamps for audit purposes</li>
+<li>Role information for context</li>
+</ul>
+<h3 id="3-fluent-api-workflow">3. Fluent API Workflow</h3>
+<p>The library provides an intuitive fluent interface that reads like natural language:</p>
+<pre><code class="lang-csharp">// Request approval
+entity.GetApprovalFlow()
+      .SetUserName(&quot;requester@company.com&quot;)
+      .RequestApproval(&quot;manager@company.com&quot;, &quot;Manager&quot;, &quot;Please review this order&quot;);
+
+// Approve the request
+entity.GetApprovalFlow()
+      .SetUserName(&quot;manager@company.com&quot;)
+      .Approve(&quot;Approved - within budget&quot;);
+</code></pre>
+<h3 id="4-decision-states">4. Decision States</h3>
+<p>Each transition can be in one of four states:</p>
+<ul>
+<li><strong>AwaitingDecision</strong>: Initial state, waiting for approver action</li>
+<li><strong>Approved</strong>: Approver has approved the request</li>
+<li><strong>Rejected</strong>: Approver has rejected the request</li>
+<li><strong>Invalidated</strong>: Approver is no longer required (removed from workflow)</li>
+</ul>
+<h3 id="5-approver-groups">5. Approver Groups</h3>
+<p>Support for group-based approvals where any group member can approve:</p>
+<pre><code class="lang-csharp">var financeTeam = new PAFApproverGroup { GroupID = 1 };
+financeTeam.SetApprovers(new[] { &quot;user1@company.com&quot;, &quot;user2@company.com&quot; });
+financeTeam.SetActiveStatus(true);
+
+workflow.RequestApproval(financeTeam, &quot;Finance Team&quot;);
+</code></pre>
+<h2 id="common-use-cases">Common Use Cases</h2>
+<p>PhilApprovalFlow is perfect for:</p>
+<h3 id="financial-approvals">Financial Approvals</h3>
+<ul>
+<li>Invoice processing and approval</li>
+<li>Purchase order authorizations</li>
+<li>Expense report reviews</li>
+<li>Budget allocation requests</li>
+</ul>
+<h3 id="document-management">Document Management</h3>
+<ul>
+<li>Contract approvals</li>
+<li>Policy document reviews</li>
+<li>Legal document sign-offs</li>
+<li>Marketing material approvals</li>
+</ul>
+<h3 id="human-resources">Human Resources</h3>
+<ul>
+<li>Leave request approvals</li>
+<li>Hiring decision workflows</li>
+<li>Performance review processes</li>
+<li>Training request approvals</li>
+</ul>
+<h3 id="project-management">Project Management</h3>
+<ul>
+<li>Project proposal approvals</li>
+<li>Milestone sign-offs</li>
+<li>Change request processes</li>
+<li>Resource allocation approvals</li>
+</ul>
+<h2 id="architecture-overview">Architecture Overview</h2>
+<p>PhilApprovalFlow follows clean architecture principles:</p>
+<pre><code>┌─────────────────────────┐
+│      Your Entity        │ ← Implements IApprovalFlow&lt;T&gt;
+├─────────────────────────┤
+│      Flow Extensions    │ ← GetApprovalFlow() extension
+├─────────────────────────┤
+│      Engine Core        │ ← PhilApprovalFlowEngine&lt;T&gt;
+├─────────────────────────┤
+│   Interfaces &amp; Models   │ ← Core contracts and data
+└─────────────────────────┘
+</code></pre>
+<h3 id="key-components">Key Components</h3>
+<ul>
+<li><strong>Flow.cs</strong>: Extension methods that provide the entry point</li>
+<li><strong>PhilApprovalFlowEngine</strong>: Core engine handling all workflow logic</li>
+<li><strong>Interfaces</strong>: Well-defined contracts (ICanSetUser, ICanAction)</li>
+<li><strong>Models</strong>: Rich data models (PAFTransition, PAFApproverGroup)</li>
+<li><strong>Extensions</strong>: Query helpers (IsApproved, IsInTransitions, etc.)</li>
+</ul>
+<h2 id="integration-examples">Integration Examples</h2>
+<h3 id="with-aspnet-core-web-api">With ASP.NET Core Web API</h3>
+<pre><code class="lang-csharp">[ApiController]
+[Route(&quot;api/[controller]&quot;)]
+public class InvoiceController : ControllerBase
+{
+    [HttpPost(&quot;{id}/approve&quot;)]
+    public async Task&lt;IActionResult&gt; ApproveInvoice(int id, [FromBody] ApprovalRequest request)
+    {
+        var invoice = await _repository.GetByIdAsync(id);
+        
+        var workflow = invoice.GetApprovalFlow();
+        workflow.SetUserName(User.Identity.Name)
+               .Approve(request.Comments);
+        
+        await _repository.SaveAsync();
+        return Ok();
+    }
+}
+</code></pre>
+<h3 id="with-entity-framework">With Entity Framework</h3>
+<pre><code class="lang-csharp">public class ApplicationDbContext : DbContext
+{
+    public DbSet&lt;Invoice&gt; Invoices { get; set; }
+    public DbSet&lt;InvoiceTransition&gt; InvoiceTransitions { get; set; }
+    
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity&lt;Invoice&gt;()
+            .HasMany(i =&gt; i.Transitions)
+            .WithOne()
+            .HasForeignKey(&quot;InvoiceId&quot;);
+    }
+}
+</code></pre>
+<h3 id="with-background-services">With Background Services</h3>
+<pre><code class="lang-csharp">public class NotificationService : BackgroundService
+{
+    protected override async Task ExecuteAsync(CancellationToken stoppingToken)
+    {
+        while (!stoppingToken.IsCancellationRequested)
+        {
+            var pendingApprovals = await GetPendingApprovalsAsync();
+            
+            foreach (var approval in pendingApprovals)
+            {
+                var workflow = approval.Entity.GetApprovalFlow();
+                workflow.LoadNotification(approval.ApproverId);
+                
+                var notifications = workflow.GetPAFNotifications();
+                await SendNotificationsAsync(notifications);
+                
+                workflow.ClearNotifications();
+            }
+            
+            await Task.Delay(TimeSpan.FromMinutes(15), stoppingToken);
+        }
+    }
+}
+</code></pre>
+<h2 id="performance-considerations">Performance Considerations</h2>
+<ul>
+<li><strong>Lazy Loading</strong>: Transitions are loaded on-demand</li>
+<li><strong>Query Optimization</strong>: Use <code>Include()</code> for eager loading when needed</li>
+<li><strong>Notification Caching</strong>: Built-in notification cache prevents duplicates</li>
+<li><strong>Minimal Memory Footprint</strong>: Efficient data structures and algorithms</li>
+</ul>
+<h2 id="security-and-validation">Security and Validation</h2>
+<p>While PhilApprovalFlow handles workflow logic, you should implement:</p>
+<ul>
+<li><strong>Authentication</strong>: Verify user identity before setting user context</li>
+<li><strong>Authorization</strong>: Check if users can perform specific actions</li>
+<li><strong>Input Validation</strong>: Validate all inputs before calling workflow methods</li>
+<li><strong>Audit Logging</strong>: Log all workflow actions for compliance</li>
+</ul>
+<h2 id="getting-started-checklist">Getting Started Checklist</h2>
+<ol>
+<li>✅ Install the NuGet package</li>
+<li>✅ Create your transition model inheriting from <code>PAFTransition</code></li>
+<li>✅ Implement <code>IApprovalFlow&lt;T&gt;</code> in your entity</li>
+<li>✅ Configure database relationships (if using EF)</li>
+<li>✅ Start using the fluent API in your business logic</li>
+<li>✅ Implement notification handling</li>
+<li>✅ Add proper error handling and validation</li>
+</ol>
+<h2 id="next-steps">Next Steps</h2>
+<p>Ready to dive deeper? Here's where to go next:</p>
+<ol>
+<li><strong><a href="getting-started.html">Getting Started Guide</a></strong>: Step-by-step tutorial with code examples</li>
+<li><strong><a href="implementation.html">Implementation Guide</a></strong>: Detailed implementation patterns</li>
+<li><strong><a href="../api/index.html">API Reference</a></strong>: Complete API documentation</li>
+</ol>
+<h2 id="support-and-community">Support and Community</h2>
+<ul>
+<li><strong>Documentation</strong>: Comprehensive guides and API reference</li>
+<li><strong>GitHub Issues</strong>: Report bugs and request features</li>
+<li><strong>Sample Projects</strong>: Working examples and templates</li>
+<li><strong>Community</strong>: Active community support</li>
+</ul>
+<hr>
+<p><em>PhilApprovalFlow - Making approval workflows simple, flexible, and powerful.</em></p>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/vish-j/PhilApprovalFlow/blob/ImprovedWorkflowWithGroup/PhilApprovalFlow.Documentation/articles/introduction.md/#L1" class="contribution-link">Edit this page</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>
