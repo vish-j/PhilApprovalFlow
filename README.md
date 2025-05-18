@@ -2,7 +2,7 @@
 
 [![NuGet Version](https://img.shields.io/nuget/v/PhilApprovalFlow.svg)](https://www.nuget.org/packages/PhilApprovalFlow/)
 [![NuGet Downloads](https://img.shields.io/nuget/dt/PhilApprovalFlow.svg)](https://www.nuget.org/packages/PhilApprovalFlow/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
 **A powerful and flexible approval workflow library for .NET applications**
 
