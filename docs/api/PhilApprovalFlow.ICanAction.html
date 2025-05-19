@@ -1,0 +1,1091 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Interface ICanAction </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Interface ICanAction ">
+    
+    <meta name="description" content="Defines the operations that can be performed on an approval flow after setting the user context. This interface provides the fluent API for interacting with the approval workflow.">
+      <link rel="shortcut icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../styles/docfx.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta property="docfx:navrel" content="../toc.html">
+      <meta property="docfx:tocrel" content="toc.html">
+    
+    
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="PhilApprovalFlow.ICanAction">
+
+
+
+  <h1 id="PhilApprovalFlow_ICanAction" data-uid="PhilApprovalFlow.ICanAction" class="text-break">Interface ICanAction</h1>
+  <div class="markdown level0 summary"><p>Defines the operations that can be performed on an approval flow after setting the user context.
+This interface provides the fluent API for interacting with the approval workflow.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="PhilApprovalFlow.html">PhilApprovalFlow</a></h6>
+  <h6><strong>Assembly</strong>: PhilApprovalFlow.dll</h6>
+  <h5 id="PhilApprovalFlow_ICanAction_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public interface ICanAction</code></pre>
+  </div>
+  <h3 id="methods">Methods
+</h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/vish-j/PhilApprovalFlow/new/master/apiSpec/new?filename=PhilApprovalFlow_ICanAction_Approve_System_String_.md&amp;value=---%0Auid%3A%20PhilApprovalFlow.ICanAction.Approve(System.String)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/vish-j/PhilApprovalFlow/blob/master/PhilApprovalFlow/Interfaces/ICanAction.cs/#L148">View Source</a>
+  </span>
+  <a id="PhilApprovalFlow_ICanAction_Approve_" data-uid="PhilApprovalFlow.ICanAction.Approve*"></a>
+  <h4 id="PhilApprovalFlow_ICanAction_Approve_System_String_" data-uid="PhilApprovalFlow.ICanAction.Approve(System.String)">Approve(string)</h4>
+  <div class="markdown level1 summary"><p>Approves the current user's transition with optional comments.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">ICanAction Approve(string comments = null)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">comments</span></td>
+        <td><p>Optional comments to include with the approval explaining the decision.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="PhilApprovalFlow.ICanAction.html">ICanAction</a></td>
+        <td><p>An instance of <a class="xref" href="PhilApprovalFlow.ICanAction.html">ICanAction</a> to chain additional actions.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="PhilApprovalFlow_ICanAction_Approve_System_String__remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>This updates the transition's decision to <a class="xref" href="PhilApprovalFlow.Enum.DecisionType.html#PhilApprovalFlow_Enum_DecisionType_Approved">Approved</a> and
+sets the <a class="xref" href="PhilApprovalFlow.IPAFTransition.html#PhilApprovalFlow_IPAFTransition_AcknowledgementDate">AcknowledgementDate</a> to the current date and time.
+If the transition has not been checked in, it will be automatically checked in.</p>
+</div>
+  <h5 id="PhilApprovalFlow_ICanAction_Approve_System_String__examples">Examples</h5>
+  <pre><code class="lang-csharp">workflow.SetUserName("jane.smith@example.com").Approve("Looks good, approved!");</code></pre>
+
+  <h5 class="exceptions">Exceptions</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Condition</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.invalidoperationexception">InvalidOperationException</a></td>
+        <td><p>Thrown when no transition is found for the current user.
+The exception message will be: &quot;No transition found for the current user&quot;.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/vish-j/PhilApprovalFlow/new/master/apiSpec/new?filename=PhilApprovalFlow_ICanAction_CheckIn.md&amp;value=---%0Auid%3A%20PhilApprovalFlow.ICanAction.CheckIn%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/vish-j/PhilApprovalFlow/blob/master/PhilApprovalFlow/Interfaces/ICanAction.cs/#L127">View Source</a>
+  </span>
+  <a id="PhilApprovalFlow_ICanAction_CheckIn_" data-uid="PhilApprovalFlow.ICanAction.CheckIn*"></a>
+  <h4 id="PhilApprovalFlow_ICanAction_CheckIn" data-uid="PhilApprovalFlow.ICanAction.CheckIn">CheckIn()</h4>
+  <div class="markdown level1 summary"><p>Marks the current user's transition as &quot;Checked In&quot;.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">ICanAction CheckIn()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="PhilApprovalFlow.ICanAction.html">ICanAction</a></td>
+        <td><p>An instance of <a class="xref" href="PhilApprovalFlow.ICanAction.html">ICanAction</a> to chain additional actions.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="PhilApprovalFlow_ICanAction_CheckIn_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>Checking in indicates that the approver has viewed the request but has not yet made a decision.
+This updates the <a class="xref" href="PhilApprovalFlow.IPAFTransition.html#PhilApprovalFlow_IPAFTransition_ApproverCheckInDate">ApproverCheckInDate</a> property to the current date and time.</p>
+</div>
+  <h5 id="PhilApprovalFlow_ICanAction_CheckIn_examples">Examples</h5>
+  <pre><code class="lang-csharp">workflow.SetUserName("jane.smith@example.com").CheckIn();</code></pre>
+
+  <h5 class="exceptions">Exceptions</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Condition</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.invalidoperationexception">InvalidOperationException</a></td>
+        <td><p>Thrown when no transition is found for the current user.
+The exception message will be: &quot;No transition found for the current user&quot;.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/vish-j/PhilApprovalFlow/new/master/apiSpec/new?filename=PhilApprovalFlow_ICanAction_ClearNotifications.md&amp;value=---%0Auid%3A%20PhilApprovalFlow.ICanAction.ClearNotifications%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/vish-j/PhilApprovalFlow/blob/master/PhilApprovalFlow/Interfaces/ICanAction.cs/#L344">View Source</a>
+  </span>
+  <a id="PhilApprovalFlow_ICanAction_ClearNotifications_" data-uid="PhilApprovalFlow.ICanAction.ClearNotifications*"></a>
+  <h4 id="PhilApprovalFlow_ICanAction_ClearNotifications" data-uid="PhilApprovalFlow.ICanAction.ClearNotifications">ClearNotifications()</h4>
+  <div class="markdown level1 summary"><p>Clears all notifications from the internal cache.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void ClearNotifications()</code></pre>
+  </div>
+  <h5 id="PhilApprovalFlow_ICanAction_ClearNotifications_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>This method removes all notifications from the internal notification cache.
+It should be called after processing notifications to prevent duplicate notifications from being sent.</p>
+<p>If there are no notifications in the cache, this method has no effect.</p>
+</div>
+  <h5 id="PhilApprovalFlow_ICanAction_ClearNotifications_examples">Examples</h5>
+  <pre><code class="lang-csharp">// Load notifications
+workflow.SetUserName("admin@example.com")
+        .LoadNotification("jane.smith@example.com");
+
+// Process notifications
+var notifications = workflow.GetPAFNotifications();
+// Send emails, etc.
+
+// Clear the cache to prevent duplicates
+workflow.ClearNotifications();
+
+// Verify the cache is empty
+var emptyList = workflow.GetPAFNotifications(); // Returns an empty collection</code></pre>
+
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/vish-j/PhilApprovalFlow/new/master/apiSpec/new?filename=PhilApprovalFlow_ICanAction_GetMetadata_System_String_.md&amp;value=---%0Auid%3A%20PhilApprovalFlow.ICanAction.GetMetadata(System.String)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/vish-j/PhilApprovalFlow/blob/master/PhilApprovalFlow/Interfaces/ICanAction.cs/#L52">View Source</a>
+  </span>
+  <a id="PhilApprovalFlow_ICanAction_GetMetadata_" data-uid="PhilApprovalFlow.ICanAction.GetMetadata*"></a>
+  <h4 id="PhilApprovalFlow_ICanAction_GetMetadata_System_String_" data-uid="PhilApprovalFlow.ICanAction.GetMetadata(System.String)">GetMetadata(string)</h4>
+  <div class="markdown level1 summary"><p>Retrieves a metadata value by its key.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">string GetMetadata(string key)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">key</span></td>
+        <td><p>The key of the metadata entry to retrieve.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><p>The value associated with the specified key.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="PhilApprovalFlow_ICanAction_GetMetadata_System_String__examples">Examples</h5>
+  <pre><code class="lang-csharp">string priority = workflow.GetMetadata("Priority"); // Returns "High"</code></pre>
+
+  <h5 class="exceptions">Exceptions</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Condition</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.keynotfoundexception">KeyNotFoundException</a></td>
+        <td><p>Thrown when the specified <code class="paramref">key</code> does not exist in the metadata collection.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/vish-j/PhilApprovalFlow/new/master/apiSpec/new?filename=PhilApprovalFlow_ICanAction_GetPAFNotifications.md&amp;value=---%0Auid%3A%20PhilApprovalFlow.ICanAction.GetPAFNotifications%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/vish-j/PhilApprovalFlow/blob/master/PhilApprovalFlow/Interfaces/ICanAction.cs/#L316">View Source</a>
+  </span>
+  <a id="PhilApprovalFlow_ICanAction_GetPAFNotifications_" data-uid="PhilApprovalFlow.ICanAction.GetPAFNotifications*"></a>
+  <h4 id="PhilApprovalFlow_ICanAction_GetPAFNotifications" data-uid="PhilApprovalFlow.ICanAction.GetPAFNotifications">GetPAFNotifications()</h4>
+  <div class="markdown level1 summary"><p>Gets all pending notifications.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IEnumerable&lt;IPAFNotification&gt; GetPAFNotifications()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="PhilApprovalFlow.IPAFNotification.html">IPAFNotification</a>&gt;</td>
+        <td><p>A collection of notifications, which may be empty if no notifications have been loaded.
+Each notification contains details about a transition, such as the sender, recipient, decision type, and comments.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="PhilApprovalFlow_ICanAction_GetPAFNotifications_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>Notifications must be explicitly loaded using <a class="xref" href="PhilApprovalFlow.ICanAction.html#PhilApprovalFlow_ICanAction_LoadNotification_System_String_System_String___System_String___">LoadNotification(string, string[], string[])</a> or
+<a class="xref" href="PhilApprovalFlow.ICanAction.html#PhilApprovalFlow_ICanAction_LoadNotification_PhilApprovalFlow_Interfaces_IPAFApproverGroup_System_String___System_String___">LoadNotification(IPAFApproverGroup, string[], string[])</a> before they can be retrieved.</p>
+<p>After retrieving the notifications, you can clear them using <a class="xref" href="PhilApprovalFlow.ICanAction.html#PhilApprovalFlow_ICanAction_ClearNotifications">ClearNotifications()</a> to prevent
+duplicate notifications from being sent.</p>
+</div>
+  <h5 id="PhilApprovalFlow_ICanAction_GetPAFNotifications_examples">Examples</h5>
+  <pre><code class="lang-csharp">// Load notifications for multiple approvers
+workflow.SetUserName("admin@example.com")
+        .LoadNotification("jane.smith@example.com")
+        .LoadNotification("john.doe@example.com");
+
+// Get all loaded notifications
+var notifications = workflow.GetPAFNotifications();
+
+// Process notifications (e.g., send emails)
+foreach (var notification in notifications)
+{
+    // Send email using notification details
+    SendEmail(notification.From, notification.To, notification.Comments, notification.DecisionType);
+}
+
+// Clear notifications to prevent duplicates
+workflow.ClearNotifications();</code></pre>
+
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/vish-j/PhilApprovalFlow/new/master/apiSpec/new?filename=PhilApprovalFlow_ICanAction_Invalidate_System_String_System_String_.md&amp;value=---%0Auid%3A%20PhilApprovalFlow.ICanAction.Invalidate(System.String%2CSystem.String)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/vish-j/PhilApprovalFlow/blob/master/PhilApprovalFlow/Interfaces/ICanAction.cs/#L193">View Source</a>
+  </span>
+  <a id="PhilApprovalFlow_ICanAction_Invalidate_" data-uid="PhilApprovalFlow.ICanAction.Invalidate*"></a>
+  <h4 id="PhilApprovalFlow_ICanAction_Invalidate_System_String_System_String_" data-uid="PhilApprovalFlow.ICanAction.Invalidate(System.String,System.String)">Invalidate(string, string)</h4>
+  <div class="markdown level1 summary"><p>Invalidates a transition for a specified approver.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">ICanAction Invalidate(string approver, string comments = null)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">approver</span></td>
+        <td><p>The identifier of the approver whose transition should be invalidated.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">comments</span></td>
+        <td><p>Optional comments to include with the invalidation explaining the reason.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="PhilApprovalFlow.ICanAction.html">ICanAction</a></td>
+        <td><p>An instance of <a class="xref" href="PhilApprovalFlow.ICanAction.html">ICanAction</a> to chain additional actions.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="PhilApprovalFlow_ICanAction_Invalidate_System_String_System_String__remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>Invalidating a transition removes it from consideration when determining if a workflow is complete.
+This is useful when an approver is no longer relevant or available to make a decision.</p>
+<p>This updates the transition's decision to <a class="xref" href="PhilApprovalFlow.Enum.DecisionType.html#PhilApprovalFlow_Enum_DecisionType_Invalidated">Invalidated</a> and
+sets the <a class="xref" href="PhilApprovalFlow.IPAFTransition.html#PhilApprovalFlow_IPAFTransition_AcknowledgementDate">AcknowledgementDate</a> to the current date and time.</p>
+</div>
+  <h5 id="PhilApprovalFlow_ICanAction_Invalidate_System_String_System_String__examples">Examples</h5>
+  <pre><code class="lang-csharp">workflow.SetUserName("admin@example.com").Invalidate("jane.smith@example.com", "Jane has left the company.");</code></pre>
+
+  <h5 class="exceptions">Exceptions</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Condition</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.invalidoperationexception">InvalidOperationException</a></td>
+        <td><p>Thrown when no transition is found for the specified approver.
+The exception message will be: &quot;No transition found for the current user&quot;.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/vish-j/PhilApprovalFlow/new/master/apiSpec/new?filename=PhilApprovalFlow_ICanAction_LoadNotification_PhilApprovalFlow_Interfaces_IPAFApproverGroup_System_String___System_String___.md&amp;value=---%0Auid%3A%20PhilApprovalFlow.ICanAction.LoadNotification(PhilApprovalFlow.Interfaces.IPAFApproverGroup%2CSystem.String%5B%5D%2CSystem.String%5B%5D)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/vish-j/PhilApprovalFlow/blob/master/PhilApprovalFlow/Interfaces/ICanAction.cs/#L254">View Source</a>
+  </span>
+  <a id="PhilApprovalFlow_ICanAction_LoadNotification_" data-uid="PhilApprovalFlow.ICanAction.LoadNotification*"></a>
+  <h4 id="PhilApprovalFlow_ICanAction_LoadNotification_PhilApprovalFlow_Interfaces_IPAFApproverGroup_System_String___System_String___" data-uid="PhilApprovalFlow.ICanAction.LoadNotification(PhilApprovalFlow.Interfaces.IPAFApproverGroup,System.String[],System.String[])">LoadNotification(IPAFApproverGroup, string[], string[])</h4>
+  <div class="markdown level1 summary"><p>Loads notifications for a specified approver group.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">ICanAction LoadNotification(IPAFApproverGroup group, string[] usersToCC = null, string[] mailsToCC = null)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="PhilApprovalFlow.Interfaces.IPAFApproverGroup.html">IPAFApproverGroup</a></td>
+        <td><span class="parametername">group</span></td>
+        <td><p>The approver group for which to generate notifications.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>[]</td>
+        <td><span class="parametername">usersToCC</span></td>
+        <td><p>Optional list of user identifiers to copy on the notifications.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>[]</td>
+        <td><span class="parametername">mailsToCC</span></td>
+        <td><p>Optional list of email addresses to copy on the notifications.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="PhilApprovalFlow.ICanAction.html">ICanAction</a></td>
+        <td><p>An instance of <a class="xref" href="PhilApprovalFlow.ICanAction.html">ICanAction</a> to chain additional actions.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="PhilApprovalFlow_ICanAction_LoadNotification_PhilApprovalFlow_Interfaces_IPAFApproverGroup_System_String___System_String____remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>This creates notifications in the internal cache for each member of the approver group.
+The notifications can be retrieved using <a class="xref" href="PhilApprovalFlow.ICanAction.html#PhilApprovalFlow_ICanAction_GetPAFNotifications">GetPAFNotifications()</a>.</p>
+<p>The sender and recipients of the notifications depend on the transition's state:</p>
+<ul>
+<li>For AwaitingDecision or Invalidated transitions, notifications are sent from the requester to each approver in the group.</li>
+<li>For Approved or Rejected transitions, a notification is sent from the deciding approver to the requester.</li>
+</ul>
+</div>
+  <h5 id="PhilApprovalFlow_ICanAction_LoadNotification_PhilApprovalFlow_Interfaces_IPAFApproverGroup_System_String___System_String____examples">Examples</h5>
+  <pre><code class="lang-csharp">var financeTeam = new PAFApproverGroup { GroupID = 1 };
+financeTeam.SetApprovers(new[] { "john.doe@example.com", "jane.smith@example.com" });
+
+workflow.SetUserName("admin@example.com")
+        .LoadNotification(financeTeam, new[] { "team@example.com" }, new[] { "manager@example.com" });</code></pre>
+
+  <h5 class="exceptions">Exceptions</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Condition</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.argumentnullexception">ArgumentNullException</a></td>
+        <td><p>Thrown when <code class="paramref">group</code> is null.
+The exception message will be: &quot;Approver group cannot be null&quot;.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.invalidoperationexception">InvalidOperationException</a></td>
+        <td><p>Thrown when no transition is found for the specified group.
+The exception message will be: &quot;No transition found for group with ID [group.GroupID]&quot;.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/vish-j/PhilApprovalFlow/new/master/apiSpec/new?filename=PhilApprovalFlow_ICanAction_LoadNotification_System_String_System_String___System_String___.md&amp;value=---%0Auid%3A%20PhilApprovalFlow.ICanAction.LoadNotification(System.String%2CSystem.String%5B%5D%2CSystem.String%5B%5D)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/vish-j/PhilApprovalFlow/blob/master/PhilApprovalFlow/Interfaces/ICanAction.cs/#L220">View Source</a>
+  </span>
+  <a id="PhilApprovalFlow_ICanAction_LoadNotification_" data-uid="PhilApprovalFlow.ICanAction.LoadNotification*"></a>
+  <h4 id="PhilApprovalFlow_ICanAction_LoadNotification_System_String_System_String___System_String___" data-uid="PhilApprovalFlow.ICanAction.LoadNotification(System.String,System.String[],System.String[])">LoadNotification(string, string[], string[])</h4>
+  <div class="markdown level1 summary"><p>Loads a notification for a specified approver.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">ICanAction LoadNotification(string approver, string[] usersToCC = null, string[] mailsToCC = null)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">approver</span></td>
+        <td><p>The identifier of the approver for whom to generate a notification.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>[]</td>
+        <td><span class="parametername">usersToCC</span></td>
+        <td><p>Optional list of user identifiers to copy on the notification.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>[]</td>
+        <td><span class="parametername">mailsToCC</span></td>
+        <td><p>Optional list of email addresses to copy on the notification.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="PhilApprovalFlow.ICanAction.html">ICanAction</a></td>
+        <td><p>An instance of <a class="xref" href="PhilApprovalFlow.ICanAction.html">ICanAction</a> to chain additional actions.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="PhilApprovalFlow_ICanAction_LoadNotification_System_String_System_String___System_String____remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>This creates a notification in the internal cache, which can be retrieved using <a class="xref" href="PhilApprovalFlow.ICanAction.html#PhilApprovalFlow_ICanAction_GetPAFNotifications">GetPAFNotifications()</a>.
+The notification includes details about the transition, such as the requester, approver, decision type, and comments.</p>
+<p>The sender and recipient of the notification depend on the transition's state:</p>
+<ul>
+<li>For AwaitingDecision or Invalidated transitions, the notification is sent from the requester to the approver.</li>
+<li>For Approved or Rejected transitions, the notification is sent from the approver to the requester.</li>
+</ul>
+</div>
+  <h5 id="PhilApprovalFlow_ICanAction_LoadNotification_System_String_System_String___System_String____examples">Examples</h5>
+  <pre><code class="lang-csharp">workflow.SetUserName("admin@example.com")
+        .LoadNotification("jane.smith@example.com", new[] { "team@example.com" }, new[] { "manager@example.com" });</code></pre>
+
+  <h5 class="exceptions">Exceptions</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Condition</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.invalidoperationexception">InvalidOperationException</a></td>
+        <td><p>Thrown when no transition is found for the specified approver.
+The exception message will be: &quot;No transition found for approver '[approver]'&quot;.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/vish-j/PhilApprovalFlow/new/master/apiSpec/new?filename=PhilApprovalFlow_ICanAction_Reject_System_String_.md&amp;value=---%0Auid%3A%20PhilApprovalFlow.ICanAction.Reject(System.String)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/vish-j/PhilApprovalFlow/blob/master/PhilApprovalFlow/Interfaces/ICanAction.cs/#L169">View Source</a>
+  </span>
+  <a id="PhilApprovalFlow_ICanAction_Reject_" data-uid="PhilApprovalFlow.ICanAction.Reject*"></a>
+  <h4 id="PhilApprovalFlow_ICanAction_Reject_System_String_" data-uid="PhilApprovalFlow.ICanAction.Reject(System.String)">Reject(string)</h4>
+  <div class="markdown level1 summary"><p>Rejects the current user's transition with optional comments.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">ICanAction Reject(string comments = null)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">comments</span></td>
+        <td><p>Optional comments to include with the rejection explaining the decision.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="PhilApprovalFlow.ICanAction.html">ICanAction</a></td>
+        <td><p>An instance of <a class="xref" href="PhilApprovalFlow.ICanAction.html">ICanAction</a> to chain additional actions.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="PhilApprovalFlow_ICanAction_Reject_System_String__remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>This updates the transition's decision to <a class="xref" href="PhilApprovalFlow.Enum.DecisionType.html#PhilApprovalFlow_Enum_DecisionType_Rejected">Rejected</a> and
+sets the <a class="xref" href="PhilApprovalFlow.IPAFTransition.html#PhilApprovalFlow_IPAFTransition_AcknowledgementDate">AcknowledgementDate</a> to the current date and time.
+If the transition has not been checked in, it will be automatically checked in.</p>
+</div>
+  <h5 id="PhilApprovalFlow_ICanAction_Reject_System_String__examples">Examples</h5>
+  <pre><code class="lang-csharp">workflow.SetUserName("jane.smith@example.com").Reject("Budget exceeded, please revise.");</code></pre>
+
+  <h5 class="exceptions">Exceptions</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Condition</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.invalidoperationexception">InvalidOperationException</a></td>
+        <td><p>Thrown when no transition is found for the current user.
+The exception message will be: &quot;No transition found for the current user&quot;.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/vish-j/PhilApprovalFlow/new/master/apiSpec/new?filename=PhilApprovalFlow_ICanAction_RequestApproval_PhilApprovalFlow_Interfaces_IPAFApproverGroup_System_String_System_String_.md&amp;value=---%0Auid%3A%20PhilApprovalFlow.ICanAction.RequestApproval(PhilApprovalFlow.Interfaces.IPAFApproverGroup%2CSystem.String%2CSystem.String)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/vish-j/PhilApprovalFlow/blob/master/PhilApprovalFlow/Interfaces/ICanAction.cs/#L108">View Source</a>
+  </span>
+  <a id="PhilApprovalFlow_ICanAction_RequestApproval_" data-uid="PhilApprovalFlow.ICanAction.RequestApproval*"></a>
+  <h4 id="PhilApprovalFlow_ICanAction_RequestApproval_PhilApprovalFlow_Interfaces_IPAFApproverGroup_System_String_System_String_" data-uid="PhilApprovalFlow.ICanAction.RequestApproval(PhilApprovalFlow.Interfaces.IPAFApproverGroup,System.String,System.String)">RequestApproval(IPAFApproverGroup, string, string)</h4>
+  <div class="markdown level1 summary"><p>Creates a transition to request approval from a specified group of approvers.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">ICanAction RequestApproval(IPAFApproverGroup group, string role, string comments = null)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="PhilApprovalFlow.Interfaces.IPAFApproverGroup.html">IPAFApproverGroup</a></td>
+        <td><span class="parametername">group</span></td>
+        <td><p>The group of users who can approve or reject the request.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">role</span></td>
+        <td><p>The role of the approvers in this transition (e.g., &quot;Finance Team&quot;, &quot;Executive Committee&quot;).</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">comments</span></td>
+        <td><p>Optional comments to include with the request explaining what needs approval.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="PhilApprovalFlow.ICanAction.html">ICanAction</a></td>
+        <td><p>An instance of <a class="xref" href="PhilApprovalFlow.ICanAction.html">ICanAction</a> to chain additional actions.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="PhilApprovalFlow_ICanAction_RequestApproval_PhilApprovalFlow_Interfaces_IPAFApproverGroup_System_String_System_String__remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>If a transition already exists for the specified group and it is in an AwaitingDecision or Invalidated state,
+that transition will be updated instead of creating a new one.</p>
+<p>When an approval is requested from a group, any member of the group can approve or reject the transition.
+The group must be active for approvers to take action.</p>
+</div>
+  <h5 id="PhilApprovalFlow_ICanAction_RequestApproval_PhilApprovalFlow_Interfaces_IPAFApproverGroup_System_String_System_String__examples">Examples</h5>
+  <pre><code class="lang-csharp">var financeTeam = new PAFApproverGroup { GroupID = 1 };
+financeTeam.SetApprovers(new[] { "john.doe@example.com", "jane.smith@example.com" });
+financeTeam.SetActiveStatus(true);
+
+workflow.SetUserName("manager@example.com")
+        .RequestApproval(financeTeam, "Finance Reviewers", "Please verify budget allocation");</code></pre>
+
+  <h5 class="exceptions">Exceptions</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Condition</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.argumentnullexception">ArgumentNullException</a></td>
+        <td><p>Thrown when <code class="paramref">group</code> is null.
+The exception message will be: &quot;Approver group cannot be null&quot;.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/vish-j/PhilApprovalFlow/new/master/apiSpec/new?filename=PhilApprovalFlow_ICanAction_RequestApproval_System_String_System_String_System_String_.md&amp;value=---%0Auid%3A%20PhilApprovalFlow.ICanAction.RequestApproval(System.String%2CSystem.String%2CSystem.String)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/vish-j/PhilApprovalFlow/blob/master/PhilApprovalFlow/Interfaces/ICanAction.cs/#L78">View Source</a>
+  </span>
+  <a id="PhilApprovalFlow_ICanAction_RequestApproval_" data-uid="PhilApprovalFlow.ICanAction.RequestApproval*"></a>
+  <h4 id="PhilApprovalFlow_ICanAction_RequestApproval_System_String_System_String_System_String_" data-uid="PhilApprovalFlow.ICanAction.RequestApproval(System.String,System.String,System.String)">RequestApproval(string, string, string)</h4>
+  <div class="markdown level1 summary"><p>Creates a transition to request approval from a specified approver.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">ICanAction RequestApproval(string approver, string role, string comments = null)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">approver</span></td>
+        <td><p>The identifier of the user who will approve or reject the request.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">role</span></td>
+        <td><p>The role of the approver in this transition (e.g., &quot;Reviewer&quot;, &quot;Manager&quot;).</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">comments</span></td>
+        <td><p>Optional comments to include with the request explaining what needs approval.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="PhilApprovalFlow.ICanAction.html">ICanAction</a></td>
+        <td><p>An instance of <a class="xref" href="PhilApprovalFlow.ICanAction.html">ICanAction</a> to chain additional actions.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="PhilApprovalFlow_ICanAction_RequestApproval_System_String_System_String_System_String__remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>If a transition already exists for the specified approver and it is in an AwaitingDecision or Invalidated state,
+that transition will be updated instead of creating a new one.</p>
+</div>
+  <h5 id="PhilApprovalFlow_ICanAction_RequestApproval_System_String_System_String_System_String__examples">Examples</h5>
+  <pre><code class="lang-csharp">workflow.SetUserName("john.doe@example.com")
+        .RequestApproval("jane.smith@example.com", "Manager", "Please review this invoice");</code></pre>
+
+  <h5 class="exceptions">Exceptions</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Condition</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.argumentnullexception">ArgumentNullException</a></td>
+        <td><p>Thrown when <code class="paramref">approver</code> is null.
+The exception message will be: &quot;Approver cannot be null or empty&quot;.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.argumentexception">ArgumentException</a></td>
+        <td><p>Thrown when <code class="paramref">approver</code> is an empty string or contains only whitespace.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/vish-j/PhilApprovalFlow/new/master/apiSpec/new?filename=PhilApprovalFlow_ICanAction_SetEntityMetaData.md&amp;value=---%0Auid%3A%20PhilApprovalFlow.ICanAction.SetEntityMetaData%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/vish-j/PhilApprovalFlow/blob/master/PhilApprovalFlow/Interfaces/ICanAction.cs/#L279">View Source</a>
+  </span>
+  <a id="PhilApprovalFlow_ICanAction_SetEntityMetaData_" data-uid="PhilApprovalFlow.ICanAction.SetEntityMetaData*"></a>
+  <h4 id="PhilApprovalFlow_ICanAction_SetEntityMetaData" data-uid="PhilApprovalFlow.ICanAction.SetEntityMetaData">SetEntityMetaData()</h4>
+  <div class="markdown level1 summary"><p>Sets metadata for the approval flow entity by adding key details such as ID, short description, and long description.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void SetEntityMetaData()</code></pre>
+  </div>
+  <h5 id="PhilApprovalFlow_ICanAction_SetEntityMetaData_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>This method extracts metadata from the entity using its <a class="xref" href="PhilApprovalFlow.IApprovalFlow-1.html#PhilApprovalFlow_IApprovalFlow_1_GetID">GetID()</a>,
+<a class="xref" href="PhilApprovalFlow.IApprovalFlow-1.html#PhilApprovalFlow_IApprovalFlow_1_GetShortDescription">GetShortDescription()</a>, and <a class="xref" href="PhilApprovalFlow.IApprovalFlow-1.html#PhilApprovalFlow_IApprovalFlow_1_GetLongDescription">GetLongDescription()</a> methods
+and adds it to the internal metadata dictionary with the keys &quot;id&quot;, &quot;shortDescription&quot;, and &quot;longDescription&quot; respectively.</p>
+<p>If any of these keys already exist in the metadata, they will be overwritten.</p>
+</div>
+  <h5 id="PhilApprovalFlow_ICanAction_SetEntityMetaData_examples">Examples</h5>
+  <pre><code class="lang-csharp">workflow.SetUserName("admin@example.com").SetEntityMetaData();
+
+// Access the entity metadata
+string entityId = workflow.GetMetadata("id");
+string shortDesc = workflow.GetMetadata("shortDescription");
+string longDesc = workflow.GetMetadata("longDescription");</code></pre>
+
+  <h5 class="exceptions">Exceptions</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Condition</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.invalidoperationexception">InvalidOperationException</a></td>
+        <td><p>Thrown when the entity methods return null or invalid values.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/vish-j/PhilApprovalFlow/new/master/apiSpec/new?filename=PhilApprovalFlow_ICanAction_SetMetadata_System_String_System_String_.md&amp;value=---%0Auid%3A%20PhilApprovalFlow.ICanAction.SetMetadata(System.String%2CSystem.String)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/vish-j/PhilApprovalFlow/blob/master/PhilApprovalFlow/Interfaces/ICanAction.cs/#L37">View Source</a>
+  </span>
+  <a id="PhilApprovalFlow_ICanAction_SetMetadata_" data-uid="PhilApprovalFlow.ICanAction.SetMetadata*"></a>
+  <h4 id="PhilApprovalFlow_ICanAction_SetMetadata_System_String_System_String_" data-uid="PhilApprovalFlow.ICanAction.SetMetadata(System.String,System.String)">SetMetadata(string, string)</h4>
+  <div class="markdown level1 summary"><p>Adds or updates metadata associated with the approval flow.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">ICanAction SetMetadata(string key, string value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">key</span></td>
+        <td><p>The key of the metadata entry to add or update.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">value</span></td>
+        <td><p>The value to associate with the specified key.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="PhilApprovalFlow.ICanAction.html">ICanAction</a></td>
+        <td><p>An instance of <a class="xref" href="PhilApprovalFlow.ICanAction.html">ICanAction</a> to chain additional actions.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="PhilApprovalFlow_ICanAction_SetMetadata_System_String_System_String__remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>If the key already exists, its value will be updated. If the key doesn't exist, a new entry will be added.
+Metadata can be used to store additional information about the workflow that isn't captured in the transitions.</p>
+</div>
+  <h5 id="PhilApprovalFlow_ICanAction_SetMetadata_System_String_System_String__examples">Examples</h5>
+  <pre><code class="lang-csharp">workflow.SetMetadata("Priority", "High");
+workflow.SetMetadata("DueDate", "2023-12-31");</code></pre>
+
+  <h5 class="exceptions">Exceptions</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Condition</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.argumentexception">ArgumentException</a></td>
+        <td><p>Thrown when <code class="paramref">key</code> is null, empty, or contains only whitespace.
+The exception message will be: &quot;Key cannot be null or whitespace&quot;.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.argumentnullexception">ArgumentNullException</a></td>
+        <td><p>Thrown when <code class="paramref">value</code> is null.
+The exception message will be: &quot;Value cannot be null&quot;.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/vish-j/PhilApprovalFlow/new/master/apiSpec/new?filename=PhilApprovalFlow_ICanAction.md&amp;value=---%0Auid%3A%20PhilApprovalFlow.ICanAction%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Edit this page</a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/vish-j/PhilApprovalFlow/blob/master/PhilApprovalFlow/Interfaces/ICanAction.cs/#L11" class="contribution-link">View Source</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

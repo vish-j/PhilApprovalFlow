@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Class PAFApproverGroup </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Class PAFApproverGroup ">
+    
+    <meta name="description" content="Represents a group of approvers in an approval flow.">
+      <link rel="shortcut icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../styles/docfx.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta property="docfx:navrel" content="../toc.html">
+      <meta property="docfx:tocrel" content="toc.html">
+    
+    
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="PhilApprovalFlow.Models.PAFApproverGroup">
+
+
+
+  <h1 id="PhilApprovalFlow_Models_PAFApproverGroup" data-uid="PhilApprovalFlow.Models.PAFApproverGroup" class="text-break">Class PAFApproverGroup</h1>
+  <div class="markdown level0 summary"><p>Represents a group of approvers in an approval flow.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+    <div class="level1"><span class="xref">PAFApproverGroup</span></div>
+  </div>
+  <div class="implements">
+    <h5>Implements</h5>
+    <div><a class="xref" href="PhilApprovalFlow.Interfaces.IPAFApproverGroup.html">IPAFApproverGroup</a></div>
+    <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>&gt;</div>
+    <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.ienumerable">IEnumerable</a></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="PhilApprovalFlow.html">PhilApprovalFlow</a>.<a class="xref" href="PhilApprovalFlow.Models.html">Models</a></h6>
+  <h6><strong>Assembly</strong>: PhilApprovalFlow.dll</h6>
+  <h5 id="PhilApprovalFlow_Models_PAFApproverGroup_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class PAFApproverGroup : IPAFApproverGroup, IEnumerable&lt;string&gt;, IEnumerable</code></pre>
+  </div>
+  <h5 id="PhilApprovalFlow_Models_PAFApproverGroup_remarks"><strong>Remarks</strong></h5>
+  <div class="markdown level0 remarks"><p>This class implements <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable&lt;T&gt;</a> for <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>, allowing
+iteration over the approver IDs in the group. Use <a class="xref" href="PhilApprovalFlow.Models.PAFApproverGroup.html#PhilApprovalFlow_Models_PAFApproverGroup_GetApprovers">GetApprovers()</a> to access
+the full collection of approver IDs.</p>
+</div>
+  <h5 id="PhilApprovalFlow_Models_PAFApproverGroup_examples"><strong>Examples</strong></h5>
+  <pre><code class="lang-csharp">// Create a new approver group
+var group = new PAFApproverGroup { GroupID = 1 };
+
+// Add approvers to the group
+group.SetApprovers(new[] { "john.doe@example.com", "jane.smith@example.com" });
+
+// Activate the group
+group.SetActiveStatus(true);
+
+// Use the group in an approval workflow
+workflow.RequestApproval(group, "Finance Team", "Please review this invoice");</code></pre>
+
+  <h3 id="properties">Properties
+</h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/vish-j/PhilApprovalFlow/new/master/apiSpec/new?filename=PhilApprovalFlow_Models_PAFApproverGroup_GroupID.md&amp;value=---%0Auid%3A%20PhilApprovalFlow.Models.PAFApproverGroup.GroupID%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/vish-j/PhilApprovalFlow/blob/master/PhilApprovalFlow/Models/PAFApproverGroup.cs/#L40">View Source</a>
+  </span>
+  <a id="PhilApprovalFlow_Models_PAFApproverGroup_GroupID_" data-uid="PhilApprovalFlow.Models.PAFApproverGroup.GroupID*"></a>
+  <h4 id="PhilApprovalFlow_Models_PAFApproverGroup_GroupID" data-uid="PhilApprovalFlow.Models.PAFApproverGroup.GroupID">GroupID</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the unique identifier for the approver group.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public long GroupID { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int64">long</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="PhilApprovalFlow_Models_PAFApproverGroup_GroupID_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>This ID is used to associate transitions with this group and must be unique
+across all approver groups in the system.</p>
+</div>
+  <h3 id="methods">Methods
+</h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/vish-j/PhilApprovalFlow/new/master/apiSpec/new?filename=PhilApprovalFlow_Models_PAFApproverGroup_Equals_System_Object_.md&amp;value=---%0Auid%3A%20PhilApprovalFlow.Models.PAFApproverGroup.Equals(System.Object)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/vish-j/PhilApprovalFlow/blob/master/PhilApprovalFlow/Models/PAFApproverGroup.cs/#L149">View Source</a>
+  </span>
+  <a id="PhilApprovalFlow_Models_PAFApproverGroup_Equals_" data-uid="PhilApprovalFlow.Models.PAFApproverGroup.Equals*"></a>
+  <h4 id="PhilApprovalFlow_Models_PAFApproverGroup_Equals_System_Object_" data-uid="PhilApprovalFlow.Models.PAFApproverGroup.Equals(System.Object)">Equals(object)</h4>
+  <div class="markdown level1 summary"><p>Determines whether the specified object is equal to the current object.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override bool Equals(object obj)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></td>
+        <td><span class="parametername">obj</span></td>
+        <td><p>The object to compare with the current object.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><p><code>true</code> if the specified object is a <a class="xref" href="PhilApprovalFlow.Models.PAFApproverGroup.html">PAFApproverGroup</a> with the same
+<a class="xref" href="PhilApprovalFlow.Models.PAFApproverGroup.html#PhilApprovalFlow_Models_PAFApproverGroup_GroupID">GroupID</a> as this instance; otherwise, <code>false</code>.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a></div>
+  <h5 id="PhilApprovalFlow_Models_PAFApproverGroup_Equals_System_Object__remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>Two approver groups are considered equal if they have the same <a class="xref" href="PhilApprovalFlow.Models.PAFApproverGroup.html#PhilApprovalFlow_Models_PAFApproverGroup_GroupID">GroupID</a>.
+The approvers in the groups are not considered in the equality comparison.</p>
+</div>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/vish-j/PhilApprovalFlow/new/master/apiSpec/new?filename=PhilApprovalFlow_Models_PAFApproverGroup_GetApprovers.md&amp;value=---%0Auid%3A%20PhilApprovalFlow.Models.PAFApproverGroup.GetApprovers%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/vish-j/PhilApprovalFlow/blob/master/PhilApprovalFlow/Models/PAFApproverGroup.cs/#L72">View Source</a>
+  </span>
+  <a id="PhilApprovalFlow_Models_PAFApproverGroup_GetApprovers_" data-uid="PhilApprovalFlow.Models.PAFApproverGroup.GetApprovers*"></a>
+  <h4 id="PhilApprovalFlow_Models_PAFApproverGroup_GetApprovers" data-uid="PhilApprovalFlow.Models.PAFApproverGroup.GetApprovers">GetApprovers()</h4>
+  <div class="markdown level1 summary"><p>Retrieves the list of approver IDs in this group.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IEnumerable&lt;string&gt; GetApprovers()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>&gt;</td>
+        <td><p>An enumerable collection of approver IDs.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="PhilApprovalFlow_Models_PAFApproverGroup_GetApprovers_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>This method returns a reference to the internal collection, so changes to the
+returned collection will not affect the group. Use <a class="xref" href="PhilApprovalFlow.Models.PAFApproverGroup.html#PhilApprovalFlow_Models_PAFApproverGroup_SetApprovers_System_Collections_Generic_IEnumerable_System_String__">SetApprovers(IEnumerable&lt;string&gt;)</a> to
+modify the approvers in the group.</p>
+</div>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/vish-j/PhilApprovalFlow/new/master/apiSpec/new?filename=PhilApprovalFlow_Models_PAFApproverGroup_GetEnumerator.md&amp;value=---%0Auid%3A%20PhilApprovalFlow.Models.PAFApproverGroup.GetEnumerator%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/vish-j/PhilApprovalFlow/blob/master/PhilApprovalFlow/Models/PAFApproverGroup.cs/#L120">View Source</a>
+  </span>
+  <a id="PhilApprovalFlow_Models_PAFApproverGroup_GetEnumerator_" data-uid="PhilApprovalFlow.Models.PAFApproverGroup.GetEnumerator*"></a>
+  <h4 id="PhilApprovalFlow_Models_PAFApproverGroup_GetEnumerator" data-uid="PhilApprovalFlow.Models.PAFApproverGroup.GetEnumerator">GetEnumerator()</h4>
+  <div class="markdown level1 summary"><p>Returns an enumerator that iterates through the approver IDs.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IEnumerator&lt;string&gt; GetEnumerator()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerator-1">IEnumerator</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>&gt;</td>
+        <td><p>An enumerator for the approver IDs.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="PhilApprovalFlow_Models_PAFApproverGroup_GetEnumerator_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>This method allows the group to be used in foreach loops and LINQ queries.</p>
+</div>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/vish-j/PhilApprovalFlow/new/master/apiSpec/new?filename=PhilApprovalFlow_Models_PAFApproverGroup_GetHashCode.md&amp;value=---%0Auid%3A%20PhilApprovalFlow.Models.PAFApproverGroup.GetHashCode%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/vish-j/PhilApprovalFlow/blob/master/PhilApprovalFlow/Models/PAFApproverGroup.cs/#L167">View Source</a>
+  </span>
+  <a id="PhilApprovalFlow_Models_PAFApproverGroup_GetHashCode_" data-uid="PhilApprovalFlow.Models.PAFApproverGroup.GetHashCode*"></a>
+  <h4 id="PhilApprovalFlow_Models_PAFApproverGroup_GetHashCode" data-uid="PhilApprovalFlow.Models.PAFApproverGroup.GetHashCode">GetHashCode()</h4>
+  <div class="markdown level1 summary"><p>Returns a hash code for the current object.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override int GetHashCode()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><p>A hash code for the current object.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a></div>
+  <h5 id="PhilApprovalFlow_Models_PAFApproverGroup_GetHashCode_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>The hash code is based on the <a class="xref" href="PhilApprovalFlow.Models.PAFApproverGroup.html#PhilApprovalFlow_Models_PAFApproverGroup_GroupID">GroupID</a> property.</p>
+</div>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/vish-j/PhilApprovalFlow/new/master/apiSpec/new?filename=PhilApprovalFlow_Models_PAFApproverGroup_IsActive.md&amp;value=---%0Auid%3A%20PhilApprovalFlow.Models.PAFApproverGroup.IsActive%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/vish-j/PhilApprovalFlow/blob/master/PhilApprovalFlow/Models/PAFApproverGroup.cs/#L91">View Source</a>
+  </span>
+  <a id="PhilApprovalFlow_Models_PAFApproverGroup_IsActive_" data-uid="PhilApprovalFlow.Models.PAFApproverGroup.IsActive*"></a>
+  <h4 id="PhilApprovalFlow_Models_PAFApproverGroup_IsActive" data-uid="PhilApprovalFlow.Models.PAFApproverGroup.IsActive">IsActive()</h4>
+  <div class="markdown level1 summary"><p>Checks if the group is currently active.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool IsActive()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><p><code>true</code> if the group is active and its members can approve or reject transitions;
+otherwise, <code>false</code>.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="PhilApprovalFlow_Models_PAFApproverGroup_IsActive_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>When a group is inactive, its members cannot make decisions on associated transitions.
+This can be used to temporarily disable a group without removing its members.</p>
+</div>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/vish-j/PhilApprovalFlow/new/master/apiSpec/new?filename=PhilApprovalFlow_Models_PAFApproverGroup_SetActiveStatus_System_Boolean_.md&amp;value=---%0Auid%3A%20PhilApprovalFlow.Models.PAFApproverGroup.SetActiveStatus(System.Boolean)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/vish-j/PhilApprovalFlow/blob/master/PhilApprovalFlow/Models/PAFApproverGroup.cs/#L108">View Source</a>
+  </span>
+  <a id="PhilApprovalFlow_Models_PAFApproverGroup_SetActiveStatus_" data-uid="PhilApprovalFlow.Models.PAFApproverGroup.SetActiveStatus*"></a>
+  <h4 id="PhilApprovalFlow_Models_PAFApproverGroup_SetActiveStatus_System_Boolean_" data-uid="PhilApprovalFlow.Models.PAFApproverGroup.SetActiveStatus(System.Boolean)">SetActiveStatus(bool)</h4>
+  <div class="markdown level1 summary"><p>Sets the active status of the group.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void SetActiveStatus(bool isActive)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><span class="parametername">isActive</span></td>
+        <td><p><code>true</code> to activate the group, allowing its members to make decisions;
+<code>false</code> to deactivate the group, preventing its members from making decisions.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="PhilApprovalFlow_Models_PAFApproverGroup_SetActiveStatus_System_Boolean__remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>Use this method to enable or disable the group without removing its members.
+When a group is deactivated, its associated transitions remain in the workflow
+but cannot be approved or rejected until the group is activated again.</p>
+</div>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/vish-j/PhilApprovalFlow/new/master/apiSpec/new?filename=PhilApprovalFlow_Models_PAFApproverGroup_SetApprovers_System_Collections_Generic_IEnumerable_System_String__.md&amp;value=---%0Auid%3A%20PhilApprovalFlow.Models.PAFApproverGroup.SetApprovers(System.Collections.Generic.IEnumerable%7BSystem.String%7D)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Edit this page</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/vish-j/PhilApprovalFlow/blob/master/PhilApprovalFlow/Models/PAFApproverGroup.cs/#L58">View Source</a>
+  </span>
+  <a id="PhilApprovalFlow_Models_PAFApproverGroup_SetApprovers_" data-uid="PhilApprovalFlow.Models.PAFApproverGroup.SetApprovers*"></a>
+  <h4 id="PhilApprovalFlow_Models_PAFApproverGroup_SetApprovers_System_Collections_Generic_IEnumerable_System_String__" data-uid="PhilApprovalFlow.Models.PAFApproverGroup.SetApprovers(System.Collections.Generic.IEnumerable{System.String})">SetApprovers(IEnumerable&lt;string&gt;)</h4>
+  <div class="markdown level1 summary"><p>Sets the approvers for this group.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void SetApprovers(IEnumerable&lt;string&gt; approvers)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>&gt;</td>
+        <td><span class="parametername">approvers</span></td>
+        <td><p>A collection of approver IDs that will be members of this group.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="PhilApprovalFlow_Models_PAFApproverGroup_SetApprovers_System_Collections_Generic_IEnumerable_System_String___remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>This method replaces any existing approvers with the specified collection.
+The approvers can be usernames, email addresses, or any other string identifiers
+used to identify users in your system.</p>
+</div>
+  <h5 class="exceptions">Exceptions</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Condition</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.argumentnullexception">ArgumentNullException</a></td>
+        <td><p>Thrown when <code class="paramref">approvers</code> is null.
+The exception message will be: &quot;Approvers cannot be null.&quot;</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="implements">Implements</h3>
+  <div>
+      <a class="xref" href="PhilApprovalFlow.Interfaces.IPAFApproverGroup.html">IPAFApproverGroup</a>
+  </div>
+  <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable&lt;T&gt;</a>
+  </div>
+  <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.ienumerable">IEnumerable</a>
+  </div>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/vish-j/PhilApprovalFlow/new/master/apiSpec/new?filename=PhilApprovalFlow_Models_PAFApproverGroup.md&amp;value=---%0Auid%3A%20PhilApprovalFlow.Models.PAFApproverGroup%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Edit this page</a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/vish-j/PhilApprovalFlow/blob/master/PhilApprovalFlow/Models/PAFApproverGroup.cs/#L31" class="contribution-link">View Source</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>
