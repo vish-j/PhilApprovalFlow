@@ -22,13 +22,13 @@ PhilApprovalFlow is a powerful and flexible approval workflow library designed f
 Install PhilApprovalFlow via NuGet Package Manager:
 
 ```bash
-Install-Package PhilApprovalFlow -Version 1.2.14
+Install-Package PhilApprovalFlow -Version 1.3.0
 ```
 
 Or via .NET CLI:
 
 ```bash
-dotnet add package PhilApprovalFlow --version 1.2.14
+dotnet add package PhilApprovalFlow --version 1.3.0
 ```
 
 ## 🔥 Quick Start

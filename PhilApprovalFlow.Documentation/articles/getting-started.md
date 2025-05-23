@@ -7,13 +7,13 @@ Welcome to PhilApprovalFlow! This guide will help you get up and running with ap
 ### Package Manager Console
 
 ```powershell
-Install-Package PhilApprovalFlow -Version 1.2.14
+Install-Package PhilApprovalFlow -Version 1.3.0
 ```
 
 ### .NET CLI
 
 ```bash
-dotnet add package PhilApprovalFlow --version 1.2.14
+dotnet add package PhilApprovalFlow --version 1.3.0
 ```
 
 ### PackageReference
@@ -21,7 +21,7 @@ dotnet add package PhilApprovalFlow --version 1.2.14
 Add this to your `.csproj` file:
 
 ```xml
-<PackageReference Include="PhilApprovalFlow" Version="1.2.14" />
+<PackageReference Include="PhilApprovalFlow" Version="1.3.0" />
 ```
 
 ## Quick Start Example
